@@ -31,11 +31,8 @@ function LoginForm() {
     setEmail(demoEmail)
     setPassword(demoPassword)
 
-    const data = await dispatch(login(email, password));
+    await dispatch(login(email, password));
 
-    if (data) {
-      setErrors(data);
-    }
   };
 
   const updateEmail = (e) => {
