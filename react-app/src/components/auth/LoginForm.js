@@ -24,6 +24,20 @@ function LoginForm() {
     }
   };
 
+  const demoLogin = async (e) => {
+    const demoEmail = 'demo@aa.io';
+    const demoPassword = 'password'
+
+    setEmail(demoEmail)
+    setPassword(demoPassword)
+
+    const data = await dispatch(login(email, password));
+
+    if (data) {
+      setErrors(data);
+    }
+  };
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -76,7 +90,7 @@ function LoginForm() {
             </div>
             <div className="loginButtons">
               <button className="formButton" type="submit">Login</button>
-              <button id="demoLoginButton" className="formButton">Demo Login</button>
+              <button id="demoLoginButton" className="formButton" onClick={demoLogin}>Demo Login</button>
             </div>
           </form>
           <p className="already">Need an account? <Link to="/sign-up" id="loginHere">Register</Link></p>

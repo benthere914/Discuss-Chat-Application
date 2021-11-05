@@ -9,7 +9,7 @@ function SignUpForm() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [repeatPassword, setRepeatPassword] = useState('');
+
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -19,12 +19,11 @@ function SignUpForm() {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
-      if (data) {
-        setErrors(data)
-      }
+    const data = await dispatch(signUp(username, email, password));
+    if (data) {
+      setErrors(data)
     }
+
   };
 
   const updateUsername = (e) => {
@@ -39,9 +38,6 @@ function SignUpForm() {
     setPassword(e.target.value);
   };
 
-  const updateRepeatPassword = (e) => {
-    setRepeatPassword(e.target.value);
-  };
 
   if (user) {
     return <Redirect to='/' />;
@@ -54,7 +50,8 @@ function SignUpForm() {
         <form id="signUpForm" autoComplete="off" onSubmit={onSignUp}>
           <div>
             {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
+              console.log(error)
+              // return (<div key={ind}>{error}</div>)
             ))}
           </div>
           <div className="formField">
