@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import MainContent from '../MainContent/mainContent';
 import './splash.css';
 
 function SplashPage() {
+    const user = useSelector(state => state.session.user);
 
     useEffect(() => {
         document.title = "Discuss";
       }, []);
+
+    if (user) {
+        return (
+            <MainContent />
+        );
+    }
 
     return (
         <>
@@ -25,7 +34,7 @@ function SplashPage() {
                     <h2>...where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and a handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often.</h2>
                     <div className="loginSignUpButtons">
                         <NavLink to="/login" className="loginButton"><div>Login</div></NavLink>
-                        <NavLink to="/signup" className="loginButton" id="signUpButton"><div>Sign Up for Discuss</div></NavLink>
+                        <NavLink to="/sign-up" className="loginButton" id="signUpButton"><div>Sign Up for Discuss</div></NavLink>
                     </div>
                 </div>
             </div>
@@ -59,7 +68,7 @@ function SplashPage() {
                 <div className="readyDiv">
                     <h5>Ready to start your journey?</h5>
                 </div>
-                <NavLink to="/signup" className="readyButton"><div>Sign Up for Discuss</div></NavLink>
+                <NavLink to="/sign-up" className="readyButton"><div>Sign Up for Discuss</div></NavLink>
             </div>
             <footer>
             <div className="developers">
