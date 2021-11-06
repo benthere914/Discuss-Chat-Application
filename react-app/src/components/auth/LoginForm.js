@@ -9,12 +9,21 @@ function LoginForm() {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [loginErrorBorder, setLoginErrorBorder] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
       document.title = "Discuss";
     }, []);
+
+  useEffect(() => {
+    if (errors.length) {
+      setLoginError('loginErrorLabel')
+      setLoginErrorBorder('loginErrorBorder')
+    }
+  }, [errors]);
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -54,16 +63,15 @@ function LoginForm() {
             <h2>We're so excited to see you again!</h2>
 
           <form id="signUpForm" autoComplete="off" onSubmit={onLogin}>
-            <div>
-              {errors.map((error, ind) => (
-                <div key={ind}>{error}</div>
-              ))}
-            </div>
             <div className="formField">
-              <label>
+              <label id={loginError}>
                 EMAIL OR USERNAME
+                {errors.length > 0 && (
+                  <span className="loginError"> - Login or password is invalid</span>
+                )}
               </label>
               <input
+                id={loginErrorBorder}
                 name='email'
                 type="text"
                 required
@@ -73,10 +81,14 @@ function LoginForm() {
               />
             </div>
             <div className="formField">
-              <label>
+              <label id={loginError}>
                 PASSWORD
+                {errors.length > 0 && (
+                  <span className="loginError"> - Login or password is invalid</span>
+                )}
               </label>
                <input
+                id={loginErrorBorder}
                 name='password'
                 type="password"
                 required
