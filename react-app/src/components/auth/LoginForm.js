@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
@@ -13,10 +13,6 @@ function LoginForm() {
   const [loginErrorBorder, setLoginErrorBorder] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-      document.title = "Discuss";
-    }, []);
 
   useEffect(() => {
     if (errors.length) {
@@ -67,7 +63,7 @@ function LoginForm() {
               <label id={loginError}>
                 EMAIL OR USERNAME
                 {errors.length > 0 && (
-                  <span className="loginError"> - Login or password is invalid</span>
+                  <span className="loginError"> - Login or password is invalid.</span>
                 )}
               </label>
               <input
@@ -84,7 +80,7 @@ function LoginForm() {
               <label id={loginError}>
                 PASSWORD
                 {errors.length > 0 && (
-                  <span className="loginError"> - Login or password is invalid</span>
+                  <span className="loginError"> - Login or password is invalid.</span>
                 )}
               </label>
                <input
