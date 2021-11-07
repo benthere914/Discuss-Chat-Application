@@ -26,12 +26,12 @@ View and create servers
 # Get all servers a single user is a memeber of
 @user_routes.route('/<int:userId>/servers')
 @login_required
-def userServers(userId):
+def user_srvers(userId):
     return "All servers for a single user"
 
 
 # Create a new server. User ID is the owner of the server
 @user_routes.route('/<int:userId>/servers', methods=['POST'])
 @login_required
-def userServers(userId):
+def add_server(userId):
     return "Created a new server"
