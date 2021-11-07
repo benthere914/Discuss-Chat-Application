@@ -19,6 +19,10 @@ def user(id):
     return user.to_dict()
 
 
+'''
+View and create servers
+'''
+
 # Get all servers a single user is a memeber of
 @user_routes.route('/<int:userId>/servers')
 @login_required
