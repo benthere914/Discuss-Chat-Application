@@ -29,26 +29,26 @@ def delete_servers(serverId):
 # Get all channels for a single server
 @server_routes.route('/<int:serverId>/channels')
 @login_required
-def all_servers(serverId):
+def get_channels(serverId):
     return "Get channels for a server"
 
 
 # Add a channel to a server
 @server_routes.route('/<int:serverId>/channels', methods=['POST'])
 @login_required
-def all_servers(serverId):
+def add_channel(serverId):
     return "Added a channel"
 
 
-# Get all memebrs for a single server
+# Get all members of a single server
 @server_routes.route('/<int:serverId>/members')
 @login_required
-def all_servers(serverId):
+def get_members(serverId):
     return "Get server members"
 
 
 # Add a member to a server
 @server_routes.route('/<int:serverId>/members', methods=['POST'])
 @login_required
-def all_servers(serverId):
+def add_member(serverId):
     return "Added a member to the server"
