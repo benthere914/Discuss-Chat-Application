@@ -17,7 +17,9 @@ def update_channel(channelId):
 def delete_channel(channelId):
     return "Deleted channel"
 
-
+'''
+View and add messages
+'''
 # Get channel messages
 @channel_routes.route('/<int:channelId>/messages')
 @login_required

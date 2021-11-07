@@ -25,6 +25,9 @@ def update_server(serverId):
 def delete_servers(serverId):
     return "Delete a server"
 
+'''
+View and add channels
+'''
 
 # Get all channels for a single server
 @server_routes.route('/<int:serverId>/channels')
@@ -39,6 +42,10 @@ def get_channels(serverId):
 def add_channel(serverId):
     return "Added a channel"
 
+
+'''
+View and add members
+'''
 
 # Get all members of a single server
 @server_routes.route('/<int:serverId>/members')
