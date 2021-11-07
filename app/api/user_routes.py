@@ -17,3 +17,17 @@ def users():
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+
+# Get all servers a single user is a memeber of
+@user_routes.route('/<int:userId>/servers')
+@login_required
+def userServers(userId):
+    return "All servers for a single user"
+
+
+# Create a new server. User ID is the owner of the server
+@user_routes.route('/<int:userId>/servers', methods=['POST'])
+@login_required
+def userServers(userId):
+    return "Created a new server"
