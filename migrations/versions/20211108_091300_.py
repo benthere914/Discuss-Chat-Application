@@ -37,10 +37,12 @@ def upgrade():
     sa.UniqueConstraint('name')
     )
     op.create_table('server_members',
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('server_id', sa.Integer(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['server_id'], ['servers.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], )
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('id'),
     )
     op.create_table('channel_messages',
     sa.Column('id', sa.Integer(), nullable=False),
