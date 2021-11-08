@@ -4,7 +4,7 @@ from app.models import db, Server
 # Adds a demo user, you can add other users here if you want
 def seed_servers():
     one = Server(
-        name='Server One', description='This is Server One', owner_id=1, icon="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png", users=[1,2,3])
+        name='Server One', description='This is Server One', owner_id=1, icon="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png")
     two = Server(
         name='Server Two', description='This is Server Two', owner_id=1, icon="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png")
     three = Server(
