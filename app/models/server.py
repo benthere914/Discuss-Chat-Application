@@ -1,11 +1,11 @@
 from .db import db
 
 # joins table
-server_members = db.Table(
-    "server_members",  # table name
-    db.Column("server_id", db.Integer, db.ForeignKey("servers.id")),
-    db.Column("user_id", db.Integer, db.ForeignKey("users.id"))
-)
+# server_members = db.Table(
+#     "server_members",  # table name
+#     db.Column("server_id", db.Integer, db.ForeignKey("servers.id")),
+#     db.Column("user_id", db.Integer, db.ForeignKey("users.id"))
+# )
 
 class Server(db.Model):
     __tablename__ = 'servers'
@@ -18,8 +18,8 @@ class Server(db.Model):
 
     user = db.relationship("User", back_populates="servers")
     channels = db.relationship("Channel", back_populates="server")
+    server_members_2 = db.relationship("Server_Member", back_populates="server")
 
-    users = db.relationship("User", back_populates="server", secondary=server_members)
 
     def to_dict(self):
         return {
