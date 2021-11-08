@@ -25,3 +25,11 @@ class Server(db.Model):
             'owner_id': self.owner_id,
             'icon': self.icon
         }
+
+
+# joins table
+server_members = db.Table(
+    "server_members",  # table name
+    db.Column("server_id", db.Integer, db.ForeignKey("servers.id")),
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id"))
+)
