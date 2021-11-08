@@ -1,0 +1,12 @@
+.editBoxMain{
+    position: fixed;
+    bottom: 30px;
+    left: 35%;
+    z-index: 3;
+    width: 600px;
+    height: 400px;
+    background-color: rgb(32, 34, 37);
+}
+.test{
+    color: white;
+}
