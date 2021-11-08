@@ -27,7 +27,7 @@ View and create servers
 @user_routes.route('/<int:userId>/servers')
 @login_required
 def user_srvers(userId):
-    userServers = User.query.filter(Server_Member.user_id == userId).all()
+    userServers = Server_Member.query.filter(Server_Member.user_id == userId).all()
     servers = [server.to_dict() for server in userServers]
     return {"servers": servers}
 
