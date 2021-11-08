@@ -17,6 +17,7 @@ class Server(db.Model):
     icon = db.Column(db.String(1000), nullable=False, unique= False)
 
     user = db.relationship("User", back_populates="servers")
+    channels = db.relationship("Channel", back_populates="server")
     server_members_2 = db.relationship("Server_Member", back_populates="server")
 
 
