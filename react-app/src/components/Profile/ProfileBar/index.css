@@ -1,0 +1,37 @@
+.profileBar{
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    align-items: center;
+    width: 220px;
+    height: 50px;
+    padding-left: 5px;
+    background-color: rgb(41, 43, 47)
+}
+
+.profileBar li{
+    margin: 0px 5px 0px 5px;
+}
+.profileUsername{
+    color: white;
+}
+img.profilePhoto{
+    border-radius: 50%;
+    height: 35px;
+}
+
+.fa-cog{
+    position: relative;
+    left: 40px;
+    color: rgb(185,187, 190);
+    padding: 5px;
+    background-color: rgb(41, 43, 47)
+
+    /* background-color: red; */
+}
+
+.fa-cog:hover{
+    cursor: pointer;
+    background-color: rgb(54, 57, 63);
+    /* border: solid red; */
+}
