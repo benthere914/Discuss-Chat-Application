@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-# from app.models import User
+from app.models import Channel
 
 server_routes = Blueprint('servers', __name__)
 
@@ -31,9 +31,12 @@ View and add channels
 
 # Get all channels for a single server
 @server_routes.route('/<int:serverId>/channels')
-@login_required
+# @login_required
 def get_channels(serverId):
-    return "Get channels for a server"
+    serverChannels = Channel.query.filter(Channel.server_id == serverId).all()
+    return {channel.to_dict()["id"]: channel.to_dict()["name"] for channel in serverChannels}
+
+    # return "Get channels for a server"
 
 
 # Add a channel to a server
