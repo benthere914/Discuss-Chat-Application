@@ -6,10 +6,13 @@ import { loadUserChannels } from '../../store/channel';
 
 function Channels() {
     const dispatch = useDispatch();
-    const { serverId } = useParams();
+    // const { serverId } = useParams();
+    const serverId = 1;
 
     const channels = useSelector(state => Object.values(state.channels));
 
+    const [name, setChannelName] = useState('');
+    const [errors, setErrors] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -22,6 +25,15 @@ function Channels() {
 
     }, [dispatch])
 
+    const addChannel = async (e) => {
+        e.preventDefault();
+
+        const data = await dispatch(addNewChannel(serverId, name))
+        if (data) {
+            setErrors(data)
+        }
+    }
+
     return (
         <>
             {isLoaded && (
@@ -32,6 +44,17 @@ function Channels() {
                             <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}><h4>{channel.name}</h4></Link>
                         )}
                     </div>
+                    <h4>Add a Channel</h4>
+                    <form onSubmit={addChannel} autoComplete="off">
+                        <label>Add Channel</label>
+                        <input
+                            type="text"
+                            value={name}
+                            required
+                            autoComplete="off"
+                            onChange={(e) => setChannelName(e.target.value)}
+                        />
+                    </form>
                 </>
             )}
         </>
