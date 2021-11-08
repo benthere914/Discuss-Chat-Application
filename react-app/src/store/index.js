@@ -5,7 +5,7 @@ import channelsReducer from './channel';
 
 const rootReducer = combineReducers({
   session,
-  channelsReducer
+  channels: channelsReducer
 });
 
 

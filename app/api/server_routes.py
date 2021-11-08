@@ -37,8 +37,6 @@ def get_channels(serverId):
     channels = [channel.to_dict() for channel in serverChannels]
     return {"channels": channels}
 
-    # return "Get channels for a server"
-
 
 # Add a channel to a server
 @server_routes.route('/<int:serverId>/channels', methods=['POST'])

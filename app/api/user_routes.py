@@ -27,6 +27,7 @@ View and create servers
 @user_routes.route('/<int:userId>/servers')
 @login_required
 def user_srvers(userId):
+    # Search server_members table based on userId
     return "All servers for a single user"
 
 
