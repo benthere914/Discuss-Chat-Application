@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User
+from app.models import User, Server_Member
 
 user_routes = Blueprint('users', __name__)
 
@@ -27,8 +27,10 @@ View and create servers
 @user_routes.route('/<int:userId>/servers')
 @login_required
 def user_srvers(userId):
-    # Search server_members table based on userId
-    return "All servers for a single user"
+    userServers = Server_Member.query.filter(Server_Member.user_id == userId).all()
+    servers = [server.to_dict() for server in userServers]
+    return {"servers": servers}
+
 
 
 # Create a new server. User ID is the owner of the server
