@@ -26,9 +26,7 @@ const channelsReducer = (state = initialState, action) => {
             for (let channel of action.channels.channels) {
                 allChannels[channel.id] = channel
             }
-            return {...state,
-                    ...allChannels
-                }
+            return {...allChannels }
         default:
             return state;
     }
