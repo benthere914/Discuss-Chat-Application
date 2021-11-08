@@ -29,7 +29,7 @@ function Channels() {
                     <h1>Channel List</h1>
                     <div>
                         {channels?.map(channel =>
-                            <p>{channel.name}</p>
+                            <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}><h4>{channel.name}</h4></Link>
                         )}
                     </div>
                 </>
