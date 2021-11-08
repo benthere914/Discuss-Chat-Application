@@ -12,7 +12,7 @@ class Server(db.Model):
 
     user = db.relationship("User", back_populates="servers")
     members = db.relationship("", back_populates="")
-    channels = db.relationship("", back_populates="")
+    channels = db.relationship("Channel", back_populates="server")
 
 
 
