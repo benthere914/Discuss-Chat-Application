@@ -32,6 +32,7 @@ def user_srvers(userId):
     return {"servers": servers}
 
 
+
 # Create a new server. User ID is the owner of the server
 @user_routes.route('/<int:userId>/servers', methods=['POST'])
 @login_required

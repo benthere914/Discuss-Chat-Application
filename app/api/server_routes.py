@@ -34,9 +34,8 @@ View and add channels
 # @login_required
 def get_channels(serverId):
     serverChannels = Channel.query.filter(Channel.server_id == serverId).all()
-    return {channel.to_dict()["id"]: channel.to_dict()["name"] for channel in serverChannels}
-
-    # return "Get channels for a server"
+    channels = [channel.to_dict() for channel in serverChannels]
+    return {"channels": channels}
 
 
 # Add a channel to a server
