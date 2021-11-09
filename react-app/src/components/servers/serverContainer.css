@@ -1,9 +1,26 @@
 .serversContainer {
-    background-color: green;
-}
-
-.channelBar {
-    height: 100%;
+    background-color: white;
+    width: 72px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+
+
+.singleServer {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: grey;
+}
+
+.serverIcon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: grey;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
 }

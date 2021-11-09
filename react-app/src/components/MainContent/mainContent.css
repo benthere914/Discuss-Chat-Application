@@ -1,4 +1,11 @@
 .mainContentContainer {
     display: flex;
     height: 100vh;
+    background-color: rgb(54,57,63);
+}
+
+.channelBar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }

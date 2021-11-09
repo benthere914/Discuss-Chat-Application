@@ -9,7 +9,7 @@ function EditableChannel({server, channel}) {
 
     const serverId = server.id;
 
-    const [name, setChannelName] = useState(channel.name);
+    const [name, setChannelName] = useState(channel?.name);
     const [errors, setErrors] = useState([]);
 
     const [showEdit, setShowEdit] = useState(false)
