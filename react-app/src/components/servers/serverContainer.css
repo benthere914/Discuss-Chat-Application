@@ -9,7 +9,7 @@
 
 .singleServer {
     text-decoration: none;
-    padding: 5px;
+    margin-bottom: 12px;
 }
 
 .serverIcon {
@@ -67,4 +67,14 @@
 
 .serverIcon:hover + #serverNameHover, .noIconServer:hover + #serverNameHover{
     visibility: visible;
+}
+
+#addServerButton {
+    cursor: pointer;
+    color: rgb(59,165,93);
+}
+
+#addServerButton:hover {
+    background-color: rgb(59,165,93);
+    color: white;
 }

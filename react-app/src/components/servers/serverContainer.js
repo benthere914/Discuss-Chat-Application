@@ -52,6 +52,12 @@ function ServersContainer() {
                             )}
                         </NavLink>
                     )}
+                    <div className="serverInfo">
+                        <div className="noIconServer" id="addServerButton">
+                            <i className="fas fa-plus"></i>
+                        </div>
+                        <div id="serverNameHover">Add a Server</div>
+                    </div>
                 </div>
             )}
         </>
