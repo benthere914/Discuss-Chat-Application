@@ -7,7 +7,7 @@
     top: 0;
     left: 0;
 }
-.fa-times{
+.closeProfile{
     position: absolute;
     top: 20px;
     right: 25px;
@@ -16,7 +16,7 @@
     transition: .1s;
 }
 
-.fa-times:hover{
+.closeProfile:hover{
     cursor: pointer;
     transform: scale(3.5);
 }

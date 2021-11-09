@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import db, Channel
+
+from app.models import db, Channel, Channel_Message
 from app.forms import UpdatedChannelForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -40,7 +41,10 @@ View and add messages
 @channel_routes.route('/<int:channelId>/messages')
 @login_required
 def get_messages(channelId):
-    return "All messages in the channel"
+    print(channelId)
+    channelMessages = Channel_Message.query.filter(Channel_Message.channel_id == channelId).all()
+    messages = [message.to_dict() for message in channelMessages]
+    return {"messages": messages}
 
 
 # Add a message to a channel

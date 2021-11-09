@@ -21,7 +21,7 @@ img.profilePhoto{
     height: 35px;
 }
 
-.fa-cog{
+.profileWidget{
     position: relative;
     left: 40px;
     color: rgb(185,187, 190);
@@ -31,7 +31,7 @@ img.profilePhoto{
     /* background-color: red; */
 }
 
-.fa-cog:hover{
+.profileWidget:hover{
     cursor: pointer;
     background-color: rgb(54, 57, 63);
     /* border: solid red; */

@@ -2,22 +2,23 @@ import './index.css';
 import React, { useEffect, useState } from 'react';
 import EditBox from './editBox'
 
-let ProfileModal = ({ hash, setProfileModalVisible }) => {
-	const [phoneButton, setPhoneButton] = useState('Add');
+let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 	const [phoneNumber, setPhoneNumber] = useState(null);
     const [editBoxVisible, setEditBoxVisible] = useState(false);
     const [title, setTitle] = useState('')
-	useEffect(() => {
-		if (!phoneNumber) {
-			setPhoneButton('Add');
-		} else {
-			setPhoneButton('Edit');
-		}
-	});
+    const [data, setData] = useState('');
+    const [password, setPassword] = useState('')
+    const editHandler = (string) => {
+        setEditBoxVisible(true);
+        setTitle(string);
+        setData('')
+        setPassword('')
+    }
+
 	return (
 		<>
 			<div className='modalBackground'>
-                <i className='fas fa-times' onClick={() => {setProfileModalVisible(false)}}></i>
+                <i className='fas fa-times closeProfile' onClick={() => {setProfileModalVisible(false)}}></i>
 				<div className="profileModalMain">
 					<div className="profileModalTop"></div>
 					<div className="profielModalMiddle">
@@ -30,7 +31,7 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 							</li>
 							<li>
 								<p className="profileModalUsername">
-									Benjamin Rose
+									{user?.username}
 								</p>
 							</li>
 						</ul>
@@ -41,9 +42,9 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 								<ul className="modalUsername">
 									<li id="modalData">
 										<p>Username</p>
-										<p>Benthere914</p>
+										<p>{user?.username}</p>
 									</li>
-									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Username')}}>
+									<li id="editButton" onClick={() => {editHandler('Username')}}>
 										<p>Edit</p>
 									</li>
 								</ul>
@@ -52,9 +53,9 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 								<ul className="modalEmail">
 									<li id="modalData">
 										<p>Email</p>
-										<p>Benthere914@gmail.com</p>
+										<p>{user?.email}</p>
 									</li>
-									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Email')}}>
+									<li id="editButton" onClick={() => {editHandler('Email')}}>
 										<p>Edit</p>
 									</li>
 								</ul>
@@ -65,7 +66,7 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 										<p>Password</p>
 										<p>*********</p>
 									</li>
-									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Password')}}>
+									<li id="editButton" onClick={() => {editHandler('Password')}}>
 										<p>Edit</p>
 									</li>
 								</ul>
@@ -73,7 +74,15 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 						</ul>
 					</div>
 				</div>
-            {editBoxVisible && <EditBox title={title} phoneTitle={phoneButton}/>}
+            {editBoxVisible && <EditBox
+            title={title}
+            userId={user.id}
+            setEditBoxVisible={setEditBoxVisible}
+            data={data}
+            password={password}
+            setData={setData}
+            setPassword={setPassword}
+            />}
             <ul className='accountRemoval'>
                 <li>
                     <p>Account Removal</p>
