@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Channel, Server, db
-from app.forms import UpdateServerForm
+from app.forms import UpdateServerForm, addMemberForm
 from .auth_routes import validation_errors_to_error_messages
 
 server_routes = Blueprint('servers', __name__)
@@ -81,4 +81,12 @@ def get_members(serverId):
 @server_routes.route('/<int:serverId>/members', methods=['POST'])
 @login_required
 def add_member(serverId):
-    return "Added a member to the server"
+    form = addMemberForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        server = addMemberForm()
+        form.populate_obj(server)
+        db.session.add(server)
+        db.session.commit()
+        return server.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
