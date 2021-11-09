@@ -49,7 +49,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 								</p>
 							</li>
 						</ul>
-                        <button onClick={() => {logoutHandler()}}>Log out</button>
+                        < p className='logoutButton' onClick={() => {logoutHandler()}}>Log out</p>
 
 					</div>
 					<div className="profileModalBottom">
