@@ -74,6 +74,14 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 					</div>
 				</div>
             {editBoxVisible && <EditBox title={title} phoneTitle={phoneButton}/>}
+            <ul className='accountRemoval'>
+                <li>
+                    <p>Account Removal</p>
+                </li>
+                <li>
+                    <p className='deleteAccount'>Delete Account</p>
+                </li>
+            </ul>
 			</div>
 		</>
 	);

@@ -20,10 +20,10 @@
 }
 
 .profileModalMain{
-    position: fixed;
+    position: absolute;
     /* top: 100px; */
     /* left: 100px; */
-    top: 10%;
+    top: 70px;
     left: 35%;
     z-index: 1;
     width: 600px;
@@ -119,4 +119,30 @@
 
 #modalData > p{
     margin: 5px;
+}
+
+.accountRemoval{
+    position: absolute;
+    left: 35%;
+    bottom: 5px;
+    list-style: none;
+    color: lightgray;
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 1px red;
+}
+
+.deleteAccount{
+    border: solid 1px red;
+    color: red;
+    padding: 15px;
+}
+
+.deleteAccount:hover{
+    cursor: pointer;
+    background-color: red;
+    color: white;
 }
