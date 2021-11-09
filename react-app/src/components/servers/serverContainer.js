@@ -32,7 +32,7 @@ function ServersContainer() {
                             {server?.icon? (
                                 <div className="serverIcon" style={{backgroundImage: `url(${server.icon})`}}></div>
                             ):(
-                                <div>{server.name[0]}</div>
+                                <div className="noIconServer">{server.name[0]}</div>
                             )}
                         </NavLink>
                     )}
