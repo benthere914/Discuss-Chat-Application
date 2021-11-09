@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import Channel
+from app.models import Channel, Server
 
 server_routes = Blueprint('servers', __name__)
 
@@ -9,14 +9,21 @@ server_routes = Blueprint('servers', __name__)
 @server_routes.route('/')
 @login_required
 def all_servers():
-    return "All servers"
+    servers = Server.query.all()
+    return {'servers': [server.to_dict() for server in servers]}
 
+#single server
+@server_routes.route('/<int:id>')
+@login_required
+def single_servers(id):
+    servers = Server.query.get(id)
+    return servers.to_dict()
 
 # Update a Server name
-@server_routes.route('/<int:serverId>', methods=['PATCH'])
-@login_required
-def update_server(serverId):
-    return "Updated server name"
+# @server_routes.route('/<int:serverId>', methods=['PATCH'])
+# @login_required
+# def update_server(serverId):
+#     return "Updated server name"
 
 
 # Delete a Server
