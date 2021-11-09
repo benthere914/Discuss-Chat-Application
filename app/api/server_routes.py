@@ -43,14 +43,11 @@ def get_channels(serverId):
 
 # Add a channel to a server
 @server_routes.route('/<int:serverId>/channels', methods=['POST'])
-# @login_required
+@login_required
 def add_channel(serverId):
     form = NewChannelForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("*******************")
-    print(form.data)
-    print("*******************")
     if form.validate_on_submit():
         channel = Channel(name=form.data['name'],
                 server_id=form.data['server_id'])

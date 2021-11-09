@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import NavBar from '../NavBar';
-import { loadUserChannels, addNewChannel } from '../../store/channel';
+import { loadUserChannels, addNewChannel, updateChannelName } from '../../store/channel';
 
 function Channels() {
     const dispatch = useDispatch();
-    // const { serverId } = useParams();
+
+    // TODO # Remove this hard coded serverId
     const serverId = 1;
+    // const { serverId } = useParams();
 
     const channels = useSelector(state => Object.values(state.channels));
 
@@ -26,10 +27,23 @@ function Channels() {
     }, [dispatch])
 
     const addChannel = async (e) => {
+        e.preventDefault();
+        setErrors([])
+
+        const data = await dispatch(addNewChannel(serverId, name))
+        if (data) {
+            setErrors(data)
+        }
+    }
+
+    const updateChannel = async (e) => {
         setErrors([])
         e.preventDefault();
 
-        const data = await dispatch(addNewChannel(serverId, name))
+        // TODO # Remove this hard coded channelId
+        const channelId = 2
+
+        const data = await dispatch(updateChannelName(channelId, serverId, name))
         if (data) {
             setErrors(data)
         }
@@ -56,6 +70,17 @@ function Channels() {
                             onChange={(e) => setChannelName(e.target.value)}
                         />
                         <button type="submit">Add</button>
+                    </form>
+                    <form onSubmit={updateChannel} autoComplete="off">
+                        <label>Update Channel</label>
+                        <input
+                            type="text"
+                            value={name}
+                            required
+                            autoComplete="off"
+                            onChange={(e) => setChannelName(e.target.value)}
+                        />
+                        <button type="submit">Update</button>
                     </form>
                     {errors.length > 0 && (
                         <>
