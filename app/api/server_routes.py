@@ -1,6 +1,8 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Channel, Server
+from app.models import Channel, Server, db
+from app.forms import UpdateServerForm
+from .auth_routes import validation_errors_to_error_messages
 
 server_routes = Blueprint('servers', __name__)
 
@@ -13,24 +15,36 @@ def all_servers():
     return {'servers': [server.to_dict() for server in servers]}
 
 #single server
-@server_routes.route('/<int:id>')
+@server_routes.route('/<int:id>', methods=['GET'])
 @login_required
 def single_servers(id):
     servers = Server.query.get(id)
     return servers.to_dict()
 
-# Update a Server name
-# @server_routes.route('/<int:serverId>', methods=['PATCH'])
-# @login_required
-# def update_server(serverId):
-#     return "Updated server name"
+#Update a Server name
+@server_routes.route('/<int:serverId>', methods=['PATCH'])
+@login_required
+def update_server(serverId):
+    form = UpdateServerForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        server = Server.query.filter(Server.id == form.data['server_id']).first()
+        server.name = form.data['name']
+        db.session.commit()
 
+        return server.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 # Delete a Server
 @server_routes.route('/<int:serverId>', methods=['DELETE'])
 @login_required
 def delete_servers(serverId):
-    return "Delete a server"
+    #servers = Server.query.get(serverId)
+    server=db.session.query(Server).filter(Server.id==serverId).first()
+    db.session.delete(server)
+    db.session.commit()
+    return "Deleted a server"
 
 '''
 View and add channels

@@ -41,7 +41,9 @@ def add_server(userId):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         server = NewServerForm()
-        form.populate_obj(server)
+        form.populate_obj(server, owner_id=form.data[userId])
+        # server = Server(owner_id=form.data[userId],
+        #     server_id=form.data['server_id'])
         db.session.add(server)
         db.session.commit()
         return server.to_dict()
