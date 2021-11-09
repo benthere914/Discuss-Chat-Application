@@ -128,8 +128,7 @@ export const updateUsername = (userId, username, password) => async (dispatch) =
     const result = await response.json()
     console.log(result)
     if (result.errors){
-        console.log('hello therr')
-        return 'an error occurred. Please try again'
+        return result.errorData
     }
     dispatch(updateUserName(result))
 
@@ -148,8 +147,7 @@ export const updateUsername = (userId, username, password) => async (dispatch) =
     const result = await response.json()
     console.log(result)
     if (result.errors){
-        console.log('hello therr')
-        return 'an error occurred. Please try again'
+        return result.errorData
     }
     dispatch(updateUserEmail(result))
 
@@ -168,8 +166,7 @@ export const updateUsername = (userId, username, password) => async (dispatch) =
     const result = await response.json()
     console.log(result)
     if (result.errors){
-        console.log('hello therr')
-        return 'an error occurred. Please try again'
+        return result.errorData
     }
     dispatch(updateUserPassWord(result))
 

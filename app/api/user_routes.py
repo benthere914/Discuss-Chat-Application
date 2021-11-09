@@ -51,13 +51,17 @@ def add_server(userId):
 @login_required
 def update_username(userId):
     body = request.get_json()
+    errorData = {}
+    print(body)
     if (not 'password' in body):
-        return {"errors": True, 'error': 'invalid password'}
-    if (not( ('username' in body) or ('email' in body) or ('newPassword' in body))):
-        return {'errors': True, 'error': 'invalid data'}
+        errorData["password"] = True
+    if (not( ('username' in body and len(body['username']) > 0) or ('email' in body and len(body['email']) > 0) or ('newPassword' in body and len(body['newPassword']) > 0))):
+        errorData["data"] = True
     user = User.query.get(userId)
     if (not user.check_password(body['password'])):
-        return {"errors": True, 'error': 'invalid password'}
+        errorData["password"] = True
+    if ('data' in errorData or 'password' in errorData):
+        return {"errors": True, "errorData": errorData}
     if ('username' in body):
         user.username = body['username']
     if ('email' in body):
