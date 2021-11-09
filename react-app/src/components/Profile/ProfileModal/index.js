@@ -10,7 +10,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 	return (
 		<>
 			<div className='modalBackground'>
-                <i className='fas fa-times' onClick={() => {setProfileModalVisible(false)}}></i>
+                <i className='fas fa-times closeProfile' onClick={() => {setProfileModalVisible(false)}}></i>
 				<div className="profileModalMain">
 					<div className="profileModalTop"></div>
 					<div className="profielModalMiddle">

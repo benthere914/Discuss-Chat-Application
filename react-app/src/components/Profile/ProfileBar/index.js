@@ -24,7 +24,7 @@ let ProfileBar = () => {
                     <p className='profileUsername'>{user?.username}</p>
                 </li>
                 <li>
-                    <i className='fas fa-cog' onClick={() => {setProfileModalVisible((!profileModalVisible))}}></i>
+                    <i className='fas fa-cog profileWidget' onClick={() => {setProfileModalVisible((!profileModalVisible))}}></i>
                 </li>
             </ul>
         </>
