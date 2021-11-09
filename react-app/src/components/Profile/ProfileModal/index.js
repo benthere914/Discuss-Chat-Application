@@ -1,9 +1,14 @@
 import './index.css';
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import EditBox from './editBox'
+import { logout } from '../../../store/session'
+import LogoutButton from '../../auth/LogoutButton'
 
 let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
-	const [phoneNumber, setPhoneNumber] = useState(null);
+    const history = useHistory()
+    const dispatch = useDispatch()
     const [editBoxVisible, setEditBoxVisible] = useState(false);
     const [title, setTitle] = useState('')
     const [data, setData] = useState('');
@@ -13,6 +18,15 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
         setTitle(string);
         setData('')
         setPassword('')
+    }
+    const logoutHandler = () => {
+        setTitle('')
+        setData('')
+        setPassword('')
+        setProfileModalVisible(false)
+        dispatch(logout())
+        console.log('got here 12345')
+        history.push('/')
     }
 
 	return (
@@ -35,6 +49,8 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 								</p>
 							</li>
 						</ul>
+                        < p className='logoutButton' onClick={() => {logoutHandler()}}>Log out</p>
+
 					</div>
 					<div className="profileModalBottom">
 						<ul className="modalItems">

@@ -79,7 +79,7 @@
     height: 190px;
     position: relative;
     left: 15px;
-    top: 5px;
+    bottom: 40px;
     box-sizing: border-box;
     border-radius: 5px;
     color: white;
@@ -147,4 +147,17 @@
     cursor: pointer;
     background-color: red;
     color: white;
+}
+
+.logoutButton{
+    position: relative;
+    left: 400px;
+    bottom: 45px;
+    cursor: pointer;
+    width: 60px;
+    padding: 15px 30px;
+    background-color: rgb(115, 100, 82);
+    color: white;
+    border-radius: 15px;
+    margin: 0px;
 }
