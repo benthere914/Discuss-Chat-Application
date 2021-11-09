@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import MainContent from '../MainContent/mainContent';
 import './splash.css';
 
 function SplashPage() {
+    const history = useHistory();
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {
@@ -12,9 +13,7 @@ function SplashPage() {
       }, []);
 
     if (user) {
-        return (
-            <MainContent />
-        );
+        history.push('/channels')
     }
 
     return (
