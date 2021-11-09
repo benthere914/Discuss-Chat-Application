@@ -47,3 +47,28 @@
 #leftIcon {
   margin: 0 6px;
 }
+
+#deleteChannelHeader, #deleteChannelSubHeader {
+  text-align: start;
+  color: white;
+}
+
+#deleteChannelSubHeader {
+  margin-top: 15px;
+  font-weight: 200;
+  font-size: 16px;
+}
+
+#channelDeleteName {
+  font-weight: 700;
+}
+
+#deleteChannel {
+  background-color: rgb(237,66,69);
+  color: white;
+  cursor: pointer;
+}
+
+#deleteChannel:hover {
+  background-color: rgb(184, 51, 53);
+}

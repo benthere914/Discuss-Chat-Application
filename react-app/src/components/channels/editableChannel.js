@@ -23,6 +23,15 @@ function EditableChannel({channel}) {
     const [showEdit, setShowEdit] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
 
+    const handleCancel = () => {
+        setShowDelete(false)
+    }
+
+    const handleDelete = () => {
+        //Delete it!
+        setShowDelete(false)
+    }
+
 
     const updateChannel = async (e) => {
         setErrors([])
@@ -42,7 +51,7 @@ function EditableChannel({channel}) {
 
     return (
         <div className="channelNameHolder" id="editableChannel" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
-            {!showEdit && (
+            {!showEdit && !showDelete && (
                 <>
                     <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
                         <>
@@ -89,9 +98,17 @@ function EditableChannel({channel}) {
                 </div>
             )}
             {showDelete && (
-                <>
-                    <p>Delete Me</p>
-                </>
+                <div className="addModal">
+                    <div className="addChannelFormContainer">
+                        <h3 id="deleteChannelHeader">Delete Channel</h3>
+                        <h5 id="deleteChannelSubHeader" >Are you sure you want to delete <span id="channelDeleteName">{`#${channel.name}`}</span>? This cannot be undone.</h5>
+                            <div className="addChannelButtons">
+                                <div id="cancelChannel" onClick={handleCancel}>Cancel</div>
+                                <div className="createChannel" id="deleteChannel" onClick={handleDelete}>Delete Channel</div>
+                            </div>
+                    </div>
+                </div>
+
             )}
         </div>
 
