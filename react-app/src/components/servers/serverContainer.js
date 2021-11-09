@@ -30,9 +30,15 @@ function ServersContainer() {
                     {servers[0] !== null && servers.map(server =>
                         <NavLink key={`server_${server.id}`} to={`/channels/${server.id}`} className="singleServer">
                             {server?.icon? (
-                                <div className="serverIcon" style={{backgroundImage: `url(${server.icon})`}}></div>
+                                <div className="serverInfo">
+                                    <div className="serverIcon" style={{backgroundImage: `url(${server.icon})`}}></div>
+                                    <div id="serverNameHover">{server.name}</div>
+                                </div>
                             ):(
-                                <div className="noIconServer">{server.name[0]}</div>
+                                <div className="serverInfo">
+                                    <div className="noIconServer">{server.name[0]}</div>
+                                    <div id="serverNameHover">{server.name}</div>
+                                </div>
                             )}
                         </NavLink>
                     )}

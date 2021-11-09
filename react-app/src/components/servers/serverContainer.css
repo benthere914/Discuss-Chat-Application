@@ -44,3 +44,27 @@
     background-color: rgb(88,101,242);
     color: white;
 }
+
+.serverInfo {
+    position: relative;
+}
+
+#serverNameHover {
+    visibility: hidden;
+    position: absolute;
+    top: 7px;
+    left: 65px;
+    text-decoration: none;
+    color: white;
+    padding: 7px;
+    background-color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+    min-width: 100px;
+    width: fit-content;
+    text-align: center;
+}
+
+.serverIcon:hover + #serverNameHover, .noIconServer:hover + #serverNameHover{
+    visibility: visible;
+}

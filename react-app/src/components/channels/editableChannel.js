@@ -53,13 +53,13 @@ function EditableChannel({server, channel}) {
         <div className="channelNameHolder" id="editableChannel">
             {!showEdit && !showDelete && (
                 <>
-                    <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
+                    <Link key={`channel_${channel?.id}`} to={`/channels/${channel?.server_id}/${channel?.id}`}>
                         <>
-                            {channel.name.length > 16 ? (
-                                <h4 className="channelName">{`# ${channel.name.substring(0,16)}...`}</h4>
+                            {channel?.name.length > 16 ? (
+                                <h4 className="channelName">{`# ${channel?.name.substring(0,16)}...`}</h4>
                             ):
                             (
-                                <h4 className="channelName">{`# ${channel.name}`}</h4>
+                                <h4 className="channelName">{`# ${channel?.name}`}</h4>
                             )}
                         </>
                     </Link>
