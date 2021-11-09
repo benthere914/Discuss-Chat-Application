@@ -64,8 +64,8 @@ let EditBox = ({title, setEditBoxVisible, userId, data, password, setData, setPa
                 </div>
                 <div className='editBoxBottom'>
                     <p className='cancelLink' onMouseDown={() => {setData('');setPassword('');setEditBoxVisible(false)}}>Cancel</p>
-                    <div>
-                        <p className='doneLink' onMouseDown={() => {updateData()}}>Done</p>
+                    <div onMouseDown={() => {updateData()}}>
+                        <p className='doneLink'>Done</p>
                     </div>
                 </div>
 			</div>
