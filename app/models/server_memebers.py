@@ -14,5 +14,5 @@ class Server_Member(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            'server_id': self.server_id,
+            'server_id': self.server_id
         }
