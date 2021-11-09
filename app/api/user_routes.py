@@ -38,7 +38,7 @@ def user_servers(userId):
 @user_routes.route('/<int:userId>/servers', methods=['POST'])
 @login_required
 def add_server(userId):
-  form = NewServerForm()
+    form = NewServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         server = Server(name = form.data['name'], description = form.data['description'], icon = form.data['icon'], owner_id = userId)
@@ -72,4 +72,3 @@ def update_username(userId):
     db.session.add(user)
     db.session.commit()
     return user.to_dict()
-

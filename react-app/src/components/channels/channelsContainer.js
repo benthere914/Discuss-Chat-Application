@@ -23,7 +23,7 @@ function ChannelsContainer() {
 
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
-        dispatch(loadUserServers(user.id))
+        dispatch(loadUserServers(user?.id))
         .then(() => setIsLoaded(true));
 
         return () => {
@@ -64,7 +64,7 @@ function ChannelsContainer() {
             {isLoaded && (
                 <>
                     <div className="serverNameContainer">
-                        <h3 className="serverName">{server.name}</h3>
+                        <h3 className="serverName">{server?.name}</h3>
                     </div>
                     <div className="textChannelHeaderContainer">
                         <h3 className="textChannels">TEXT CHANNELS</h3>
