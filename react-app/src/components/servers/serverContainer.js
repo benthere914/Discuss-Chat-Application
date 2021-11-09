@@ -13,6 +13,7 @@ function ServersContainer() {
     const servers = useSelector(state => Object.values(state.serversReducer));
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [runOnce, setRunOnce] = useState(false)
 
     useEffect(() => {
         dispatch(loadUserServers(user.id)).then(() => setIsLoaded(true));
@@ -23,9 +24,18 @@ function ServersContainer() {
 
     }, [dispatch])
 
+    useEffect(() => {
+        if (isLoaded && !runOnce) {
+           if (servers[0] !== null) {
+               history.push(`/channels/${servers[0].id}`)
+           }
+           setRunOnce(true)
+        }
+    }, [isLoaded])
+
     return (
         <>
-            {isLoaded && (
+            {isLoaded && runOnce && (
                 <div className="serversContainer">
                     {servers[0] !== null && servers.map(server =>
                         <NavLink key={`server_${server.id}`} to={`/channels/${server.id}`} className="singleServer">

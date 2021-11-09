@@ -42,8 +42,10 @@ function App() {
           <SignUpForm />
         </Route>
         <Route path='/channels' exact={true}>
-          <ServersContainer />
-          <ProfileBar/>
+          <div className="mainContentContainer">
+            <ServersContainer />
+            <ProfileBar/>
+          </div>
         </Route>
         <Route path='/channels/:serverId' exact={true}>
           <div className="mainContentContainer">
