@@ -24,9 +24,9 @@ const messagesReducer = (state = initialState, action) => {
         case LOAD:
             const allMessages = {};
 
-            action.messages.forEach(message => {
+            for (let message of action.messages.messages) {
                 allMessages[message.id] = message;
-              });
+              };
             return allMessages
         default:
             return state;

@@ -28,7 +28,7 @@ def get_messages(channelId):
     print(channelId)
     channelMessages = Channel_Message.query.filter(Channel_Message.channel_id == channelId).all()
     messages = [message.to_dict() for message in channelMessages]
-    return {"servers": messages}
+    return {"messages": messages}
 
 
 # Add a message to a channel

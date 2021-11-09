@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import Messages from './components/messages/messages';
 import { authenticate } from './store/session';
 
 function App() {
@@ -44,6 +45,11 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <NavBar />
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
+          <NavBar />
+          <User />
+          <Messages/>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
