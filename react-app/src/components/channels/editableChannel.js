@@ -41,9 +41,9 @@ function EditableChannel({channel}) {
     }
 
     return (
-        <div className="channelNameHolder">
+        <div className="channelNameHolder" id="editableChannel" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
             {!showEdit && (
-                <div className="editableChannel" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
+                <>
                     <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
                         <>
                             {channel.name.length > 16 ? (
@@ -55,7 +55,7 @@ function EditableChannel({channel}) {
                         </>
                     </Link>
                     <div className="editChannelIconContainer">
-                        <div className="editChannelIcons" onClick={() => setShowEdit(true)}>
+                        <div className="editChannelIcons" id="leftIcon" onClick={() => setShowEdit(true)}>
                             <i className="fas fa-cog"></i>
                         </div>
                         <div className="editChannelIcons" onClick={() => setShowDelete(true)}>
@@ -63,11 +63,11 @@ function EditableChannel({channel}) {
                         </div>
                     </div>
 
-                </div>
+                </>
             )}
             {showEdit && (
                 <div>
-                    <form onSubmit={updateChannel} autoComplete="off">
+                    <form className="updateChannelForm" onSubmit={updateChannel} autoComplete="off">
                         <input
                             type="text"
                             value={name}
@@ -75,8 +75,16 @@ function EditableChannel({channel}) {
                             autoComplete="off"
                             onChange={(e) => setChannelName(e.target.value)}
                         />
-                        <button type="submit">Update</button>
-                        <button onClick={() => setShowEdit(false)}>Cancel</button>
+                        <button type="submit">
+                            <div className="editChannelIcons" id="leftIcon">
+                                <i class="far fa-check-circle"></i>
+                            </div>
+                        </button>
+                        <button onClick={() => setShowEdit(false)}>
+                            <div className="editChannelIcons">
+                                <i class="fas fa-times"></i>
+                            </div>
+                        </button>
                     </form>
                 </div>
             )}

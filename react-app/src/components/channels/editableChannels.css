@@ -1,26 +1,49 @@
-.editableChannel {
-    display: flex;
-    justify-content: space-between;
+#editableChannel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .editChannelIconContainer {
-    display: flex;
-    visibility: hidden;
-    color: rgb(185,187,190);
+  display: flex;
+  visibility: hidden;
+  color: rgb(185, 187, 190);
+  padding: 5px;
 }
 
-.editableChannel:hover {
-    background-color: rgb(58,60,67);
-}
-
-.editableChannel:hover .channelName {
-    color: rgb(255,255,255);
-}
-
-.editableChannel:hover .editChannelIconContainer {
-    visibility: visible;
+#editableChannel:hover .editChannelIconContainer {
+  visibility: visible;
 }
 
 .editChannelIcons:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.updateChannelForm button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.updateChannelForm input {
+  width: 174px;
+  outline: none;
+  background-color: rgb(231, 238, 255);
+  border: none;
+  color: rgb(43, 45, 46);
+  padding: 3px;
+  font-size: 1rem;
+  margin: 2px 0;
+}
+
+.editChannelIcons {
+  color: rgb(185, 187, 190);
+}
+
+#leftIcon {
+  margin: 0 6px;
 }

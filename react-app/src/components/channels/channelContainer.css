@@ -2,10 +2,21 @@
     background-color: rgb(47,49,54);
     width: fit-content;
     font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
 }
 
 .channelNameHolder {
     width: 225px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.channelNameHolder:hover {
+    background-color: rgb(58,60,67);
+}
+
+.channelNameHolder:hover .channelName {
+    color: rgb(255,255,255);
 }
 
 .serverName {
@@ -26,7 +37,5 @@
     width: fit-content;
     max-width: 200px;
     white-space: nowrap;
-    /* overflow: scroll; */
     text-decoration: none;
-
 }

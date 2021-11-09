@@ -73,16 +73,18 @@ function ChannelsContainer() {
                                 )
                             } else {
                                 return (
-                                    <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
-                                        <>
-                                            {channel.name.length > 16 ? (
-                                                <h4 className="channelName">{`# ${channel.name.substring(0,16)}...`}</h4>
-                                            ):
-                                            (
-                                                <h4 className="channelName">{`# ${channel.name}`}</h4>
-                                            )}
-                                        </>
-                                    </Link>
+                                    <div className="channelNameHolder">
+                                        <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
+                                            <>
+                                                {channel.name.length > 16 ? (
+                                                    <h4 className="channelName">{`# ${channel.name.substring(0,16)}...`}</h4>
+                                                ):
+                                                (
+                                                    <h4 className="channelName">{`# ${channel.name}`}</h4>
+                                                )}
+                                            </>
+                                        </Link>
+                                    </div>
                                 )
                             }
                         }
