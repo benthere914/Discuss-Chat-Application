@@ -11,6 +11,8 @@ import User from './components/User';
 import ProfileBar from './components/Profile/ProfileBar'
 import { authenticate } from './store/session';
 import MainContent from './components/MainContent/mainContent';
+import ServersContainer from './components/servers/serverContainer';
+import ChannelsContainer from './components/channels/channelsContainer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -39,8 +41,12 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <Route path='/channels'>
-          <MainContent />
+        <Route path='/channels' exact={true}>
+          <ServersContainer />
+        </Route>
+        <Route path='/channels/:serverId' exact={true}>
+          <ServersContainer />
+          <ChannelsContainer />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <NavBar />

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
@@ -94,12 +94,12 @@ function EditableChannel({channel}) {
                         />
                         <button type="submit">
                             <div className="editChannelIcons" id="leftIcon">
-                                <i class="far fa-check-circle"></i>
+                                <i className="far fa-check-circle"></i>
                             </div>
                         </button>
                         <button onClick={() => setShowEdit(false)}>
                             <div className="editChannelIcons">
-                                <i class="fas fa-times"></i>
+                                <i className="fas fa-times"></i>
                             </div>
                         </button>
                     </form>

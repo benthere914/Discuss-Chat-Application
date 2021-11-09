@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadUserChannels, addNewChannel, updateChannelName } from '../../store/channel';
+import { loadUserChannels, addNewChannel } from '../../store/channel';
+import { loadUserServers } from '../../store/server';
 import EditableChannel from './editableChannel';
 import './channelContainer.css'
 
@@ -9,13 +10,19 @@ function ChannelsContainer() {
     const dispatch = useDispatch();
 
     // TODO # Remove this hard coded serverId and owner
-    const serverId = 1;
+    // const serverId = 1;
     const server_owner = 1
 
-    // const { serverId } = useParams();
+   const { serverId } = useParams();
 
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
+    const serverName = useSelector(state => state.serversReducer[serverId]?.name)
+
+    console.log("***************")
+    console.log(serverId)
+    console.log(serverName)
+    console.log("***************")
 
     const [name, setChannelName] = useState('');
     const [errors, setErrors] = useState([]);
@@ -24,14 +31,15 @@ function ChannelsContainer() {
     const [allowAdd, setAllowAdd] = useState("notAllowed")
 
     useEffect(() => {
-        dispatch(loadUserChannels(1)).then(() => setIsLoaded(true));
-        // dispatch(loadUserChannels(serverId)).then(() => setIsLoaded(true));
+        dispatch(loadUserChannels(serverId))
+        dispatch(loadUserServers(user.id))
+        .then(() => setIsLoaded(true));
 
         return () => {
             setIsLoaded()
         }
 
-    }, [dispatch])
+    }, [dispatch, serverId])
 
     useEffect(() => {
         if (name.length > 0) {
@@ -65,13 +73,13 @@ function ChannelsContainer() {
             {isLoaded && (
                 <>
                     <div className="serverNameContainer">
-                        <h3 className="serverName">Server Name</h3>
+                        <h3 className="serverName">{serverName}</h3>
                     </div>
                     <div className="textChannelHeaderContainer">
                         <h3 className="textChannels">TEXT CHANNELS</h3>
                         {/* If user is the server owner, show the plus sign */}
                         <div onClick={() => setShowAddForm(true)}>
-                            <i class="fas fa-plus"></i>
+                            <i className="fas fa-plus"></i>
                         </div>
                     </div>
                     <div className="channelList">
@@ -79,18 +87,18 @@ function ChannelsContainer() {
                             // Remove this hard coded server_owner
                             if (user.id === server_owner) {
                                 return (
-                                    <EditableChannel channel={channel}/>
+                                    <EditableChannel channel={channel} key={`editableChannel_${channel?.id}`}/>
                                 )
                             } else {
                                 return (
                                     <div className="channelNameHolder">
-                                        <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
+                                        <Link key={`channel_${channel?.id}`} to={`/channels/${channel?.server_id}/${channel?.id}`}>
                                             <>
-                                                {channel.name.length > 16 ? (
-                                                    <h4 className="channelName">{`# ${channel.name.substring(0,16)}...`}</h4>
+                                                {channel?.name.length > 16 ? (
+                                                    <h4 className="channelName">{`# ${channel?.name.substring(0,16)}...`}</h4>
                                                 ):
                                                 (
-                                                    <h4 className="channelName">{`# ${channel.name}`}</h4>
+                                                    <h4 className="channelName">{`# ${channel?.name}`}</h4>
                                                 )}
                                             </>
                                         </Link>
