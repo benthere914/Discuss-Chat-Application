@@ -2,18 +2,11 @@ import './index.css';
 import React, { useEffect, useState } from 'react';
 import EditBox from './editBox'
 
-let ProfileModal = ({ hash, setProfileModalVisible }) => {
-	const [phoneButton, setPhoneButton] = useState('Add');
+let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 	const [phoneNumber, setPhoneNumber] = useState(null);
     const [editBoxVisible, setEditBoxVisible] = useState(false);
     const [title, setTitle] = useState('')
-	useEffect(() => {
-		if (!phoneNumber) {
-			setPhoneButton('Add');
-		} else {
-			setPhoneButton('Edit');
-		}
-	});
+
 	return (
 		<>
 			<div className='modalBackground'>
@@ -30,7 +23,7 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 							</li>
 							<li>
 								<p className="profileModalUsername">
-									Benjamin Rose
+									{user?.username}
 								</p>
 							</li>
 						</ul>
@@ -41,7 +34,7 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 								<ul className="modalUsername">
 									<li id="modalData">
 										<p>Username</p>
-										<p>Benthere914</p>
+										<p>{user?.username}</p>
 									</li>
 									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Username')}}>
 										<p>Edit</p>
@@ -52,7 +45,7 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 								<ul className="modalEmail">
 									<li id="modalData">
 										<p>Email</p>
-										<p>Benthere914@gmail.com</p>
+										<p>{user?.email}</p>
 									</li>
 									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Email')}}>
 										<p>Edit</p>
@@ -73,7 +66,7 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 						</ul>
 					</div>
 				</div>
-            {editBoxVisible && <EditBox title={title} phoneTitle={phoneButton}/>}
+            {editBoxVisible && <EditBox title={title} userId={user.id} setEditBoxVisible={setEditBoxVisible}/>}
             <ul className='accountRemoval'>
                 <li>
                     <p>Account Removal</p>
