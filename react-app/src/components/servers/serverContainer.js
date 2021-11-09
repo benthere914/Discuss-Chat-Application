@@ -16,7 +16,7 @@ function ServersContainer() {
     const [runOnce, setRunOnce] = useState(false)
 
     useEffect(() => {
-        dispatch(loadUserServers(user.id)).then(() => setIsLoaded(true));
+        dispatch(loadUserServers(user?.id)).then(() => setIsLoaded(true));
 
         return () => {
             setIsLoaded(false)

@@ -32,7 +32,7 @@
 }
 
 .updateChannelForm input {
-  width: 174px;
+  width: 164px;
   outline: none;
   background-color: rgb(231, 238, 255);
   border: none;
@@ -44,6 +44,7 @@
 
 .editChannelIcons {
   color: rgb(185, 187, 190);
+  /* font-size: 12px; */
 }
 
 #leftIcon {
