@@ -20,6 +20,8 @@ function ChannelsContainer() {
     const [name, setChannelName] = useState('');
     const [errors, setErrors] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [allowAdd, setAllowAdd] = useState("notAllowed")
 
     useEffect(() => {
         dispatch(loadUserChannels(1)).then(() => setIsLoaded(true));
@@ -31,6 +33,14 @@ function ChannelsContainer() {
 
     }, [dispatch])
 
+    useEffect(() => {
+        if (name.length > 0) {
+            setAllowAdd("createChannel")
+        } else {
+            setAllowAdd("notAllowed")
+        }
+    }, [name])
+
     const addChannel = async (e) => {
         e.preventDefault();
         setErrors([])
@@ -38,31 +48,31 @@ function ChannelsContainer() {
         const data = await dispatch(addNewChannel(serverId, name))
         if (data) {
             setErrors(data)
+        } else {
+            setChannelName('')
+            setShowAddForm(false)
         }
     }
 
-    const updateChannel = async (e) => {
-        setErrors([])
+    const handleCancel = (e) => {
         e.preventDefault();
-
-        // TODO # Remove this hard coded channelId
-        const channelId = 2
-
-        const data = await dispatch(updateChannelName(channelId, serverId, name))
-        if (data) {
-            setErrors(data)
-        }
+        setChannelName('')
+        setShowAddForm(false)
     }
 
     return (
         <div className="channelContainer">
             {isLoaded && (
                 <>
-                    <h3 className="serverName">Server Name</h3>
-                    <h3 className="textChannels">TEXT CHANNELS</h3>
-                    {/* If user is the server owner, show the plus sign */}
-                    <div>
-                        <i class="fas fa-plus"></i>
+                    <div className="serverNameContainer">
+                        <h3 className="serverName">Server Name</h3>
+                    </div>
+                    <div className="textChannelHeaderContainer">
+                        <h3 className="textChannels">TEXT CHANNELS</h3>
+                        {/* If user is the server owner, show the plus sign */}
+                        <div onClick={() => setShowAddForm(true)}>
+                            <i class="fas fa-plus"></i>
+                        </div>
                     </div>
                     <div className="channelList">
                         {channels?.map(channel => {
@@ -90,24 +100,37 @@ function ChannelsContainer() {
                         }
                         )}
                     </div>
-                    <h4>Add a Channel</h4>
-                    <form onSubmit={addChannel} autoComplete="off">
-                        <label>Add Channel</label>
-                        <input
-                            type="text"
-                            value={name}
-                            required
-                            autoComplete="off"
-                            onChange={(e) => setChannelName(e.target.value)}
-                        />
-                        <button type="submit">Add</button>
-                    </form>
                     {errors.length > 0 && (
                         <>
                             {errors.map(error =>
                                 <p>{error}</p>
                             )}
                         </>
+                    )}
+                    {showAddForm && (
+                            <div className="addModal">
+                                <div className="addChannelFormContainer">
+                                    <h3>Create Text Channel</h3>
+                                    <h5>in Text Channels</h5>
+                                    <form onSubmit={addChannel} autoComplete="off">
+                                        <div className="addChannelInput">
+                                            <label>CHANNEL NAME</label>
+                                            <input
+                                                type="text"
+                                                value={name}
+                                                required
+                                                placeholder="# new-channel"
+                                                autoComplete="off"
+                                                onChange={(e) => setChannelName(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="addChannelButtons">
+                                            <button id="cancelChannel" onClick={handleCancel}>Cancel</button>
+                                            <button className="createChannel"id={allowAdd} type="submit">Create Channel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                     )}
                 </>
             )}
