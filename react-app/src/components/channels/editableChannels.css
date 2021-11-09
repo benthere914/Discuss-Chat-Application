@@ -3,6 +3,24 @@
     justify-content: space-between;
 }
 
-.editChannelIcons {
+.editChannelIconContainer {
     display: flex;
+    visibility: hidden;
+    color: rgb(185,187,190);
+}
+
+.editableChannel:hover {
+    background-color: rgb(58,60,67);
+}
+
+.editableChannel:hover .channelName {
+    color: rgb(255,255,255);
+}
+
+.editableChannel:hover .editChannelIconContainer {
+    visibility: visible;
+}
+
+.editChannelIcons:hover {
+    cursor: pointer;
 }

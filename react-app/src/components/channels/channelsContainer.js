@@ -55,19 +55,19 @@ function ChannelsContainer() {
     }
 
     return (
-        <>
+        <div className="channelContainer">
             {isLoaded && (
                 <>
-                    <h3>Server Name</h3>
-                    <h3>TEXT CHANNELS</h3>
+                    <h3 className="serverName">Server Name</h3>
+                    <h3 className="textChannels">TEXT CHANNELS</h3>
                     {/* If user is the server owner, show the plus sign */}
                     <div>
                         <i class="fas fa-plus"></i>
                     </div>
-                    <div>
+                    <div className="channelList">
                         {channels?.map(channel => {
                             // Remove this hard coded server_owner
-                            if (user?.id === server_owner) {
+                            if (user.id === server_owner) {
                                 return (
                                     <EditableChannel channel={channel}/>
                                 )
@@ -76,10 +76,10 @@ function ChannelsContainer() {
                                     <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
                                         <>
                                             {channel.name.length > 16 ? (
-                                                <h4 className="channelName">{`${channel.name.substring(0,16)}...`}</h4>
+                                                <h4 className="channelName">{`# ${channel.name.substring(0,16)}...`}</h4>
                                             ):
                                             (
-                                                <h4 className="channelName">{channel.name}</h4>
+                                                <h4 className="channelName">{`# ${channel.name}`}</h4>
                                             )}
                                         </>
                                     </Link>
@@ -100,17 +100,6 @@ function ChannelsContainer() {
                         />
                         <button type="submit">Add</button>
                     </form>
-                    <form onSubmit={updateChannel} autoComplete="off">
-                        <label>Update Channel</label>
-                        <input
-                            type="text"
-                            value={name}
-                            required
-                            autoComplete="off"
-                            onChange={(e) => setChannelName(e.target.value)}
-                        />
-                        <button type="submit">Update</button>
-                    </form>
                     {errors.length > 0 && (
                         <>
                             {errors.map(error =>
@@ -120,7 +109,7 @@ function ChannelsContainer() {
                     )}
                 </>
             )}
-        </>
+        </div>
     )
 }
 

@@ -1,12 +1,32 @@
+.channelContainer {
+    background-color: rgb(47,49,54);
+    width: fit-content;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .channelNameHolder {
     width: 225px;
 }
 
+.serverName {
+    color: rgb(255,255,255)
+}
+
+.textChannels {
+    color: rgb(142,146,151);
+}
+
+.channelList a {
+    text-decoration: none;
+}
+
 .channelName {
+    color: rgb(142,146,151);
     margin: 0;
     width: fit-content;
     max-width: 200px;
     white-space: nowrap;
     /* overflow: scroll; */
+    text-decoration: none;
 
 }

@@ -16,21 +16,13 @@ function EditableChannel({channel}) {
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
 
-    const [name, setChannelName] = useState('');
+    const [name, setChannelName] = useState(channel.name);
     const [errors, setErrors] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+
+    const [showIcons, setShowIcons] = useState(false)
     const [showEdit, setShowEdit] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
 
-    // useEffect(() => {
-    //     dispatch(loadUserChannels(1)).then(() => setIsLoaded(true));
-    //     // dispatch(loadUserChannels(serverId)).then(() => setIsLoaded(true));
-
-    //     return () => {
-    //         setIsLoaded()
-    //     }
-
-    // }, [dispatch])
 
     const updateChannel = async (e) => {
         setErrors([])
@@ -42,37 +34,51 @@ function EditableChannel({channel}) {
         const data = await dispatch(updateChannelName(channelId, serverId, name))
         if (data) {
             setErrors(data)
+        } else {
+            setShowEdit(false)
         }
+
     }
 
     return (
         <div className="channelNameHolder">
             {!showEdit && (
-                <div className="editableChannel">
+                <div className="editableChannel" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
                     <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
                         <>
                             {channel.name.length > 16 ? (
-                                <h4 className="channelName">{`${channel.name.substring(0,16)}...`}</h4>
+                                <h4 className="channelName">{`# ${channel.name.substring(0,16)}...`}</h4>
                             ):
                             (
-                                <h4 className="channelName">{channel.name}</h4>
+                                <h4 className="channelName">{`# ${channel.name}`}</h4>
                             )}
                         </>
                     </Link>
-                    <div className="editChannelIcons">
-                        <div onClick={() => setShowEdit(true)}>
+                    <div className="editChannelIconContainer">
+                        <div className="editChannelIcons" onClick={() => setShowEdit(true)}>
                             <i className="fas fa-cog"></i>
                         </div>
-                        <div onClick={() => setShowDelete(true)}>
+                        <div className="editChannelIcons" onClick={() => setShowDelete(true)}>
                             <i className="far fa-trash-alt"></i>
                         </div>
                     </div>
+
                 </div>
             )}
             {showEdit && (
-                <>
-                    <p>Edit Me</p>
-                </>
+                <div>
+                    <form onSubmit={updateChannel} autoComplete="off">
+                        <input
+                            type="text"
+                            value={name}
+                            required
+                            autoComplete="off"
+                            onChange={(e) => setChannelName(e.target.value)}
+                        />
+                        <button type="submit">Update</button>
+                        <button onClick={() => setShowEdit(false)}>Cancel</button>
+                    </form>
+                </div>
             )}
             {showDelete && (
                 <>
