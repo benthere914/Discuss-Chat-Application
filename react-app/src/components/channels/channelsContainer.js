@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserChannels, addNewChannel, updateChannelName } from '../../store/channel';
+import EditableChannel from './editableChannel';
+import './channelContainer.css'
 
-function Channels() {
+function ChannelsContainer() {
     const dispatch = useDispatch();
 
-    // TODO # Remove this hard coded serverId
+    // TODO # Remove this hard coded serverId and owner
     const serverId = 1;
+    const server_owner = 1
+
     // const { serverId } = useParams();
 
+    const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
 
     const [name, setChannelName] = useState('');
@@ -53,10 +58,34 @@ function Channels() {
         <>
             {isLoaded && (
                 <>
-                    <h1>Channel List</h1>
+                    <h3>Server Name</h3>
+                    <h3>TEXT CHANNELS</h3>
+                    {/* If user is the server owner, show the plus sign */}
                     <div>
-                        {channels?.map(channel =>
-                            <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}><h4>{channel.name}</h4></Link>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div>
+                        {channels?.map(channel => {
+                            // Remove this hard coded server_owner
+                            if (user?.id === server_owner) {
+                                return (
+                                    <EditableChannel channel={channel}/>
+                                )
+                            } else {
+                                return (
+                                    <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
+                                        <>
+                                            {channel.name.length > 16 ? (
+                                                <h4 className="channelName">{`${channel.name.substring(0,16)}...`}</h4>
+                                            ):
+                                            (
+                                                <h4 className="channelName">{channel.name}</h4>
+                                            )}
+                                        </>
+                                    </Link>
+                                )
+                            }
+                        }
                         )}
                     </div>
                     <h4>Add a Channel</h4>
@@ -95,4 +124,4 @@ function Channels() {
     )
 }
 
-export default Channels;
+export default ChannelsContainer;

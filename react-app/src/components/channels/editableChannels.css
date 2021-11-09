@@ -1,0 +1,8 @@
+.editableChannel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.editChannelIcons {
+    display: flex;
+}

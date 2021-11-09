@@ -1,0 +1,12 @@
+.channelNameHolder {
+    width: 225px;
+}
+
+.channelName {
+    margin: 0;
+    width: fit-content;
+    max-width: 200px;
+    white-space: nowrap;
+    /* overflow: scroll; */
+
+}
