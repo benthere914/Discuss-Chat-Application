@@ -12,7 +12,6 @@ function MainContent() {
             <NavBar />
             <h1>Welcome, logged in user</h1>
             <Channels/>
-            <Messages/>
         </>
     )
 }
