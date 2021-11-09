@@ -13,12 +13,11 @@ function Messages() {
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(loadChannelMessages(1)).then(() => setIsLoaded(true))
-
-        return () => {
-            setIsLoaded()
+        if (channelId) {
+            dispatch(loadChannelMessages(channelId)).then(() => setIsLoaded(true))
         }
-    }, [dispatch])
+
+    }, [dispatch, channelId])
 
     return (
         <>
@@ -26,8 +25,8 @@ function Messages() {
             <>
             <h1>Messages</h1>
             {messages?.map(message => {
-                <div key={message.id} className='full-comment'>
-                        {message.message}
+                <div key={message?.id}>
+                        {message?.message}
                 </div>
                 }
             )}

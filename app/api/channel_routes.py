@@ -25,6 +25,7 @@ View and add messages
 @channel_routes.route('/<int:channelId>/messages')
 @login_required
 def get_messages(channelId):
+    print(channelId)
     channelMessages = Channel_Message.query.filter(Channel_Message.channel_id == channelId).all()
     messages = [message.to_dict() for message in channelMessages]
     return {"servers": messages}
