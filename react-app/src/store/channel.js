@@ -2,6 +2,7 @@
 const LOAD = 'channels/LOAD_CHANNELS'
 const ADD_CHANNEL = 'channels/ADD_CHANNEL'
 const UPDATE_CHANNEL = 'channels/UPDATE_CHANNEL'
+const DELETE_CHANNEL = 'channels/DELETE_CHANNEL'
 
 const loadChannels = (channels) => ({
     type: LOAD,
@@ -18,6 +19,13 @@ const updateChannel = channel => {
         type: UPDATE_CHANNEL,
         channel
     }
+}
+
+const deleteChannel = channelId => {
+  return {
+      type: DELETE_CHANNEL,
+      channelId
+  }
 }
 
 
@@ -83,6 +91,19 @@ export const updateChannelName = (channel_id, server_id, name) => async (dispatc
       }
 }
 
+export const deleteSingleChannel = (channel_id) => async (dispatch) => {
+  const response = await fetch(`/api/channels/${channel_id}`, {
+      method: 'DELETE',
+      body: JSON.stringify({channel_id})
+  });
+
+  if (response.ok) {
+    dispatch(deleteChannel(channel_id))
+    return null;
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
 
 let initialState = {channels: null};
 
@@ -105,6 +126,10 @@ const channelsReducer = (state = initialState, action) => {
                 ...state,
                 [action.channel.id]: action.channel,
             }
+        case DELETE_CHANNEL:
+            const newState = {...state}
+            delete newState[action.channelId];
+            return newState;
         default:
             return state;
     }
