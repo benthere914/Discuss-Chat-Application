@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
+from app.models import Channel_Message
 # from app.models import User
 
 channel_routes = Blueprint('channels', __name__)
@@ -24,7 +25,9 @@ View and add messages
 @channel_routes.route('/<int:channelId>/messages')
 @login_required
 def get_messages(channelId):
-    return "All messages in the channel"
+    channelMessages = Channel_Message.query.filter(Channel_Message.channel_id == channelId).all()
+    messages = [message.to_dict() for message in channelMessages]
+    return {"servers": messages}
 
 
 # Add a message to a channel
