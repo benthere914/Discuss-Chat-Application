@@ -1,9 +1,11 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User, Server_Member
+from app.models import User, Server_Member, db
+from app.models.server import Server
+from .auth_routes import validation_errors_to_error_messages
+from app.forms import NewServerForm
 
 user_routes = Blueprint('users', __name__)
-
 
 @user_routes.route('/')
 @login_required
@@ -25,16 +27,21 @@ View and create servers
 
 # Get all servers a single user is a memeber of
 @user_routes.route('/<int:userId>/servers')
-# @login_required
-def user_srvers(userId):
-    userServers = Server_Member.query.filter(Server_Member.user_id == userId).all()
-    servers = [server.to_dict() for server in userServers]
+@login_required
+def user_servers(userId):
+    users_server = Server.query.join(Server_Member).filter(Server_Member.user_id == userId).all()
+    servers = [server.to_dict() for server in users_server]
     return {"servers": servers}
-
-
 
 # Create a new server. User ID is the owner of the server
 @user_routes.route('/<int:userId>/servers', methods=['POST'])
 @login_required
 def add_server(userId):
-    return "Created a new server"
+    form = NewServerForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        server = Server(name = form.data['name'], description = form.data['description'], icon = form.data['icon'], owner_id = userId)
+        db.session.add(server)
+        db.session.commit()
+        return server.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401

@@ -1,9 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Channel, db
-from app.forms import NewChannelForm
+from app.models import Channel, Server, db
+from app.forms import UpdateServerForm, addMemberForm, NewChannelForm
 from .auth_routes import validation_errors_to_error_messages
-
 
 server_routes = Blueprint('servers', __name__)
 
@@ -12,21 +11,40 @@ server_routes = Blueprint('servers', __name__)
 @server_routes.route('/')
 @login_required
 def all_servers():
-    return "All servers"
+    servers = Server.query.all()
+    return {'servers': [server.to_dict() for server in servers]}
 
+#single server
+@server_routes.route('/<int:id>', methods=['GET'])
+@login_required
+def single_servers(id):
+    servers = Server.query.get(id)
+    return servers.to_dict()
 
-# Update a Server name
+#Update a Server name
 @server_routes.route('/<int:serverId>', methods=['PATCH'])
 @login_required
 def update_server(serverId):
-    return "Updated server name"
+    form = UpdateServerForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        server = Server.query.filter(Server.id == form.data['server_id']).first()
+        server.name = form.data['name']
+        db.session.commit()
 
+        return server.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 # Delete a Server
 @server_routes.route('/<int:serverId>', methods=['DELETE'])
 @login_required
 def delete_servers(serverId):
-    return "Delete a server"
+    server= Server.query.filter(Server.id==serverId).first()
+    if server:
+        db.session.delete(server)
+        db.session.commit()
+        return "Deleted a server"
 
 '''
 View and add channels
@@ -74,4 +92,12 @@ def get_members(serverId):
 @server_routes.route('/<int:serverId>/members', methods=['POST'])
 @login_required
 def add_member(serverId):
-    return "Added a member to the server"
+    form = addMemberForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        server = addMemberForm()
+        form.populate_obj(server)
+        db.session.add(server)
+        db.session.commit()
+        return server.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
