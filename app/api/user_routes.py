@@ -1,3 +1,4 @@
+
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import User, Server_Member, db
@@ -37,7 +38,7 @@ def user_servers(userId):
 @user_routes.route('/<int:userId>/servers', methods=['POST'])
 @login_required
 def add_server(userId):
-    form = NewServerForm()
+  form = NewServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         server = Server(name = form.data['name'], description = form.data['description'], icon = form.data['icon'], owner_id = userId)
@@ -45,3 +46,26 @@ def add_server(userId):
         db.session.commit()
         return server.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@user_routes.route('/<int:userId>', methods=['PUT'])
+@login_required
+def update_username(userId):
+    body = request.get_json()
+    if (not 'password' in body):
+        return {"errors": True, 'error': 'invalid password'}
+    if (not( ('username' in body) or ('email' in body) or ('newPassword' in body))):
+        return {'errors': True, 'error': 'invalid data'}
+    user = User.query.get(userId)
+    if (not user.check_password(body['password'])):
+        return {"errors": True, 'error': 'invalid password'}
+    if ('username' in body):
+        user.username = body['username']
+    if ('email' in body):
+        user.email = body['email']
+    if ('newPassword' in body):
+        user.password = body['newPassword']
+        print('changing password')
+    db.session.add(user)
+    db.session.commit()
+    return user.to_dict()
+
