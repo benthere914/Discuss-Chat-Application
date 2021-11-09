@@ -22,14 +22,14 @@ export const loadUserChannels = (serverId) => async (dispatch) => {
     }
 }
 
-export const addNewChannel = (serverId, name) => async (dispatch) => {
-    const response = await fetch(`/api/servers/${serverId}/channels`, {
+export const addNewChannel = (server_id, name) => async (dispatch) => {
+    const response = await fetch(`/api/servers/${server_id}/channels`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        serverId,
+        server_id,
         name,
       }),
     });

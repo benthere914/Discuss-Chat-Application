@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import NavBar from '../NavBar';
-import { loadUserChannels } from '../../store/channel';
+import { loadUserChannels, addNewChannel } from '../../store/channel';
 
 function Channels() {
     const dispatch = useDispatch();
@@ -26,6 +26,7 @@ function Channels() {
     }, [dispatch])
 
     const addChannel = async (e) => {
+        setErrors([])
         e.preventDefault();
 
         const data = await dispatch(addNewChannel(serverId, name))
@@ -54,7 +55,15 @@ function Channels() {
                             autoComplete="off"
                             onChange={(e) => setChannelName(e.target.value)}
                         />
+                        <button type="submit">Add</button>
                     </form>
+                    {errors.length > 0 && (
+                        <>
+                            {errors.map(error =>
+                                <p>{error}</p>
+                            )}
+                        </>
+                    )}
                 </>
             )}
         </>
