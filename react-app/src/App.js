@@ -43,10 +43,16 @@ function App() {
         </Route>
         <Route path='/channels' exact={true}>
           <ServersContainer />
+          <ProfileBar/>
         </Route>
         <Route path='/channels/:serverId' exact={true}>
-          <ServersContainer />
-          <ChannelsContainer />
+          <div className="mainContentContainer">
+            <ServersContainer />
+            <div className="channelBar">
+              <ChannelsContainer />
+              <ProfileBar/>
+            </div>
+          </div>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <NavBar />

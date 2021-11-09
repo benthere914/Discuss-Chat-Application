@@ -9,20 +9,11 @@ import './channelContainer.css'
 function ChannelsContainer() {
     const dispatch = useDispatch();
 
-    // TODO # Remove this hard coded serverId and owner
-    // const serverId = 1;
-    const server_owner = 1
-
    const { serverId } = useParams();
 
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
-    const serverName = useSelector(state => state.serversReducer[serverId]?.name)
-
-    console.log("***************")
-    console.log(serverId)
-    console.log(serverName)
-    console.log("***************")
+    const server = useSelector(state => state.serversReducer[serverId])
 
     const [name, setChannelName] = useState('');
     const [errors, setErrors] = useState([]);
@@ -73,21 +64,21 @@ function ChannelsContainer() {
             {isLoaded && (
                 <>
                     <div className="serverNameContainer">
-                        <h3 className="serverName">{serverName}</h3>
+                        <h3 className="serverName">{server.name}</h3>
                     </div>
                     <div className="textChannelHeaderContainer">
                         <h3 className="textChannels">TEXT CHANNELS</h3>
-                        {/* If user is the server owner, show the plus sign */}
-                        <div onClick={() => setShowAddForm(true)}>
-                            <i className="fas fa-plus"></i>
-                        </div>
+                        {user?.id === server?.owner_id && (
+                            <div onClick={() => setShowAddForm(true)}>
+                                <i className="fas fa-plus"></i>
+                            </div>
+                        )}
                     </div>
                     <div className="channelList">
                         {channels?.map(channel => {
-                            // Remove this hard coded server_owner
-                            if (user.id === server_owner) {
+                            if (user?.id === server?.owner_id) {
                                 return (
-                                    <EditableChannel channel={channel} key={`editableChannel_${channel?.id}`}/>
+                                    <EditableChannel server={server} channel={channel} key={`editableChannel_${channel?.id}`}/>
                                 )
                             } else {
                                 return (

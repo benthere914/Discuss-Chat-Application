@@ -4,22 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
 
-function EditableChannel({channel}) {
+function EditableChannel({server, channel}) {
     const dispatch = useDispatch();
 
-    // TODO # Remove this hard coded serverId and owner
-    const serverId = 1;
-    const server_owner = 1
-
-    // const { serverId } = useParams();
-
-    const user = useSelector(state => state.session.user);
-    const channels = useSelector(state => Object.values(state.channels));
+    const serverId = server.id;
 
     const [name, setChannelName] = useState(channel.name);
     const [errors, setErrors] = useState([]);
 
-    const [showIcons, setShowIcons] = useState(false)
     const [showEdit, setShowEdit] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
 
@@ -58,7 +50,7 @@ function EditableChannel({channel}) {
     }
 
     return (
-        <div className="channelNameHolder" id="editableChannel" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
+        <div className="channelNameHolder" id="editableChannel">
             {!showEdit && !showDelete && (
                 <>
                     <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>

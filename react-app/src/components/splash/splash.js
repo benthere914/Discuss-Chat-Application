@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import MainContent from '../MainContent/mainContent';
 import './splash.css';
 
 function SplashPage() {

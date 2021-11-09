@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserServers } from '../../store/server';
-import ChannelsContainer from '../channels/channelsContainer';
+import './serverContainer.css'
 
 function ServersContainer() {
     const dispatch = useDispatch();
     const history = useHistory();
-
-    const { serverId } = useParams();
 
     const user = useSelector(state => state.session.user);
 
@@ -20,20 +18,22 @@ function ServersContainer() {
         dispatch(loadUserServers(user.id)).then(() => setIsLoaded(true));
 
         return () => {
-            setIsLoaded()
+            setIsLoaded(false)
         }
 
     }, [dispatch])
 
     return (
         <>
-            <div className="serversContainer">
-                {servers[0] !== null && servers.map(server =>
-                    <NavLink key={`server_${server.id}`} to={`/channels/${server.id}`}>
-                        <div>{server.name}</div>
-                    </NavLink>
-                )}
-            </div>
+            {isLoaded && (
+                <div className="serversContainer">
+                    {servers[0] !== null && servers.map(server =>
+                        <NavLink key={`server_${server.id}`} to={`/channels/${server.id}`}>
+                            <div>{server.name}</div>
+                        </NavLink>
+                    )}
+                </div>
+            )}
         </>
     )
 }

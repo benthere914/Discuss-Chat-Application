@@ -1,3 +1,4 @@
-/* body {
-    overflow: hidden;
-} */
+.mainContentContainer {
+    display: flex;
+    height: 100vh;
+}

@@ -1,0 +1,9 @@
+.serversContainer {
+    background-color: green;
+}
+
+.channelBar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}

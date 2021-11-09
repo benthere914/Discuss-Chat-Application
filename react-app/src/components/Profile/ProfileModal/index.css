@@ -4,6 +4,7 @@
     height: 100%;
     background-color: rgb(54,57, 63);
     z-index: 2;
+    top: 0;
 }
 .fa-times{
     position: absolute;
