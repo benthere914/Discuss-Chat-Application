@@ -16,7 +16,7 @@ let ProfileBar = () => {
     return (
         <>
             {profileModalVisible && <ProfileModal hash={hash} setProfileModalVisible={setProfileModalVisible} user={user}/>}
-            <ul className='profileBar'>
+            {user && <ul className='profileBar'>
                 <li>
                     <img className='profilePhoto' src={`https://www.gravatar.com/avatar/${hash}`}></img>
                 </li>
@@ -26,7 +26,7 @@ let ProfileBar = () => {
                 <li>
                     <i className='fas fa-cog profileWidget' onClick={() => {setProfileModalVisible((!profileModalVisible))}}></i>
                 </li>
-            </ul>
+            </ul>}
         </>
     )
 }
