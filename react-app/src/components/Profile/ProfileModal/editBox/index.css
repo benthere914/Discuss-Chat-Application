@@ -1,0 +1,88 @@
+.editBoxMain{
+    position: absolute;
+    bottom: 130px;
+    left: 35%;
+    z-index: 3;
+    width: 600px;
+    height: 330px;
+    background-color: rgb(32, 34, 37);
+    border-radius: 15px;
+}
+
+.editBoxTop{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.editBoxTitleMain{
+    color: white;
+    font-size: 25px;
+    margin: 15px;
+}
+
+.editBoxTitleSub{
+    color: lightgray;
+    font-size: 14px;
+    margin: 0px;
+}
+
+.editBoxMiddle{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    position: relative;
+    left: 15px;
+}
+
+.editBoxMiddle p{
+    color: white;
+}
+
+.editBoxMiddle input{
+    background-color: rgb(79,84, 92);
+    height: 35px;
+    color: white;
+    padding-left: 10px;
+    outline-color: blue;
+}
+
+.editBoxBottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 70px;
+    width: 200px;
+    position: relative;
+    left: 350px;
+    align-items: center;
+}
+
+.editBoxBottom .cancelLink{
+    color: white;
+
+}
+
+.editBoxBottom .cancelLink:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.editBoxBottom div{
+    background-color: rgb(88,101,242);
+    width: 80px;
+    height: 35px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.editBoxBottom div:hover{
+    background-color: rgb(61, 75, 230);
+    cursor: pointer;
+}
+
+.editBoxBottom .doneLink{
+    color: white;
+    margin-top: 0px;
+    position: relative;
+    top: 7px;
+}

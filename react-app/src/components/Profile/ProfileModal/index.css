@@ -1,0 +1,148 @@
+.modalBackground{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(54,57, 63);
+    z-index: 2;
+}
+.fa-times{
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    transform: scale(3);
+    color: white;
+    transition: .1s;
+}
+
+.fa-times:hover{
+    cursor: pointer;
+    transform: scale(3.5);
+}
+
+.profileModalMain{
+    position: absolute;
+    /* top: 100px; */
+    /* left: 100px; */
+    top: 70px;
+    left: 35%;
+    z-index: 1;
+    width: 600px;
+    height: 420px;
+    border-radius: 10px;
+    background-color: rgb(32,34, 37);
+    box-sizing: border-box;
+}
+
+
+.profileModalTop{
+    background-color: rgb(115, 100, 82);
+    z-index: 2;
+    width: 600px;
+    height: 120px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.profileModalPhoto{
+    border-radius: 50%;
+    background-color: rgb(32,34, 37);
+    position: relative;
+    padding: 7px;
+    bottom: 10px;
+
+}
+
+.profielModalMiddle ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0;
+    height: 70px;
+}
+
+.profileModalUsername{
+    color: white;
+    position: relative;
+    bottom: 5px;
+    left: 10px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+
+.profileModalBottom{
+    background-color: rgb(47, 49, 54);
+    width: 570px;
+    height: 190px;
+    position: relative;
+    left: 15px;
+    top: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    color: white;
+}
+
+
+.modalItems li{
+    list-style: none;
+}
+
+.modalItems li ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 15px 0px 15px;
+    align-items: center;
+}
+.modalItems{
+    padding: 0px;
+}
+#editButton p{
+    width: 50px;
+    height: 25px;
+    background-color: rgb(79, 84, 92);
+    color: white;
+    box-shadow: none;
+    outline: none;
+    text-align: center;
+    padding-top: 7px;
+    transition: .1s;
+}
+
+#editButton p:hover{
+    cursor: pointer;
+    background-color: rgb(129, 131, 133);
+
+}
+
+
+#modalData > p{
+    margin: 5px;
+}
+
+.accountRemoval{
+    position: absolute;
+    left: 35%;
+    bottom: 5px;
+    list-style: none;
+    color: lightgray;
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 1px red;
+}
+
+.deleteAccount{
+    border: solid 1px red;
+    color: red;
+    padding: 15px;
+}
+
+.deleteAccount:hover{
+    cursor: pointer;
+    background-color: red;
+    color: white;
+}
