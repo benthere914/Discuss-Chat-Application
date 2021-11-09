@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
 
-function EditableChannel({channel}) {
+function EditableChannel({server, channel}) {
     const dispatch = useDispatch();
 
-    // TODO # Remove this hard coded serverId and owner
-    const serverId = 1;
-    const server_owner = 1
+    const serverId = server.id;
 
-    // const { serverId } = useParams();
-
-    const user = useSelector(state => state.session.user);
-    const channels = useSelector(state => Object.values(state.channels));
-
-    const [name, setChannelName] = useState(channel.name);
+    const [name, setChannelName] = useState(channel?.name);
     const [errors, setErrors] = useState([]);
 
-    const [showIcons, setShowIcons] = useState(false)
     const [showEdit, setShowEdit] = useState(false)
     const [showDelete, setShowDelete] = useState(false)
 
@@ -58,16 +50,16 @@ function EditableChannel({channel}) {
     }
 
     return (
-        <div className="channelNameHolder" id="editableChannel" onMouseOver={() => setShowIcons(true)} onMouseOut={() => setShowIcons(false)}>
+        <div className="channelNameHolder" id="editableChannel">
             {!showEdit && !showDelete && (
                 <>
-                    <Link key={`channel_${channel.id}`} to={`/channels/${channel.server_id}/${channel.id}`}>
+                    <Link key={`channel_${channel?.id}`} to={`/channels/${channel?.server_id}/${channel?.id}`}>
                         <>
-                            {channel.name.length > 16 ? (
-                                <h4 className="channelName">{`# ${channel.name.substring(0,16)}...`}</h4>
+                            {channel?.name.length > 16 ? (
+                                <h4 className="channelName">{`# ${channel?.name.substring(0,16)}...`}</h4>
                             ):
                             (
-                                <h4 className="channelName">{`# ${channel.name}`}</h4>
+                                <h4 className="channelName">{`# ${channel?.name}`}</h4>
                             )}
                         </>
                     </Link>
@@ -94,12 +86,12 @@ function EditableChannel({channel}) {
                         />
                         <button type="submit">
                             <div className="editChannelIcons" id="leftIcon">
-                                <i class="far fa-check-circle"></i>
+                                <i className="far fa-check-circle"></i>
                             </div>
                         </button>
                         <button onClick={() => setShowEdit(false)}>
                             <div className="editChannelIcons">
-                                <i class="fas fa-times"></i>
+                                <i className="fas fa-times"></i>
                             </div>
                         </button>
                     </form>
