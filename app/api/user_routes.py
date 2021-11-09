@@ -72,3 +72,12 @@ def update_username(userId):
     db.session.add(user)
     db.session.commit()
     return user.to_dict()
+
+
+@user_routes.route('/<int:userId>', methods=['DELETE'])
+@login_required
+def delete_user(userId):
+    user = User.query.get(userId)
+    db.session.delete(user)
+    db.session.commit()
+    return 'success'

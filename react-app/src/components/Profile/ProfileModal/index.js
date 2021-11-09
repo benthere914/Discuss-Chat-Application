@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import EditBox from './editBox'
-import { logout } from '../../../store/session'
+import { logout, deleteAccount } from '../../../store/session'
 import LogoutButton from '../../auth/LogoutButton'
 
 let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
@@ -13,20 +13,32 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
     const [title, setTitle] = useState('')
     const [data, setData] = useState('');
     const [password, setPassword] = useState('')
-    const editHandler = (string) => {
-        setEditBoxVisible(true);
-        setTitle(string);
-        setData('')
-        setPassword('')
-    }
-    const logoutHandler = () => {
+
+    const reset = () => {
         setTitle('')
         setData('')
         setPassword('')
+    }
+
+    const editHandler = (string) => {
+        setEditBoxVisible(true);
+        reset()
+        setTitle(string);
+
+    }
+    const logoutHandler = () => {
+        reset()
         setProfileModalVisible(false)
         dispatch(logout())
-        console.log('got here 12345')
         history.push('/')
+    }
+
+    const deleteAccountHandler = () => {
+        const userId = user.id
+        logoutHandler()
+        dispatch(deleteAccount(userId))
+
+
     }
 
 	return (
@@ -104,7 +116,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
                     <p>Account Removal</p>
                 </li>
                 <li>
-                    <p className='deleteAccount'>Delete Account</p>
+                    <p onClick={() => {deleteAccountHandler()}} className='deleteAccount'>Delete Account</p>
                 </li>
             </ul>
 			</div>
