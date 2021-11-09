@@ -5,7 +5,8 @@ import EditBox from './editBox'
 let ProfileModal = ({ hash, setProfileModalVisible }) => {
 	const [phoneButton, setPhoneButton] = useState('Add');
 	const [phoneNumber, setPhoneNumber] = useState(null);
-    const [editBoxVisible, setEditBoxVisible] = useState(false)
+    const [editBoxVisible, setEditBoxVisible] = useState(false);
+    const [title, setTitle] = useState('')
 	useEffect(() => {
 		if (!phoneNumber) {
 			setPhoneButton('Add');
@@ -42,7 +43,7 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 										<p>Username</p>
 										<p>Benthere914</p>
 									</li>
-									<li id="editButton" onClick={() => {setEditBoxVisible(true)}}>
+									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Username')}}>
 										<p>Edit</p>
 									</li>
 								</ul>
@@ -53,7 +54,7 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 										<p>Email</p>
 										<p>Benthere914@gmail.com</p>
 									</li>
-									<li id="editButton">
+									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Email')}}>
 										<p>Edit</p>
 									</li>
 								</ul>
@@ -61,20 +62,18 @@ let ProfileModal = ({ hash, setProfileModalVisible }) => {
 							<li>
 								<ul className="modalEmail">
 									<li id="modalData">
-										<p>Phone Number</p>
-										<p>
-											You haven't added a phone number yet
-										</p>
+										<p>Password</p>
+										<p>*********</p>
 									</li>
-									<li id="editButton">
-										<p>{phoneButton}</p>
+									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Password')}}>
+										<p>Edit</p>
 									</li>
 								</ul>
 							</li>
 						</ul>
 					</div>
 				</div>
-            {editBoxVisible && <EditBox/>}
+            {editBoxVisible && <EditBox title={title} phoneTitle={phoneButton}/>}
 			</div>
 		</>
 	);
