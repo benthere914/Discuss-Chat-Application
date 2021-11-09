@@ -14,6 +14,9 @@ import Messages from './components/messages/messages';
 import ProfileBar from './components/Profile/ProfileBar'
 
 import { authenticate } from './store/session';
+import MainContent from './components/MainContent/mainContent';
+import ServersContainer from './components/servers/serverContainer';
+import ChannelsContainer from './components/channels/channelsContainer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -32,7 +35,6 @@ function App() {
 
   return (
     <BrowserRouter>
-        <ProfileBar/>
       <Switch>
         <Route path='/' exact={true} >
           <SplashPage />
@@ -42,6 +44,21 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path='/channels' exact={true}>
+          <div className="mainContentContainer">
+            <ServersContainer />
+            <ProfileBar/>
+          </div>
+        </Route>
+        <Route path='/channels/:serverId' exact={true}>
+          <div className="mainContentContainer">
+            <ServersContainer />
+            <div className="channelBar">
+              <ChannelsContainer />
+              <ProfileBar/>
+            </div>
+          </div>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <NavBar />

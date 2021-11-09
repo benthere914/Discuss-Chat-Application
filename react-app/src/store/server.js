@@ -26,7 +26,7 @@ const remove = (servers) => ({
 
 //load user's servers
 export const loadUserServers = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/users/${userId}/servers/`);
+  const response = await fetch(`/api/users/${userId}/servers`);
 
   if (response.ok) {
     const servers = await response.json();
@@ -37,7 +37,7 @@ export const loadUserServers = (userId) => async (dispatch) => {
 //add a member to a server
 export const addMember = (userId, server) => async (dispatch) => {
   const { server_id, user_id } = server;
-  const response = await fetch(`/api/users/${userId}/servers/`, {
+  const response = await fetch(`/api/users/${userId}/servers`, {
     method: "POST",
     body: JSON.stringify({
       server_id,
