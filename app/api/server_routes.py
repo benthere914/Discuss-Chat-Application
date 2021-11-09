@@ -40,11 +40,11 @@ def update_server(serverId):
 @server_routes.route('/<int:serverId>', methods=['DELETE'])
 @login_required
 def delete_servers(serverId):
-    #servers = Server.query.get(serverId)
-    server=db.session.query(Server).filter(Server.id==serverId).first()
-    db.session.delete(server)
-    db.session.commit()
-    return "Deleted a server"
+    server= Server.query.filter(Server.id==serverId).first()
+    if server:
+        db.session.delete(server)
+        db.session.commit()
+        return "Deleted a server"
 
 '''
 View and add channels

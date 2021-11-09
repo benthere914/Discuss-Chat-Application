@@ -29,8 +29,12 @@ View and create servers
 @user_routes.route('/<int:userId>/servers')
 @login_required
 def user_srvers(userId):
+    joinedResults = db.session.query(Server_Member).join(Server).filter(Server_Member.user_id == userId).all()
+    print("THIS IS OUR PRINT", joinedResults)
     userServers = Server_Member.query.filter(Server_Member.user_id == userId).all()
-    servers = [server.to_dict() for server in userServers]
+    # serversInfo = Server.query.filter(Server.id == userId.server_id).all()
+    servers = [server.to_dict() for server in joinedResults]
+    # serverInfo = [server.to_dict() for server in serversInfo]
     return {"servers": servers}
 
 # Create a new server. User ID is the owner of the server
@@ -40,10 +44,7 @@ def add_server(userId):
     form = NewServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        server = NewServerForm()
-        form.populate_obj(server, owner_id=form.data[userId])
-        # server = Server(owner_id=form.data[userId],
-        #     server_id=form.data['server_id'])
+        server = Server(name = form.data['name'], description = form.data['description'], icon = form.data['icon'], owner_id = userId)
         db.session.add(server)
         db.session.commit()
         return server.to_dict()
