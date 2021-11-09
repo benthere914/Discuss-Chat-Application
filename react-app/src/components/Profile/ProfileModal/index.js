@@ -6,6 +6,14 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 	const [phoneNumber, setPhoneNumber] = useState(null);
     const [editBoxVisible, setEditBoxVisible] = useState(false);
     const [title, setTitle] = useState('')
+    const [data, setData] = useState('');
+    const [password, setPassword] = useState('')
+    const editHandler = (string) => {
+        setEditBoxVisible(true);
+        setTitle(string);
+        setData('')
+        setPassword('')
+    }
 
 	return (
 		<>
@@ -36,7 +44,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 										<p>Username</p>
 										<p>{user?.username}</p>
 									</li>
-									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Username')}}>
+									<li id="editButton" onClick={() => {editHandler('Username')}}>
 										<p>Edit</p>
 									</li>
 								</ul>
@@ -47,7 +55,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 										<p>Email</p>
 										<p>{user?.email}</p>
 									</li>
-									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Email')}}>
+									<li id="editButton" onClick={() => {editHandler('Email')}}>
 										<p>Edit</p>
 									</li>
 								</ul>
@@ -58,7 +66,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 										<p>Password</p>
 										<p>*********</p>
 									</li>
-									<li id="editButton" onClick={() => {setEditBoxVisible(true); setTitle('Password')}}>
+									<li id="editButton" onClick={() => {editHandler('Password')}}>
 										<p>Edit</p>
 									</li>
 								</ul>
@@ -66,7 +74,15 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 						</ul>
 					</div>
 				</div>
-            {editBoxVisible && <EditBox title={title} userId={user.id} setEditBoxVisible={setEditBoxVisible}/>}
+            {editBoxVisible && <EditBox
+            title={title}
+            userId={user.id}
+            setEditBoxVisible={setEditBoxVisible}
+            data={data}
+            password={password}
+            setData={setData}
+            setPassword={setPassword}
+            />}
             <ul className='accountRemoval'>
                 <li>
                     <p>Account Removal</p>
