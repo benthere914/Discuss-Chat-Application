@@ -1,0 +1,75 @@
+#editableChannel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editChannelIconContainer {
+  display: flex;
+  visibility: hidden;
+  color: rgb(185, 187, 190);
+  padding: 5px;
+}
+
+#editableChannel:hover .editChannelIconContainer {
+  visibility: visible;
+}
+
+.editChannelIcons:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.updateChannelForm button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.updateChannelForm input {
+  width: 174px;
+  outline: none;
+  background-color: rgb(231, 238, 255);
+  border: none;
+  color: rgb(43, 45, 46);
+  padding: 3px;
+  font-size: 1rem;
+  margin: 2px 0;
+}
+
+.editChannelIcons {
+  color: rgb(185, 187, 190);
+}
+
+#leftIcon {
+  margin: 0 6px;
+}
+
+#deleteChannelHeader, #deleteChannelSubHeader {
+  text-align: start;
+  color: white;
+}
+
+#deleteChannelSubHeader {
+  margin-top: 15px;
+  font-weight: 200;
+  font-size: 16px;
+}
+
+#channelDeleteName {
+  font-weight: 700;
+}
+
+#deleteChannel {
+  background-color: rgb(237,66,69);
+  color: white;
+  cursor: pointer;
+}
+
+#deleteChannel:hover {
+  background-color: rgb(184, 51, 53);
+}
