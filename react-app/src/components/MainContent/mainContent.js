@@ -3,15 +3,15 @@ import { NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import NavBar from '../NavBar';
 import ChannelsContainer from '../channels/channelsContainer';
+import './mainContent.css'
 
 function MainContent() {
 
     return (
-        <>
-            <NavBar />
-            <h1>Welcome, logged in user</h1>
+        <div className="mainContentContainer">
             <ChannelsContainer />
-        </>
+            <NavBar />
+        </div>
     )
 }
 

@@ -27,7 +27,11 @@ def update_channel(channelId):
 @channel_routes.route('/<int:channelId>', methods=['DELETE'])
 @login_required
 def delete_channel(channelId):
-    return "Deleted channel"
+    channel = Channel.query.filter(Channel.id == channelId).first()
+    if channel:
+        db.session.delete(channel)
+        db.session.commit()
+        return "Channel Deleted"
 
 '''
 View and add messages

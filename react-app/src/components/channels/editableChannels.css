@@ -17,6 +17,7 @@
 
 .editChannelIcons:hover {
   cursor: pointer;
+  color: white;
 }
 
 .updateChannelForm button {

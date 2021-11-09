@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadUserChannels, addNewChannel, updateChannelName } from '../../store/channel';
+import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
 
 function EditableChannel({channel}) {
@@ -27,9 +27,18 @@ function EditableChannel({channel}) {
         setShowDelete(false)
     }
 
-    const handleDelete = () => {
-        //Delete it!
-        setShowDelete(false)
+    const handleDelete = async (e) => {
+        setErrors([])
+        e.preventDefault();
+
+        const channelId = channel.id
+
+        const data = await dispatch(deleteSingleChannel(channelId))
+        if (data) {
+            setErrors(data)
+        } else {
+            setShowDelete(false)
+        }
     }
 
 
@@ -37,7 +46,6 @@ function EditableChannel({channel}) {
         setErrors([])
         e.preventDefault();
 
-        // TODO # Remove this hard coded channelId
         const channelId = channel.id
 
         const data = await dispatch(updateChannelName(channelId, serverId, name))
