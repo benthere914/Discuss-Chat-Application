@@ -24,6 +24,7 @@ const remove = (servers) => ({
   payload: servers,
 });
 
+//load user's servers
 export const loadUserServers = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}/servers/`);
 
@@ -33,6 +34,23 @@ export const loadUserServers = (userId) => async (dispatch) => {
   }
 };
 
+//add a member to a server
+export const addMember = (userId, server) => async (dispatch) => {
+  const { server_id, user_id } = server;
+  const response = await fetch(`/api/users/${userId}/servers/`, {
+    method: "POST",
+    body: JSON.stringify({
+      server_id,
+      user_id,
+    }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(add_server(data));
+  }
+};
+
+//add a server
 export const addServer = (server, serverId) => async (dispatch) => {
     const { name, description, owner_id, icon } = server;
   const response = await fetch(`/api/servers/${serverId}`, {
@@ -47,6 +65,34 @@ export const addServer = (server, serverId) => async (dispatch) => {
   }
 };
 
+//delete a server
+export const deleteServer = (id) => async (dispatch) => {
+  const response = await fetch(`/api/servers/${id}`, {
+    method: "delete",
+  });
+  if (response.ok) {
+  const data = await response.json();
+  dispatch(remove(data));
+  return data;
+  }
+};
+
+//edit a server
+export const editServer = (server, id) => async (dispatch) => {
+  const { name } = server;
+  const response = await fetch(`/api/servers/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      name,
+    }),
+  });
+  if (response.ok) {
+  const data = await response.json();
+  dispatch(add_server(data));
+  return data;
+  }
+};
+
 let initialState = { servers: null };
 
 const serversReducer = (state = initialState, action) => {
@@ -58,6 +104,19 @@ const serversReducer = (state = initialState, action) => {
         allServers[server.id] = server;
       }
       return { ...allServers };
+    case REMOVE_SERVER: {
+      const newState = { ...state };
+      delete newState[action.server];
+      return newState;
+    }
+    case ADD_SERVER: {
+      const newState = Object.assign({}, state);
+      newState.servers = {
+        ...newState.servers,
+        [action.payload.id]: action.payload,
+      };
+      return newState;
+    }
     default:
       return state;
   }

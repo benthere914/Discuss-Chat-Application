@@ -28,13 +28,9 @@ View and create servers
 # Get all servers a single user is a memeber of
 @user_routes.route('/<int:userId>/servers')
 @login_required
-def user_srvers(userId):
-    joinedResults = db.session.query(Server_Member).join(Server).filter(Server_Member.user_id == userId).all()
-    print("THIS IS OUR PRINT", joinedResults)
-    userServers = Server_Member.query.filter(Server_Member.user_id == userId).all()
-    # serversInfo = Server.query.filter(Server.id == userId.server_id).all()
-    servers = [server.to_dict() for server in joinedResults]
-    # serverInfo = [server.to_dict() for server in serversInfo]
+def user_servers(userId):
+    users_server = Server.query.join(Server_Member).filter(Server_Member.user_id == userId).all()
+    servers = [server.to_dict() for server in users_server]
     return {"servers": servers}
 
 # Create a new server. User ID is the owner of the server
