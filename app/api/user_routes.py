@@ -46,7 +46,7 @@ def update_username(userId):
     body = request.get_json()
     if (not 'password' in body):
         return {"errors": True, 'error': 'invalid password'}
-    if (not ('username' in body) or ('email' in body) or 'newPassword' in body):
+    if (not( ('username' in body) or ('email' in body) or ('newPassword' in body))):
         return {'errors': True, 'error': 'invalid data'}
     user = User.query.get(userId)
     if (not user.check_password(body['password'])):
@@ -57,6 +57,7 @@ def update_username(userId):
         user.email = body['email']
     if ('newPassword' in body):
         user.password = body['newPassword']
+        print('changing password')
     db.session.add(user)
     db.session.commit()
     return user.to_dict()

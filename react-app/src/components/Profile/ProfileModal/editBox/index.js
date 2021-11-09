@@ -8,15 +8,20 @@ let EditBox = ({title, setEditBoxVisible, userId}) => {
     const [data, setData] = useState('');
     const [password, setPassword] = useState('')
 
+    const reset = () => {
+        setData('')
+        setPassword('')
+    }
+
     const updateData = () => {
         if (title === 'Username'){
-            dispatch(sessionActions.updateUsername(userId, data, password))
+            dispatch(sessionActions.updateUsername(userId, data, password)).then(() => {reset()})
         }
         else if (title === 'Email'){
-            dispatch(sessionActions.updateUseremail(userId, data, password))
+            dispatch(sessionActions.updateUseremail(userId, data, password)).then(() => {reset()})
         }
         else if (title === 'Password'){
-            console.log('bud')
+            dispatch(sessionActions.updateUserPassword(userId, data, password)).then(() => {reset()})
         }
     }
 	return (

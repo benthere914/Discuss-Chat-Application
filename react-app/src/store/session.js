@@ -24,7 +24,7 @@ const updateUserEmail = (payload) => ({
     payload: payload
 })
 
-const updateUserPassword = (payload) => ({
+const updateUserPassWord = (payload) => ({
     type: UPDATE_USER_PASSWORD,
     payload: payload
 })
@@ -155,6 +155,26 @@ export const updateUsername = (userId, username, password) => async (dispatch) =
 
   }
 
+  export const updateUserPassword = (userId, newPassword, password) => async (dispatch) => {
+    const response = await fetch(`/api/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        newPassword, password
+      })
+    });
+    const result = await response.json()
+    console.log(result)
+    if (result.errors){
+        console.log('hello therr')
+        return 'an error occurred. Please try again'
+    }
+    dispatch(updateUserPassWord(result))
+
+  }
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
@@ -162,6 +182,8 @@ export default function reducer(state = initialState, action) {
     case REMOVE_USER:
       return { user: null }
     case UPDATE_USERNAME:
+        return {user: action.payload}
+    case UPDATE_USER_EMAIL:
         return {user: action.payload}
     default:
       return state;
