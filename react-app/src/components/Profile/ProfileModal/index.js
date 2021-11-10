@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import EditBox from './editBox'
-import { logout } from '../../../store/session'
+import { logout, deleteAccount } from '../../../store/session'
 import LogoutButton from '../../auth/LogoutButton'
 
 let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
@@ -13,20 +13,42 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
     const [title, setTitle] = useState('')
     const [data, setData] = useState('');
     const [password, setPassword] = useState('')
-    const editHandler = (string) => {
-        setEditBoxVisible(true);
-        setTitle(string);
-        setData('')
-        setPassword('')
-    }
-    const logoutHandler = () => {
+    const [deleteModalPassword, setDeleteModalPassword] = useState('')
+    const [deleteModal, setDeleteModal] = useState(false)
+    const [deleteInputBorder, setDeleteInputBorder] = useState('blue')
+
+    const reset = () => {
         setTitle('')
         setData('')
         setPassword('')
+    }
+
+    const editHandler = (string) => {
+        setEditBoxVisible(true);
+        reset()
+        setTitle(string);
+
+    }
+    const logoutHandler = async () => {
+        reset()
         setProfileModalVisible(false)
-        dispatch(logout())
-        console.log('got here 12345')
+        await dispatch(logout())
         history.push('/')
+    }
+
+    const deleteAccountHandler = () => {
+        const userId = user.id
+        dispatch(deleteAccount(userId, deleteModalPassword)).then((e) => {
+            if (e === 'Incorrect Password'){
+                setDeleteModalPassword('')
+                setDeleteInputBorder('red')
+            }
+            else{
+                logoutHandler()
+            }
+        })
+
+
     }
 
 	return (
@@ -104,10 +126,26 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
                     <p>Account Removal</p>
                 </li>
                 <li>
-                    <p className='deleteAccount'>Delete Account</p>
+                    <p onClick={() => {setDeleteModal(true)}} className='deleteAccount'>Delete Account</p>
                 </li>
             </ul>
 			</div>
+            {deleteModal && (
+            <div className='deleteModal'>
+                <div className='deleteModalTop'>
+                    <p className='deleteTitleMain'>Delete Account</p>
+                    <p className='deleteTitleSub'>Are you sure you want to delete your account? This will imediately log you out of your account and you will not be able to log in again.</p>
+                </div>
+                <div className='deleteModalMiddle'>
+                    <p>Password</p>
+                    <input style={{border: `solid 1px ${deleteInputBorder}`}} value={deleteModalPassword} onChange={(e) => {setDeleteModalPassword(e.target.value); setDeleteInputBorder('blue')}}></input>
+                </div>
+                <div className='deleteModalBottom'>
+                    <p onClick={() => {setDeleteModalPassword(''); setDeleteModal(false)}} className='cancelDelete'>Cancel</p>
+                    <p onClick={() => {deleteAccountHandler()}} className='confirmDelete'>Delete Account</p>
+                </div>
+
+            </div>)}
 		</>
 	);
 };

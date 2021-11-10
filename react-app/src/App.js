@@ -14,7 +14,6 @@ import Messages from './components/messages/messages';
 import ProfileBar from './components/Profile/ProfileBar'
 
 import { authenticate } from './store/session';
-import MainContent from './components/MainContent/mainContent';
 import ServersContainer from './components/servers/serverContainer';
 import ChannelsContainer from './components/channels/channelsContainer';
 
@@ -48,7 +47,10 @@ function App() {
         <Route path='/channels' exact={true}>
           <div className="mainContentContainer">
             <ServersContainer />
-            <ProfileBar/>
+            <div className="channelBar">
+              <div className="emptyChannels">Select a Server</div>
+              <ProfileBar/>
+            </div>
           </div>
         </Route>
         <Route path='/channels/:serverId' exact={true}>

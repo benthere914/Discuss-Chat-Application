@@ -161,3 +161,96 @@
     border-radius: 15px;
     margin: 0px;
 }
+
+.deleteModal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 500px;
+    height: 370px;
+    z-index: 3;
+    position: absolute;
+    left: 35%;
+    top: 20%;
+    box-shadow: 0 0 0 70vmax rgba(0,0,0,.6);
+    background-color: rgb(32,34, 37);
+}
+
+
+.deleteTitleMain{
+    color: white;
+    font-size: 20px;
+    margin: 0px;
+    position: relative;
+    left: 15px;
+    font-size: 25px;
+
+}
+.deleteTitleSub{
+    background-color: rgb(250, 166, 26);
+    color: white;
+    font-size: 20px;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.deleteModal ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+    padding: 0px;
+}
+
+.deleteModal ul li{
+    border: solid 1px black;
+    width: 100px;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+}
+
+.deleteModalMiddle{
+    width: 470px;
+}
+
+.deleteModalMiddle p{
+    color: white;
+}
+.deleteModalMiddle input{
+    width: 93%;
+    height: 10px;
+    background-color: rgb(27, 29, 32);
+    color: white;
+    outline: none;
+    border: none;
+    padding: 15px;
+    font-size: 15px;
+}
+
+.deleteModalBottom{
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+    position: relative;
+    left: 140px;
+    color: white;
+    align-items: center;
+}
+
+.deleteModalBottom p{
+    cursor: pointer;
+}
+
+.confirmDelete{
+    padding: 9px;
+    background-color: rgb(80, 101, 242);
+    border-radius: 5px;
+}
+
+.cancelDelete:hover{
+    text-decoration: underline;
+}

@@ -67,7 +67,7 @@ function LoginForm() {
                 )}
               </label>
               <input
-                id={loginErrorBorder}
+                className={loginErrorBorder}
                 name='email'
                 type="text"
                 required
@@ -84,7 +84,7 @@ function LoginForm() {
                 )}
               </label>
                <input
-                id={loginErrorBorder}
+                className={loginErrorBorder}
                 name='password'
                 type="password"
                 required
