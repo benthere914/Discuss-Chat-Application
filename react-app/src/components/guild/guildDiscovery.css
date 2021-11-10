@@ -30,7 +30,7 @@
     z-index: 2;
     position: relative;
     width: fit-content;
-    margin: auto auto;
+    margin: 8vw auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,13 +52,40 @@
 .searchGuildForm {
     max-width: 540px;
     min-width: 350px;
+    width: 35vw;
     background-color: white;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    border-radius: 3px;
 }
 
 .searchInput {
-    width: 30vw;
+    flex-grow:1;
     padding: 10px;
     border: none;
     outline: none;
     font-size: 16px;
+    border-radius: 3px;
+}
+
+.searchCompassButton {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+    color: rgb(150,153,157);
+    margin-right: 10px;
+}
+
+.searchGuildForm:focus-within {
+    outline: solid rgb(191, 176, 255);
+}
+
+.featuredContainer h4 {
+    color: white;
+    font-size: 20px;
+    font-weight: lighter;
 }

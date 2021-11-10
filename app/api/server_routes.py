@@ -14,6 +14,7 @@ def all_servers():
     servers = Server.query.all()
     return {'servers': [server.to_dict() for server in servers]}
 
+
 #single server
 @server_routes.route('/<int:id>', methods=['GET'])
 @login_required
