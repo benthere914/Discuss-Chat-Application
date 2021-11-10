@@ -19,7 +19,7 @@ function ChannelsContainer() {
     const [errors, setErrors] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [showEditForm, setShowEditForm] = useState(true);
+    const [showEditForm, setShowEditForm] = useState(false);
     const [allowAdd, setAllowAdd] = useState("notAllowed")
     const [allowEdit, setAllowEdit] = useState("notAllowed")
 
