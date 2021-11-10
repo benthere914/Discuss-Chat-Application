@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchServer } from '../../store/search';
+import { loadUserServers } from '../../store/server';
 import ServerCard from './singleSearch';
 
 import './guildDiscovery.css'
@@ -10,6 +11,7 @@ const GuildDiscovery = () => {
 
   const results = useSelector(state => Object.values(state.search));
   const user = useSelector(state => state.session.user);
+  const servers = useSelector(state => Object.values(state.servers));
 
   const [searchParameters, setSearchParamters] = useState('')
   const [isLoaded, setIsLoaded] = useState(false);
@@ -18,18 +20,16 @@ const GuildDiscovery = () => {
 
   useEffect(() => {
     dispatch(searchServer('$$default$$'))
-    .then(() => setIsLoaded(true));
+
+    if (user?.id) {
+      dispatch(loadUserServers(user?.id)).then(() => setIsLoaded(true));
+  }
 
     return () => {
         setIsLoaded(false)
     }
 
 }, [dispatch])
-
-useEffect(() => {
-  console.log(results)
-}, [results])
-
 
 const search = async (e) => {
   e.preventDefault();
@@ -79,10 +79,12 @@ const search = async (e) => {
                   <img className="searchBGImage" src="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636571660/Discuss/guildDiscovery_joyfnj.png" alt ="Search BG"/>
                 </div>
                 <div className="featuredContainer">
-                    Featured communities
-                    {results?.map(server =>
-                      <ServerCard user={user} server={server} />
-                    )}
+                    <h4>Featured communities</h4>
+                    <div className="serverResultsContainer">
+                      {results?.map(server =>
+                        <ServerCard user={user} server={server} userServers={servers}/>
+                      )}
+                    </div>
                 </div>
             </>
             )}

@@ -7,8 +7,6 @@ const search_server = (payload) => ({
 
 
 export const searchServer = (query) => async (dispatch) => {
-    console.log("********************")
-    console.log(query)
     const response = await fetch(`/api/servers/search/${query}`, {
     });
     const result = await response.json()

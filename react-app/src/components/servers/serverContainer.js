@@ -11,7 +11,6 @@ function ServersContainer() {
 
     const user = useSelector(state => state.session.user);
 
-
     //Redirect to login screen if no user is logged in
     if (!user) {
         history.push('/login')
