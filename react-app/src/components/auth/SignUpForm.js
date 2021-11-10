@@ -105,7 +105,7 @@ function SignUpForm() {
               <span className="loginError">{emailErrorText}</span>
             </label>
             <input
-              id={emailErrorBorder}
+              className={emailErrorBorder}
               type="email"
               required
               autoComplete="off"
@@ -120,7 +120,7 @@ function SignUpForm() {
               <span className="loginError">{usernameErrorText}</span>
             </label>
             <input
-              id={usernameErrorBorder}
+              className={usernameErrorBorder}
               type="text"
               required
               autoComplete="off"
@@ -135,7 +135,7 @@ function SignUpForm() {
               <span className="loginError">{passwordErrorText}</span>
             </label>
             <input
-              id={passwordErrorBorder}
+              className={passwordErrorBorder}
               type="password"
               required
               autoComplete="off"
