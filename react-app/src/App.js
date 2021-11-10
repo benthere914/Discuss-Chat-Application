@@ -14,7 +14,6 @@ import Messages from './components/messages/messages';
 import ProfileBar from './components/Profile/ProfileBar'
 
 import { authenticate } from './store/session';
-import MainContent from './components/MainContent/mainContent';
 import ServersContainer from './components/servers/serverContainer';
 import ChannelsContainer from './components/channels/channelsContainer';
 

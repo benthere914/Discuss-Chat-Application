@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 10px;
+    padding-top: 12px;
 }
 
 .singleServer {
@@ -57,7 +57,7 @@
     text-decoration: none;
     color: white;
     padding: 7px;
-    background-color: black;
+    background-color: rgb(24,25,28);
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 5px;
     min-width: 100px;
@@ -72,6 +72,7 @@
 #addServerButton {
     cursor: pointer;
     color: rgb(59,165,93);
+    margin-bottom: 12px;
 }
 
 #addServerButton:hover {
@@ -148,4 +149,47 @@
     background-color: rgb(88,101,242);
     color: white;
     cursor: pointer;
+}
+
+#expPublicServer {
+    visibility: hidden;
+    position: absolute;
+    top: 7px;
+    left: 65px;
+    text-decoration: none;
+    color: white;
+    padding: 7px;
+    background-color: rgb(24,25,28);
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+    min-width: 180px;
+    text-align: center;
+}
+
+.noIconServer:hover + #expPublicServer {
+    visibility: visible;
+}
+
+.activeServerIndicator {
+    position: absolute;
+    top: 18px;
+    left: -19px;
+    text-decoration: none;
+    background-color: white;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    transition: top 0.2s linear;
+    transition: height 0.3s linear;
+}
+
+.selectedServer .serverInfo div:first-of-type {
+    border-radius: 30%;
+    background-color: rgb(88,101,242);
+}
+
+.selectedServer .serverInfo .activeServerIndicator {
+    height: 40px;
+    border-radius: 6px;
+    top: 2px;
 }

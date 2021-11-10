@@ -30,7 +30,7 @@ function ChannelsContainer() {
             setIsLoaded()
         }
 
-    }, [dispatch, serverId])
+    }, [dispatch, serverId, user])
 
     useEffect(() => {
         if (name.length > 0) {
