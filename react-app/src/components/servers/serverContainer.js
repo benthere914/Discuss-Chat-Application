@@ -50,6 +50,9 @@ function ServersContainer() {
     const addServer = async (e) => {
         e.preventDefault();
         setShowAddForm(false)
+        setServerName('')
+        setServerDescription('')
+        setServerIcon('')
     }
 
     const handleCancel = (e) => {
@@ -57,7 +60,7 @@ function ServersContainer() {
         setShowAddForm(false)
         setServerName('')
         setServerDescription('')
-        setServerIcon()
+        setServerIcon('')
     }
 
     return (
