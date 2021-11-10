@@ -48,7 +48,10 @@ function App() {
         <Route path='/channels' exact={true}>
           <div className="mainContentContainer">
             <ServersContainer />
-            <ProfileBar/>
+            <div className="channelBar">
+              <div className="emptyChannels">Select a Server</div>
+              <ProfileBar/>
+            </div>
           </div>
         </Route>
         <Route path='/channels/:serverId' exact={true}>
