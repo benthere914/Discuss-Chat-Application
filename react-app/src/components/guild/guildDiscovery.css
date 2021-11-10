@@ -1,0 +1,5 @@
+.mainSearchContent {
+    flex-grow: 1;
+    background-color: pink;
+    padding: 20px;
+}

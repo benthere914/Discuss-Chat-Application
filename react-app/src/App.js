@@ -8,7 +8,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import Messages from './components/messages/messages';
 import GuildChannelBar from './components/guild/guild';
-import ProfileBar from './components/Profile/ProfileBar'
+import GuildDiscovery from './components/guild/guildDiscovery';
+import ProfileBar from './components/Profile/ProfileBar';
 
 import { authenticate } from './store/session';
 import ServersContainer from './components/servers/serverContainer';
@@ -57,6 +58,7 @@ function App() {
               <GuildChannelBar />
               <ProfileBar/>
             </div>
+            <GuildDiscovery />
           </div>
         </Route>
         <Route path='/channels/:serverId' exact={true}>
