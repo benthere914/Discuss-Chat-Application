@@ -10,7 +10,12 @@ function ServersContainer() {
 
     const user = useSelector(state => state.session.user);
 
-    const servers = useSelector(state => Object.values(state.serversReducer));
+    //Redirect to login screen if no user is logged in
+    if (!user) {
+        history.push('/login')
+    }
+
+    const servers = useSelector(state => Object.values(state.servers));
 
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
@@ -28,7 +33,7 @@ function ServersContainer() {
             setIsLoaded(false)
         }
 
-    }, [dispatch])
+    }, [dispatch, user])
 
     useEffect(() => {
         if (isLoaded && !runOnce) {
