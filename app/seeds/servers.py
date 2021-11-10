@@ -3,18 +3,19 @@ from app.models import db, Server
 
 # Adds a demo user, you can add other users here if you want
 def seed_servers():
-    one = Server(
-        name='Server One', description='This is Server One', owner_id=1, icon="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png")
-    two = Server(
-        name='Server Two', description='This is Server Two', owner_id=1, icon="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png")
-    three = Server(
-        name='Server Three', description='This is Server Three', owner_id=1, icon="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png")
+    for i in range(1, 26):
+        serv = Server(name=f'Server {i}', description=f'This is server {i}', owner_id=(1), icon='https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png')
+        db.session.add(serv)
+        db.session.commit()
+    for i in range(26, 51):
+        serv = Server(name=f'Server {i}', description=f'This is server {i}', owner_id=(2), icon='https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png')
+        db.session.add(serv)
+        db.session.commit()
+    for i in range(51, 76):
+        serv = Server(name=f'Server {i}', description=f'This is server {i}', owner_id=(3), icon='https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636394875/Discuss/discord_bj2duo.png')
+        db.session.add(serv)
+        db.session.commit()
 
-    db.session.add(one)
-    db.session.add(two)
-    db.session.add(three)
-
-    db.session.commit()
 
 
 # Uses a raw SQL query to TRUNCATE the users table.
