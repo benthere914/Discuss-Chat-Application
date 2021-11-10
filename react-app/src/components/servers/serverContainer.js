@@ -28,7 +28,9 @@ function ServersContainer() {
 
 
     useEffect(() => {
-        dispatch(loadUserServers(user?.id)).then(() => setIsLoaded(true));
+        if (user?.id) {
+            dispatch(loadUserServers(user?.id)).then(() => setIsLoaded(true));
+        }
 
         return () => {
             setIsLoaded(false)
