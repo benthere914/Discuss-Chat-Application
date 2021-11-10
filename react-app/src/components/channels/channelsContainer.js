@@ -237,7 +237,7 @@ function ChannelsContainer() {
                         <div className="addModal">
                             <div className="addChannelFormContainer">
                                 <h3 id="deleteChannelHeader">Delete Server</h3>
-                                <h5 id="deleteChannelSubHeader" >Are you sure you want to delete <span id="channelDeleteName">{`#${server?.name}`}</span>? This cannot be undone.</h5>
+                                <h5 id="deleteChannelSubHeader" >Are you sure you want to delete <span id="channelDeleteName">{server?.name}</span>? This cannot be undone.</h5>
                                     <div className="addChannelButtons">
                                         <div id="cancelChannel" onClick={handleDeleteCancel}>Cancel</div>
                                         <div className="createChannel" id="deleteChannel" onClick={handleDelete}>Delete Server</div>
