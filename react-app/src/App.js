@@ -71,9 +71,13 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
-          <NavBar />
-          <User />
+          <div className="mainContentContainer">
+            <div className="channelBar">
+              <ChannelsContainer />
+              <ProfileBar/>
+            </div>
           <Messages/>
+          </div>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

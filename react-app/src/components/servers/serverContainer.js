@@ -12,19 +12,20 @@ function ServersContainer() {
 
     const user = useSelector(state => state.session.user);
 
+
     //Redirect to login screen if no user is logged in
     if (!user) {
         history.push('/login')
     }
 
     const servers = useSelector(state => Object.values(state.servers));
-
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
     const [serverIcon, setServerIcon] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
-    const [allowAdd, setAllowAdd] = useState("notAllowed")
+    const [allowAdd, setAllowAdd] = useState("notAllowed");
     const [isLoaded, setIsLoaded] = useState(true);
+
 
 
     useEffect(() => {
