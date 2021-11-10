@@ -133,7 +133,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
                     <input value={deleteModalPassword} onChange={(e) => {setDeleteModalPassword(e.target.value)}}></input>
                 </div>
                 <div className='deleteModalBottom'>
-                    <p className='cancelDelete'>Cancel</p>
+                    <p onClick={() => {setDeleteModalPassword(''); setDeleteModal(false)}} className='cancelDelete'>Cancel</p>
                     <p className='confirmDelete'>Delete Account</p>
                 </div>
 
