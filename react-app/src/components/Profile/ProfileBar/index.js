@@ -8,14 +8,14 @@ let ProfileBar = () => {
     const [profileModalVisible, setProfileModalVisible] = useState(false);
     const user = useSelector(state => state.session.user);
     const shortenUsername = (username, num=15) => {
-        if (username.length >= num){
+        if (username?.length >= num){
             username = username.slice(0, num)
             username += '...'
         }
         return username
     }
 
-    
+
     useEffect(() => {
         if (user){
             sethash(md5(user?.email))

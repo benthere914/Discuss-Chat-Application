@@ -1,4 +1,4 @@
-
+import re
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import User, Server_Member, db
@@ -49,32 +49,52 @@ def add_server(userId):
 
 @user_routes.route('/<int:userId>', methods=['PUT'])
 @login_required
-def update_username(userId):
+def update_data(userId):
     body = request.get_json()
-    errorData = {}
-    print(body)
-    if (not 'password' in body):
-        errorData["password"] = True
-    if (not( ('username' in body and len(body['username']) > 0) or ('email' in body and len(body['email']) > 0) or ('newPassword' in body and len(body['newPassword']) > 0))):
-        errorData["data"] = True
+    password = data = 'good'
     user = User.query.get(userId)
-    if (user.username == 'demo'):
-        errorData["password"] = True
-        errorData["data"] = True
+    emailRegex = '(?:[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])'
+    passwordRegex = '^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
+
+
+
+    if (not 'password' in body):
+        password = 'must enter password'
+
+    if (not( ('username' in body and len(body['username']) > 0) or ('email' in body and len(body['email']) > 0) or ('newPassword' in body and len(body['newPassword']) > 0))):
+        data = 'must fill out all fields'
+
     if (not user.check_password(body['password'])):
-        errorData["password"] = True
-    if ('data' in errorData or 'password' in errorData):
-        return {"errors": True, "errorData": errorData}
-    if ('username' in body):
-        user.username = body['username']
+        password = 'Invalid password'
+
+    if (user.username == 'demo'):
+        password = 'Cannot edit this user'
+        data = 'Cannot edit this user'
+
     if ('email' in body):
-        user.email = body['email']
+        if not bool(re.search(emailRegex, body["email"])):
+            data = 'invalid email'
+
     if ('newPassword' in body):
-        user.password = body['newPassword']
-        print('changing password')
-    db.session.add(user)
-    db.session.commit()
-    return user.to_dict()
+        if not bool(re.search(passwordRegex, body["newPassword"])):
+            data = 'new password must contain at least 8 characters, 1 letter, number and special character'
+
+    if 'good' == password == data:
+
+        if ('username' in body):
+            user.username = body['username']
+
+        if ('email' in body):
+            user.email = body['email']
+
+        if ('newPassword' in body):
+            user.password = body['newPassword']
+
+        db.session.add(user)
+        db.session.commit()
+        return user.to_dict()
+    else:
+        return {'errors': True, 'errorData': {'password': password, 'data': data}}
 
 
 @user_routes.route('/<int:userId>', methods=['DELETE'])

@@ -3,31 +3,66 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as sessionActions from '../../../../store/session'
 
-let EditBox = ({title, setEditBoxVisible, userId, data, password, setData, setPassword}) => {
+let EditBox = ({
+    title,
+    setEditBoxVisible,
+    userId,
+    data,
+    password,
+    setData,
+    setPassword,
+    dataExtraText,
+    setDataExtraText,
+    passwordExtraText,
+    setPasswordExtraText,
+    dataOutlineColor,
+    setDataOutlineColor,
+    passwordOutlineColor,
+    setPasswordOutlineColor,
+    dataBorderColor,
+    setDataBorderColor,
+    passwordBorderColor,
+    setPasswordBorderColor
+
+}) => {
     const dispatch = useDispatch()
-    const [dataOutlineColor, setDataOutlineColor] = useState('blue')
-    const [passwordOutlineColor, setPasswordOutlineColor] = useState('blue')
-    const [dataBorderColor, setDataBorderColor] = useState('rgb(32, 34, 37)')
-    const [passwordBorderColor, setPasswordBorderColor] = useState('rgb(32, 34, 37)')
+
+
 
 
     const reset = (e) => {
-        console.log(e)
+
         setDataOutlineColor('blue')
         setPasswordOutlineColor('blue')
         setDataBorderColor('rgb(32, 34, 37)')
         setPasswordBorderColor('rgb(32, 34, 37)')
-        if (e?.password){
-            setPasswordBorderColor('red')
-            setPasswordOutlineColor('red')
-        if (e?.data){
+        setDataExtraText('')
+        setPasswordExtraText('')
+        if (e && e?.password !== 'good' && e?.data !== 'good'){
             setDataBorderColor('red')
             setDataOutlineColor('red')
+            setDataExtraText(`- ${e?.data}`)
+            setPasswordBorderColor('red')
+            setPasswordOutlineColor('red')
+            setPasswordExtraText(`- ${e?.password}`)
         }
-        }else{
+        else if (e && e?.password !== 'good'){
+            setPasswordBorderColor('red')
+            setPasswordOutlineColor('red')
+            setPasswordExtraText(`- ${e?.password}`)
+        }
+        else if (e && e?.data !== 'good'){
+            setDataBorderColor('red')
+            setDataOutlineColor('red')
+            setDataExtraText(`- ${e?.data}`)
+            console.log('got ehre')
+        }
+        else{
             setData('')
             setPassword('')
         }
+
+
     }
 
 
@@ -44,10 +79,11 @@ let EditBox = ({title, setEditBoxVisible, userId, data, password, setData, setPa
         }
     }
 
-    const onChangeHandler = (func1, func2, func3, e) => {
+    const onChangeHandler = (func1, func2, func3, func4, e) => {
         func1(e.target.value)
         func2('blue')
         func3('rgb(32, 34, 37)')
+        func4('')
     }
 	return (
 		<>
@@ -57,10 +93,10 @@ let EditBox = ({title, setEditBoxVisible, userId, data, password, setData, setPa
                     <p className='editBoxTitleSub'>Enter a new {title} and your existing password</p>
                 </div>
                 <div className='editBoxMiddle'>
-                    <p>{title}</p>
-                    <input type='text' style={{"outlineColor": dataOutlineColor, border: `solid 1px ${dataBorderColor}`}} value={data} onChange={(e) => {onChangeHandler(setData, setDataOutlineColor, setDataBorderColor, e)}}></input>
-                    <p>Current Password</p>
-                    <input type='text' style={{"outlineColor": passwordOutlineColor, border: `solid 1px ${passwordBorderColor}`}} value={password} onChange= {(e) => {onChangeHandler(setPassword, setPasswordOutlineColor, setPasswordBorderColor, e)}}></input>
+                    <p>{`${title}${dataExtraText}`}</p>
+                    <input type='text' style={{"outlineColor": dataOutlineColor, border: `solid 1px ${dataBorderColor}`}} value={data} onChange={(e) => {onChangeHandler(setData, setDataOutlineColor, setDataBorderColor, setDataExtraText, e)}}></input>
+                    <p>{`Current Password${passwordExtraText}`}</p>
+                    <input type='text' style={{"outlineColor": passwordOutlineColor, border: `solid 1px ${passwordBorderColor}`}} value={password} onChange= {(e) => {onChangeHandler(setPassword, setPasswordOutlineColor, setPasswordBorderColor, setPasswordExtraText, e)}}></input>
                 </div>
                 <div className='editBoxBottom'>
                     <p className='cancelLink' onMouseDown={() => {setData('');setPassword('');setEditBoxVisible(false)}}>Cancel</p>

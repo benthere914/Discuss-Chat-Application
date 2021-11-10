@@ -16,8 +16,14 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
     const [deleteModalPassword, setDeleteModalPassword] = useState('')
     const [deleteModal, setDeleteModal] = useState(false)
     const [deleteInputBorder, setDeleteInputBorder] = useState('blue')
+    const [dataExtraText, setDataExtraText] = useState('')
+    const [passwordExtraText, setPasswordExtraText] = useState('')
+    const [dataOutlineColor, setDataOutlineColor] = useState('blue')
+    const [passwordOutlineColor, setPasswordOutlineColor] = useState('blue')
+    const [dataBorderColor, setDataBorderColor] = useState('rgb(32, 34, 37)')
+    const [passwordBorderColor, setPasswordBorderColor] = useState('rgb(32, 34, 37)')
     const shortenEmail = (email, num=15) => {
-        if (email.length >= num){
+        if (email?.length >= num){
             email = email.slice(0, num)
             email += '...'
         }
@@ -28,6 +34,12 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
         setTitle('')
         setData('')
         setPassword('')
+        setDataOutlineColor('blue')
+        setPasswordOutlineColor('blue')
+        setDataBorderColor('rgb(32, 34, 37)')
+        setPasswordBorderColor('rgb(32, 34, 37)')
+        setDataExtraText('')
+        setPasswordExtraText('')
     }
 
     const editHandler = (string) => {
@@ -137,6 +149,21 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
             password={password}
             setData={setData}
             setPassword={setPassword}
+            dataExtraText={dataExtraText}
+            setDataExtraText={setDataExtraText}
+            passwordExtraText={passwordExtraText}
+            setPasswordExtraText={setPasswordExtraText}
+            dataOutlineColor={dataOutlineColor}
+            setDataOutlineColor={setDataOutlineColor}
+            passwordOutlineColor={passwordOutlineColor}
+            setPasswordOutlineColor={setPasswordOutlineColor}
+            dataBorderColor={dataBorderColor}
+            setDataBorderColor={setDataBorderColor}
+            passwordBorderColor={passwordBorderColor}
+            setPasswordBorderColor={setPasswordBorderColor}
+
+
+
             />}
             {user?.username !== 'demo' &&
             <ul className='accountRemoval'>
