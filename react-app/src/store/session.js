@@ -1,3 +1,5 @@
+import messagesReducer from "./messages";
+
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
@@ -87,14 +89,25 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-export const deleteAccount = (userId) => async (dispatch) => {
+export const deleteAccount = (userId, password) => async (dispatch) => {
     const response = await fetch(`/api/users/${userId}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          password
+        }),
     })
-
-    if (response.ok) {
+    const result = await response.json()
+    if (result.message === 'Success'){
         dispatch(removeUser());
-      }
+        return
+    }
+    else{
+        return result.message
+    }
+
 }
 
 
