@@ -10,7 +10,7 @@ function ServersContainer() {
 
     const user = useSelector(state => state.session.user);
 
-    const servers = useSelector(state => Object.values(state.serversReducer));
+    const servers = useSelector(state => Object.values(state.servers));
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [runOnce, setRunOnce] = useState(false)
