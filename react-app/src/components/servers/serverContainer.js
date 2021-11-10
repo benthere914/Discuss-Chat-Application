@@ -12,8 +12,13 @@ function ServersContainer() {
 
     const servers = useSelector(state => Object.values(state.serversReducer));
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [runOnce, setRunOnce] = useState(false)
+    const [serverName, setServerName] = useState('');
+    const [serverDescription, setServerDescription] = useState('');
+    const [serverIcon, setServerIcon] = useState('');
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(true);
+    const [runOnce, setRunOnce] = useState(false);
+
 
     useEffect(() => {
         dispatch(loadUserServers(user?.id)).then(() => setIsLoaded(true));
@@ -33,9 +38,21 @@ function ServersContainer() {
         }
     }, [isLoaded])
 
+    const addServer = async (e) => {
+        e.preventDefault();
+    }
+
+    const handleCancel = (e) => {
+        e.preventDefault()
+        setShowAddForm(false)
+        setServerName('')
+        setServerDescription('')
+        setServerIcon()
+    }
+
     return (
         <>
-            {isLoaded && runOnce && (
+            {isLoaded && (
                 <div className="serversContainer">
                     {servers[0] !== null && servers.map(server =>
                         <NavLink key={`server_${server.id}`} to={`/channels/${server.id}`} className="singleServer">
@@ -52,7 +69,7 @@ function ServersContainer() {
                             )}
                         </NavLink>
                     )}
-                    <div className="serverInfo">
+                    <div className="serverInfo" onClick={() => setShowAddForm(true)}>
                         <div className="noIconServer" id="addServerButton">
                             <i className="fas fa-plus"></i>
                         </div>
@@ -60,6 +77,55 @@ function ServersContainer() {
                     </div>
                 </div>
             )}
+            <>
+                {showAddForm && (
+                    <div className="addModal">
+                        <div className="addChannelFormContainer">
+                            <h3>Customize your server</h3>
+                            <h5>Give your new server a personality with a name and an icon. You can always change it later.</h5>
+                            <form onSubmit={addServer} autoComplete="off">
+                                <div className="addChannelInput">
+                                    <label>SERVER NAME</label>
+                                    <input
+                                        type="text"
+                                        value={serverName}
+                                        required
+                                        placeholder="Name"
+                                        autoComplete="off"
+                                        onChange={(e) => setServerName(e.target.value)}
+                                    />
+                                </div>
+                                <div className="addChannelInput">
+                                    <label>SERVER DESCRIPTION</label>
+                                    <input
+                                        type="text"
+                                        value={serverDescription}
+                                        required
+                                        placeholder="Description"
+                                        autoComplete="off"
+                                        onChange={(e) => setServerDescription(e.target.value)}
+                                    />
+                                </div>
+                                <div className="addChannelInput">
+                                    <label>ICON</label>
+                                    <input
+                                        type="text"
+                                        value={serverIcon}
+                                        required
+                                        placeholder="Icon URL"
+                                        autoComplete="off"
+                                        onChange={(e) => setServerIcon(e.target.value)}
+                                    />
+                                </div>
+                                <div className="addChannelButtons">
+                                    <button id="cancelChannel" onClick={handleCancel}>Cancel</button>
+                                    <button className="createChannel" type="submit">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
+            </>
         </>
     )
 }
