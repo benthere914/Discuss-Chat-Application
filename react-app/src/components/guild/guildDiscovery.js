@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { searchServer } from '../../store/search';
 
 import './guildDiscovery.css'
 
 const GuildDiscovery = () => {
   const dispatch = useDispatch();
 
-  // const results = useSelector(state => state.searchResults)
+  const results = useSelector(state => state.search)
 
+  //replace any percent with %25
+  // any space with %20
+
+  const [searchParameters, setSearchParamters] = useState('')
   const [isLoaded, setIsLoaded] = useState(true);
   const [showDefault, setShowDefault] = useState(true)
   const [showResults, setShowResults] = useState(false)
 
 //   useEffect(() => {
-//     dispatch(loadSearchResults(''))
+//     dispatch(searchServer(''))
 //     .then(() => setIsLoaded(true));
 
 //     return () => {
@@ -25,7 +30,17 @@ const GuildDiscovery = () => {
 
 const search = async (e) => {
   e.preventDefault();
+  if (searchParameters.length === 0) {
+    return;
+  }
+
+  //Clean the search parameters
+  const finalParameters = searchParameters.split('%').join("%25").split(" ").join("%20")
+  console.log(finalParameters)
+
+
   //Dispatch
+  await dispatch(searchServer(finalParameters))
 
   setShowDefault(false)
   setShowResults(true)
@@ -48,9 +63,12 @@ const search = async (e) => {
                           className="searchInput"
                           type="text"
                           placeholder="Explore communities"
+                          value={searchParameters}
+                          onChange={(e) => setSearchParamters(e.target.value)}
+
                           />
                           <button className="searchCompassButton" onClick={search}>
-                            <i class="fas fa-search"></i>
+                            <i className="fas fa-search"></i>
                           </button>
                         </div>
                       </form>
