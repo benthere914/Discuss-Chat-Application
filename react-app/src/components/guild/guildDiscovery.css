@@ -1,0 +1,64 @@
+.mainSearchContent {
+    flex-grow: 1;
+    background-color: rgb(54,57,63);
+    padding: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.topSearchBG {
+    width: 100%;
+    min-height: 286px;
+    max-height: 375px;
+    height: vh;
+    border-radius: 11px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBGImage {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.topSearchContent {
+    z-index: 2;
+    position: relative;
+    width: fit-content;
+    margin: auto auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.topSearchContent h3 {
+    font-size: 25px;
+    color: white;
+    margin: 0;
+}
+
+.topSearchContent h5 {
+    font-size: 16px;
+    font-weight: 200;
+    color: white;
+    margin: 7px 0 14px 0;
+}
+
+.searchGuildForm {
+    max-width: 540px;
+    min-width: 350px;
+    background-color: white;
+}
+
+.searchInput {
+    width: 30vw;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}

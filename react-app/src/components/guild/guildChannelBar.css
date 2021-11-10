@@ -1,0 +1,31 @@
+#guildChannelBar {
+    flex-grow: 1;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+#guildChannelBar h3 {
+    margin-bottom:  10px;
+    padding-left: 10px;
+    font-size: 30px;
+}
+
+.homeSearch {
+    display: flex;
+    background: rgb(88,101,242);
+    align-items: center;
+    width: 200px;
+    margin: 0 auto;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.searchCompass {
+    font-size: 19px;
+}
+
+.homeSearch h5 {
+    margin: 0;
+    margin-left: 20px;
+    font-size: 19px;
+}
