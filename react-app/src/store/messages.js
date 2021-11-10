@@ -3,6 +3,7 @@
 const LOAD = 'messages/LOAD_MESSASGES'
 const ADD_MESSAGE = 'channels/ADD_MESSAGE'
 const UPDATE_MESSAGE = 'channels/UPDATE_MESSAGE'
+const DELETE_MESSAGE = 'messages/DELETE_CHANNEL'
 
 const loadMessages = messages => ({
     type: LOAD,
@@ -19,6 +20,13 @@ const updateMessage = message => {
         type: UPDATE_MESSAGE,
         message
     }
+}
+
+const deleteMessage = message_id => {
+  return {
+    type: DELETE_MESSAGE,
+    message_id
+  }
 }
 
 export const loadChannelMessages = (channelId) => async (dispatch) => {
@@ -86,6 +94,20 @@ export const updateMessageBody = (message_id, channel_id, user_id, message) => a
       }
 }
 
+export const deleteSingleMessage = (message_id) => async (dispatch) => {
+  const response = await fetch(`/api/messages/${message_id}`, {
+      method: 'DELETE',
+      body: JSON.stringify({message_id})
+  });
+
+  if (response.ok) {
+    dispatch(deleteMessage(message_id))
+    return null;
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+}
+
 let initialState = {messages: null};
 
 const messagesReducer = (state = initialState, action) => {
@@ -107,6 +129,10 @@ const messagesReducer = (state = initialState, action) => {
                 ...state,
                 [action.message.id]: action.message,
             }
+        case DELETE_MESSAGE:
+            const newState = {...state}
+            delete newState[action.message_id];
+            return newState;
         default:
             return state;
     }

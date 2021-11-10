@@ -30,4 +30,8 @@ def update_message(message_id):
 @message_routes.route('/<int:message_id>', methods=['DELETE'])
 @login_required
 def delete_message(message_id):
+    message = Channel_Message.query.filter(Channel_Message.id == message_id).first()
+    if message:
+        db.session.delete(message)
+        db.session.commit()
     return "Deleted message"
