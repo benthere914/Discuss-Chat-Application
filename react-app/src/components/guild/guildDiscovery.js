@@ -17,15 +17,15 @@ const GuildDiscovery = () => {
   const [showDefault, setShowDefault] = useState(true)
   const [showResults, setShowResults] = useState(false)
 
-//   useEffect(() => {
-//     dispatch(searchServer(''))
-//     .then(() => setIsLoaded(true));
+  useEffect(() => {
+    dispatch(searchServer('1'))
+    .then(() => setIsLoaded(true));
 
-//     return () => {
-//         setIsLoaded(false)
-//     }
+    return () => {
+        setIsLoaded(false)
+    }
 
-// }, [dispatch])
+}, [dispatch])
 
 
 const search = async (e) => {

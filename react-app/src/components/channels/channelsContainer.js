@@ -224,7 +224,7 @@ function ChannelsContainer() {
                                                 <div className="deleteServer" onClick={() => setShowDelete(true)}>Delete</div>
                                                 <div>
                                                     <button id="cancelChannel" onClick={handleEditCancel}>Cancel</button>
-                                                    <button className="createChannel"id={allowEdit} type="submit">Edit Channel</button>
+                                                    <button className="createChannel"id={allowEdit} type="submit">Edit Server</button>
                                                 </div>
                                             </div>
                                         </form>
