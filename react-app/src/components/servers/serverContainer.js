@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserServers } from '../../store/server';
+import './mainContent.css'
 import './serverContainer.css'
+
 
 function ServersContainer() {
     const dispatch = useDispatch();
