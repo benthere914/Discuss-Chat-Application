@@ -23,7 +23,6 @@ function ServersContainer() {
     const [showAddForm, setShowAddForm] = useState(false);
     const [allowAdd, setAllowAdd] = useState("notAllowed")
     const [isLoaded, setIsLoaded] = useState(true);
-    const [runOnce, setRunOnce] = useState(false);
 
 
     useEffect(() => {
@@ -34,15 +33,6 @@ function ServersContainer() {
         }
 
     }, [dispatch, user])
-
-    useEffect(() => {
-        if (isLoaded && !runOnce) {
-           if (servers[0] !== null) {
-               history.push(`/channels/${servers[0].id}`)
-           }
-           setRunOnce(true)
-        }
-    }, [isLoaded])
 
     useEffect(() => {
         if (serverName.length > 0) {
