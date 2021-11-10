@@ -1,7 +1,7 @@
 import md5 from "md5"
 import ProfileModal from '../ProfileModal'
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './index.css'
 let ProfileBar = () => {
     const [hash, sethash] = useState(md5('benthere914@gmail.com'))
@@ -27,7 +27,7 @@ let ProfileBar = () => {
             {profileModalVisible && <ProfileModal hash={hash} setProfileModalVisible={setProfileModalVisible} user={user} shortenUsername={shortenUsername}/>}
             {user && <ul className='profileBar'>
                 <li>
-                    <img className='profilePhoto' src={`https://www.gravatar.com/avatar/${hash}`}></img>
+                    <img className='profilePhoto' src={`https://www.gravatar.com/avatar/${hash}`} alt={user?.username}></img>
                 </li>
                 <li>
                     <p className='profileUsername'>{shortenUsername(user?.username)}</p>
