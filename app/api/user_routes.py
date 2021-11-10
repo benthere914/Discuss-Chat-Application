@@ -78,6 +78,10 @@ def update_username(userId):
 @login_required
 def delete_user(userId):
     user = User.query.get(userId)
-    db.session.delete(user)
-    db.session.commit()
-    return 'success'
+    body = request.get_json()
+    if (user.check_password(body["password"])):
+        db.session.delete(user)
+        db.session.commit()
+        return {"message":"Success"}
+    else:
+        return {"message":"Incorrect Password"}
