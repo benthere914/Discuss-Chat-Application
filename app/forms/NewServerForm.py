@@ -3,7 +3,7 @@ from wtforms import IntegerField, StringField
 from wtforms.validators import DataRequired, ValidationError
 from app.models import Server
 
-def server_exists(form):
+def server_exists(form, field):
     name = form.data['name']
     server = Server.query.filter(Server.name == name).first()
     if server:

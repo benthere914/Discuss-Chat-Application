@@ -60,11 +60,25 @@ export const addMember = (userId, server) => async (dispatch) => {
   }
 };
 
+//add servermember
+// const addMember = async (serverId) => {
+//   const response = await fetch(`/api/servers/${serverId}/members`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       serverId, userId
+//     }),
+//   });
+// }
 //add a server
-export const addServer = (server, id) => async (dispatch) => {
-    const { name, description, icon } = server;
+export const addServer = (name, description, icon, id) => async (dispatch) => {
   const response = await fetch(`/api/users/${id}/servers`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       name,
       description,
@@ -74,6 +88,8 @@ export const addServer = (server, id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(add_server(data));
+    
+    return data
   }
 };
 

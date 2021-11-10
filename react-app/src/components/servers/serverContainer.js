@@ -49,9 +49,9 @@ function ServersContainer() {
         setServerName('')
         setServerDescription('')
         setServerIcon('')
-        return dispatch(
-          addServer({ serverName, serverDescription, serverIcon }, user.id)
-        );
+        const newserver = await dispatch(addServer( serverName, serverDescription, serverIcon, user.id));
+        // if(newserver)
+        return newserver
     }
 
     const handleCancel = (e) => {
@@ -66,7 +66,7 @@ function ServersContainer() {
       <>
         {isLoaded && (
           <div className="serversContainer">
-            {servers[0] !== null &&
+            {servers?.[0] !== null &&
               servers.map((server) => (
                 <NavLink
                   key={`server_${server.id}`}
