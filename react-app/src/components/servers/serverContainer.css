@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 10px;
+    padding-top: 12px;
 }
 
 .singleServer {
@@ -168,4 +168,28 @@
 
 .noIconServer:hover + #expPublicServer {
     visibility: visible;
+}
+
+.activeServerIndicator {
+    position: absolute;
+    top: 18px;
+    left: -19px;
+    text-decoration: none;
+    background-color: white;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    transition: top 0.2s linear;
+    transition: height 0.3s linear;
+}
+
+.selectedServer .serverInfo div:first-of-type {
+    border-radius: 30%;
+    background-color: rgb(88,101,242);
+}
+
+.selectedServer .serverInfo .activeServerIndicator {
+    height: 40px;
+    border-radius: 6px;
+    top: 2px;
 }
