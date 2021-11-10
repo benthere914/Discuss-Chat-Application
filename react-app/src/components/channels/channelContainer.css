@@ -56,7 +56,8 @@
 }
 
 .serverName {
-    color: rgb(255,255,255)
+    color: rgb(255,255,255);
+    margin-top: 20px;
 }
 
 .textChannels {
