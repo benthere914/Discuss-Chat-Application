@@ -107,11 +107,12 @@ def add_member(serverId):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@server_routes.route('/search')
-@login_required
-def search_servers():
-    body = request.get_json()
-    if body['query'] == '':
+@server_routes.route('/search/<string:query>')
+# @login_required
+def search_servers(query):
+    query = query.replace('%20', ' ')
+    query = query.replace('%25', '%')
+    if query == '$$default$$':
         return {server.name: server.to_dict() for server in Server.query.limit(10).all()}
     else:
-        return {server.name: server.to_dict() for server in Server.query.filter(Server.name.ilike(body['query']))}
+        return {server.name: server.to_dict() for server in Server.query.filter(Server.name.ilike(f'{query}%'))}
