@@ -45,7 +45,7 @@ def add_server(userId):
         db.session.add(server)
         db.session.commit()
         return server.to_dict()
-  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @user_routes.route('/<int:userId>', methods=['PUT'])
 @login_required

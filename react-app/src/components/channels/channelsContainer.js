@@ -13,7 +13,7 @@ function ChannelsContainer() {
 
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
-    const server = useSelector(state => state.serversReducer[serverId])
+    const server = useSelector(state => state.servers[serverId])
 
     const [name, setChannelName] = useState('');
     const [errors, setErrors] = useState([]);
