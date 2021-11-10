@@ -49,6 +49,7 @@ function ServersContainer() {
 
     const addServer = async (e) => {
         e.preventDefault();
+        setShowAddForm(false)
     }
 
     const handleCancel = (e) => {
