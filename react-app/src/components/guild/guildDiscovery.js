@@ -4,7 +4,9 @@ import './guildDiscovery.css'
 const GuildDiscovery = () => {
   return (
       <div className="mainSearchContent">
-          <h1>Search here</h1>
+          <div className="topSearchContent">
+
+          </div>
       </div>
   );
 }
