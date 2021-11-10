@@ -13,6 +13,8 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
     const [title, setTitle] = useState('')
     const [data, setData] = useState('');
     const [password, setPassword] = useState('')
+    const [deleteModalPassword, setDeleteModalPassword] = useState('')
+    const [deleteModal, setDeleteModal] = useState(false)
 
     const reset = () => {
         setTitle('')
@@ -116,10 +118,26 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
                     <p>Account Removal</p>
                 </li>
                 <li>
-                    <p onClick={() => {deleteAccountHandler()}} className='deleteAccount'>Delete Account</p>
+                    <p onClick={() => {setDeleteModal(true)}} className='deleteAccount'>Delete Account</p>
                 </li>
             </ul>
 			</div>
+            {deleteModal && (
+            <div className='deleteModal'>
+                <div className='deleteModalTop'>
+                    <p className='deleteTitleMain'>Delete Account</p>
+                    <p className='deleteTitleSub'>Are you sure you want to delete your account? This will imediately log you out of your account and you will not be able to log in again.</p>
+                </div>
+                <div className='deleteModalMiddle'>
+                    <p>Password</p>
+                    <input value={deleteModalPassword} onChange={(e) => {setDeleteModalPassword(e.target.value)}}></input>
+                </div>
+                <div className='deleteModalBottom'>
+                    <p className='cancelDelete'>Cancel</p>
+                    <p className='confirmDelete'>Delete Account</p>
+                </div>
+
+            </div>)}
 		</>
 	);
 };
