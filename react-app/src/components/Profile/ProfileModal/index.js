@@ -6,7 +6,7 @@ import EditBox from './editBox'
 import { logout, deleteAccount } from '../../../store/session'
 import LogoutButton from '../../auth/LogoutButton'
 
-let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
+let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const [editBoxVisible, setEditBoxVisible] = useState(false);
@@ -16,16 +16,23 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
     const [deleteModalPassword, setDeleteModalPassword] = useState('')
     const [deleteModal, setDeleteModal] = useState(false)
     const [deleteInputBorder, setDeleteInputBorder] = useState('blue')
-
+    const shortenEmail = (email, num=15) => {
+        if (email.length >= num){
+            email = email.slice(0, num)
+            email += '...'
+        }
+        return email
+    }
     const reset = () => {
+        setEditBoxVisible(false)
         setTitle('')
         setData('')
         setPassword('')
     }
 
     const editHandler = (string) => {
-        setEditBoxVisible(true);
         reset()
+        setEditBoxVisible(true);
         setTitle(string);
 
     }
@@ -67,7 +74,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 							</li>
 							<li>
 								<p className="profileModalUsername">
-									{user?.username}
+									{shortenUsername(user?.username)}
 								</p>
 							</li>
 						</ul>
@@ -80,22 +87,29 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 								<ul className="modalUsername">
 									<li id="modalData">
 										<p>Username</p>
-										<p>{user?.username}</p>
+										<p>{shortenUsername(user?.username, 23)}</p>
 									</li>
-									<li id="editButton" onClick={() => {editHandler('Username')}}>
+                                    {
+                                        user?.username !== 'demo' &&
+                                        <li id="editButton" onClick={() => {editHandler('Username')}}>
 										<p>Edit</p>
 									</li>
+                                    }
 								</ul>
 							</li>
 							<li>
 								<ul className="modalEmail">
 									<li id="modalData">
 										<p>Email</p>
-										<p>{user?.email}</p>
+										<p>{shortenEmail(user?.email, 23)}</p>
 									</li>
+                                    {
+                                        user?.username !== 'demo' &&
+
 									<li id="editButton" onClick={() => {editHandler('Email')}}>
 										<p>Edit</p>
 									</li>
+                                    }
 								</ul>
 							</li>
 							<li>
@@ -104,23 +118,27 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
 										<p>Password</p>
 										<p>*********</p>
 									</li>
+                                    {
+                                        user?.username !== 'demo' &&
 									<li id="editButton" onClick={() => {editHandler('Password')}}>
 										<p>Edit</p>
 									</li>
+                                    }
 								</ul>
 							</li>
 						</ul>
 					</div>
 				</div>
-            {editBoxVisible && <EditBox
+            {user?.username !== 'demo' && editBoxVisible && <EditBox
             title={title}
-            userId={user.id}
+            userId={user?.id}
             setEditBoxVisible={setEditBoxVisible}
             data={data}
             password={password}
             setData={setData}
             setPassword={setPassword}
             />}
+            {user?.username !== 'demo' &&
             <ul className='accountRemoval'>
                 <li>
                     <p>Account Removal</p>
@@ -129,8 +147,9 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
                     <p onClick={() => {setDeleteModal(true)}} className='deleteAccount'>Delete Account</p>
                 </li>
             </ul>
+            }
 			</div>
-            {deleteModal && (
+            {user?.username !== 'demo' && deleteModal && (
             <div className='deleteModal'>
                 <div className='deleteModalTop'>
                     <p className='deleteTitleMain'>Delete Account</p>

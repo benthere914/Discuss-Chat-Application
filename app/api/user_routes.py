@@ -58,6 +58,9 @@ def update_username(userId):
     if (not( ('username' in body and len(body['username']) > 0) or ('email' in body and len(body['email']) > 0) or ('newPassword' in body and len(body['newPassword']) > 0))):
         errorData["data"] = True
     user = User.query.get(userId)
+    if (user.username == 'demo'):
+        errorData["password"] = True
+        errorData["data"] = True
     if (not user.check_password(body['password'])):
         errorData["password"] = True
     if ('data' in errorData or 'password' in errorData):
@@ -79,6 +82,8 @@ def update_username(userId):
 def delete_user(userId):
     user = User.query.get(userId)
     body = request.get_json()
+    if (user.username == 'demo'):
+        return {"message": "Cannot delete this user"}
     if (user.check_password(body["password"])):
         db.session.delete(user)
         db.session.commit()
