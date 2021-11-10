@@ -104,3 +104,13 @@ def add_member(serverId):
         db.session.commit()
         return server.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@server_routes.route('/search')
+@login_required
+def search_servers():
+    body = request.get_json()
+    if body['query'] == '':
+        return {server.name: server.to_dict() for server in Server.query.limit(10).all()}
+    else:
+        return {server.name: server.to_dict() for server in Server.query.filter(Server.name.ilike(body['query']))}
