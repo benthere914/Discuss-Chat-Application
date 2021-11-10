@@ -34,6 +34,16 @@ export const loadUserServers = (userId) => async (dispatch) => {
   }
 };
 
+//load single server
+export const singleServer = (serverId) => async (dispatch) => {
+  const response = await fetch(`/api/servers/${serverId}`);
+
+  if (response.ok) {
+    const servers = await response.json();
+    dispatch(single_server(servers));
+  }
+};
+
 //add a member to a server
 export const addMember = (userId, server) => async (dispatch) => {
   const { server_id, user_id } = server;
@@ -51,12 +61,14 @@ export const addMember = (userId, server) => async (dispatch) => {
 };
 
 //add a server
-export const addServer = (server, serverId) => async (dispatch) => {
-    const { name, description, owner_id, icon } = server;
-  const response = await fetch(`/api/servers/${serverId}`, {
+export const addServer = (server, id) => async (dispatch) => {
+    const { name, description, icon } = server;
+  const response = await fetch(`/api/users/${id}/servers`, {
     method: "POST",
     body: JSON.stringify({
-      name, description, owner_id, icon
+      name,
+      description,
+      icon,
     }),
   });
   if (response.ok) {
@@ -67,9 +79,14 @@ export const addServer = (server, serverId) => async (dispatch) => {
 
 //delete a server
 export const deleteServer = (id) => async (dispatch) => {
+  console.log("before fetch");
   const response = await fetch(`/api/servers/${id}`, {
-    method: "delete",
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
+  console.log("after fetch");
   if (response.ok) {
   const data = await response.json();
   dispatch(remove(data));
@@ -78,8 +95,9 @@ export const deleteServer = (id) => async (dispatch) => {
 };
 
 //edit a server
-export const editServer = (server, id) => async (dispatch) => {
-  const { name } = server;
+// export const editServer = (server, id) => async (dispatch) => {
+//   const { name } = server;
+export const editServer = (name, id) => async (dispatch) => {
   const response = await fetch(`/api/servers/${id}`, {
     method: "PUT",
     body: JSON.stringify({

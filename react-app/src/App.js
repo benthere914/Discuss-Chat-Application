@@ -16,6 +16,9 @@ import ProfileBar from './components/Profile/ProfileBar'
 import { authenticate } from './store/session';
 import ServersContainer from './components/servers/serverContainer';
 import ChannelsContainer from './components/channels/channelsContainer';
+// import Testserver from './components/Test/testserver'
+import Testedit from './components/Test/testedit'
+import NewServer from './components/Test/addserver'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -75,6 +78,15 @@ function App() {
           <User />
           <Messages/>
         </ProtectedRoute>
+        {/* <Route path="/servers" exact={true}>
+          <Testserver />
+        </Route> */}
+        <Route path="/servers/:serverId" exact={true}>
+          <Testedit />
+        </Route>
+        <Route path="/allservers/add" exact={true}>
+          <NewServer />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

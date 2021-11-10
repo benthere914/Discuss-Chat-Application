@@ -28,7 +28,8 @@ def update_server(serverId):
     form = UpdateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        server = Server.query.filter(Server.id == form.data['server_id']).first()
+        # server = Server.query.filter(Server.id == form.data['server_id']).first()
+        server = Server.query.filter(Server.id == serverId).first()
         server.name = form.data['name']
         db.session.commit()
 
