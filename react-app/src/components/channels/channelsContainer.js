@@ -35,7 +35,7 @@ function ChannelsContainer() {
         .then(() => setIsLoaded(true));
 
         return () => {
-            setIsLoaded()
+            setIsLoaded(false)
         }
 
     }, [dispatch, serverId, user])
