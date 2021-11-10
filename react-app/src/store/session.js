@@ -166,12 +166,14 @@ export const updateUsername = (userId, username, password) => async (dispatch) =
       })
     });
     const result = await response.json()
+    console.log(12345)
     console.log(result)
     if (result.errors){
+        console.log(result, 67890)
         return result.errorData
     }
     dispatch(updateUserEmail(result))
-
+    return {'password': 'good', 'data': 'good'}
   }
 
   export const updateUserPassword = (userId, newPassword, password) => async (dispatch) => {

@@ -63,7 +63,7 @@ body {
   color: rgb(237,66,69);
 }
 
-#loginErrorBorder {
+.loginErrorBorder {
   border-color: rgb(237,66,69);
 }
 

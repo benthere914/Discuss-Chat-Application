@@ -37,14 +37,27 @@
     color: white;
 }
 
+.editServerIcon {
+    color: rgb(185, 187, 190);
+    cursor: pointer;
+}
+
+.editServerIcon:hover {
+    color: white;
+}
+
 .serverNameContainer {
     width: 225px;
     border-bottom: 1px solid black;
     margin-bottom:  10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .serverName {
-    color: rgb(255,255,255)
+    color: rgb(255,255,255);
+    margin-top: 20px;
 }
 
 .textChannels {
@@ -170,5 +183,45 @@
 #createChannel {
     background-color: rgb(88,101,242);
     color: rgb(241,242,254);
+    cursor: pointer;
+}
+
+#serverOverview {
+    text-align: left;
+}
+
+.editServerFormContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#editForm {
+    width: 300px;
+    margin-top: 10px;
+}
+
+.serverIconEdit, .noIconServerEdit {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(88,101,242);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50px;
+    font-weight: 200;
+    background-size: cover;
+    background-position: center;
+}
+
+#editServerButtons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deleteServer {
+    color: rgb(237,66,69);
     cursor: pointer;
 }

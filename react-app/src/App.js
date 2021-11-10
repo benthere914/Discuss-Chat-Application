@@ -4,14 +4,12 @@ import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import SplashPage from './components/splash/splash';
-import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
 
 import Messages from './components/messages/messages';
-
-import ProfileBar from './components/Profile/ProfileBar'
+import GuildChannelBar from './components/guild/guild';
+import GuildDiscovery from './components/guild/guildDiscovery';
+import ProfileBar from './components/Profile/ProfileBar';
 
 import { authenticate } from './store/session';
 import ServersContainer from './components/servers/serverContainer';
@@ -56,6 +54,16 @@ function App() {
             </div>
           </div>
         </Route>
+        <Route path='/guild-discovery' exact={true}>
+          <div className="mainContentContainer">
+            <ServersContainer />
+            <div className="channelBar">
+              <GuildChannelBar />
+              <ProfileBar/>
+            </div>
+            <GuildDiscovery />
+          </div>
+        </Route>
         <Route path='/channels/:serverId' exact={true}>
           <div className="mainContentContainer">
             <ServersContainer />
@@ -65,18 +73,14 @@ function App() {
             </div>
           </div>
         </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <NavBar />
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <NavBar />
-          <User />
-        </ProtectedRoute>
         <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
-          <NavBar />
-          <User />
+          <div className="mainContentContainer">
+            <div className="channelBar">
+              <ChannelsContainer />
+              <ProfileBar/>
+            </div>
           <Messages/>
+          </div>
         </ProtectedRoute>
         {/* <Route path="/servers" exact={true}>
           <Testserver />
