@@ -87,6 +87,16 @@ export const logout = () => async (dispatch) => {
   }
 };
 
+export const deleteAccount = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/users/${userId}`, {
+        method: 'DELETE',
+    })
+
+    if (response.ok) {
+        dispatch(removeUser());
+      }
+}
+
 
 export const signUp = (username, email, password) => async (dispatch) => {
   const response = await fetch('/api/auth/signup', {
