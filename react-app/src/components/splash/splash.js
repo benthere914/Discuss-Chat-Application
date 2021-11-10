@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './splash.css';
 
 function SplashPage() {
@@ -8,12 +8,10 @@ function SplashPage() {
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {
-        document.title = "Discuss";
-      }, []);
-
-    if (user) {
-        history.push('/channels')
-    }
+        if (user) {
+            history.push('/channels')
+        }
+    }, [user])
 
     return (
         <>

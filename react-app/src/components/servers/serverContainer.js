@@ -28,7 +28,9 @@ function ServersContainer() {
 
 
     useEffect(() => {
-        dispatch(loadUserServers(user?.id)).then(() => setIsLoaded(true));
+        if (user?.id) {
+            dispatch(loadUserServers(user?.id)).then(() => setIsLoaded(true));
+        }
 
         return () => {
             setIsLoaded(false)
@@ -42,6 +44,11 @@ function ServersContainer() {
         } else {
             setAllowAdd("notAllowed")
         }
+
+        return () => {
+            setAllowAdd("notAllowed")
+        }
+
     }, [serverName])
 
     const addServer = async (e) => {

@@ -19,6 +19,7 @@ function ChannelsContainer() {
     const [errors, setErrors] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [showAddForm, setShowAddForm] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false);
     const [allowAdd, setAllowAdd] = useState("notAllowed")
 
     useEffect(() => {
@@ -65,6 +66,11 @@ function ChannelsContainer() {
                 <>
                     <div className="serverNameContainer">
                         <h3 className="serverName">{server?.name}</h3>
+                        {user?.id === server?.owner_id && (
+                            <div onClick={() => setShowEditForm(true)} className="editServerIcon">
+                                <i className="fas fa-cog"></i>
+                            </div>
+                        )}
                     </div>
                     <div className="textChannelHeaderContainer">
                         <h3 className="textChannels">TEXT CHANNELS</h3>

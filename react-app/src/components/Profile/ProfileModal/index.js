@@ -29,10 +29,10 @@ let ProfileModal = ({ hash, setProfileModalVisible, user }) => {
         setTitle(string);
 
     }
-    const logoutHandler = () => {
+    const logoutHandler = async () => {
         reset()
         setProfileModalVisible(false)
-        dispatch(logout())
+        await dispatch(logout())
         history.push('/')
     }
 
