@@ -4,7 +4,7 @@ from flask_login import login_required
 from app.models import User, Server_Member, db
 from app.models.server import Server
 from .auth_routes import validation_errors_to_error_messages
-from app.forms import NewServerForm
+from app.forms.NewServerForm import NewServerForm
 
 user_routes = Blueprint('users', __name__)
 

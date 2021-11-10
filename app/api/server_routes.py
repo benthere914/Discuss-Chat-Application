@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Channel, Server, db
+from app.models import Channel, Server, db, Server_Member
 from app.forms import UpdateServerForm, addMemberForm, NewChannelForm
 from .auth_routes import validation_errors_to_error_messages
 
@@ -28,7 +28,8 @@ def update_server(serverId):
     form = UpdateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        server = Server.query.filter(Server.id == form.data['server_id']).first()
+        # server = Server.query.filter(Server.id == form.data['server_id']).first()
+        server = Server.query.filter(Server.id == serverId).first()
         server.name = form.data['name']
         db.session.commit()
 
@@ -85,7 +86,9 @@ View and add members
 @server_routes.route('/<int:serverId>/members')
 @login_required
 def get_members(serverId):
-    return "Get server members"
+    membersServer = Server_Member.query.filter(Server_Member.server_id == serverId).all()
+    members = [member.to_dict() for member in membersServer]
+    return {"members": members}
 
 
 # Add a member to a server
