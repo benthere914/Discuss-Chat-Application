@@ -7,21 +7,30 @@ let ProfileBar = () => {
     const [hash, sethash] = useState(md5('benthere914@gmail.com'))
     const [profileModalVisible, setProfileModalVisible] = useState(false);
     const user = useSelector(state => state.session.user);
+    const shortenUsername = (username, num=15) => {
+        if (username?.length >= num){
+            username = username.slice(0, num)
+            username += '...'
+        }
+        return username
+    }
+
+
     useEffect(() => {
         if (user){
-            sethash(md5('user?.email'))
+            sethash(md5(user?.email))
         }
     }, [user])
 
     return (
         <>
-            {profileModalVisible && <ProfileModal hash={hash} setProfileModalVisible={setProfileModalVisible} user={user}/>}
+            {profileModalVisible && <ProfileModal hash={hash} setProfileModalVisible={setProfileModalVisible} user={user} shortenUsername={shortenUsername}/>}
             {user && <ul className='profileBar'>
                 <li>
                     <img className='profilePhoto' src={`https://www.gravatar.com/avatar/${hash}`}></img>
                 </li>
                 <li>
-                    <p className='profileUsername'>{user?.username}</p>
+                    <p className='profileUsername'>{shortenUsername(user?.username)}</p>
                 </li>
                 <li>
                     <i className='fas fa-cog profileWidget' onClick={() => {setProfileModalVisible((!profileModalVisible))}}></i>
