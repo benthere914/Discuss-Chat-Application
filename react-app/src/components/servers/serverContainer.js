@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadUserServers } from '../../store/server';
+import { loadUserServers, addServer } from '../../store/server';
 import './mainContent.css'
 import './serverContainer.css'
-
 
 function ServersContainer() {
     const dispatch = useDispatch();
@@ -44,12 +43,15 @@ function ServersContainer() {
         }
     }, [serverName])
 
-    const addServer = async (e) => {
+    const addServerf = async (e) => {
         e.preventDefault();
         setShowAddForm(false)
         setServerName('')
         setServerDescription('')
         setServerIcon('')
+        return dispatch(
+          addServer({ serverName, serverDescription, serverIcon }, user.id)
+        );
     }
 
     const handleCancel = (e) => {
@@ -61,88 +63,114 @@ function ServersContainer() {
     }
 
     return (
-        <>
-            {isLoaded && (
-                <div className="serversContainer">
-                    {servers[0] !== null && servers.map(server =>
-                        <NavLink key={`server_${server.id}`} to={`/channels/${server.id}`} className="singleServer" activeClassName="selectedServer">
-                            {server?.icon? (
-                                <div className="serverInfo">
-                                    <div className="serverIcon" style={{backgroundImage: `url(${server.icon})`}}></div>
-                                    <div id="serverNameHover">{server.name}</div>
-                                    <div className="activeServerIndicator"></div>
-                                </div>
-                            ):(
-                                <div className="serverInfo">
-                                    <div className="noIconServer">{server.name[0]}</div>
-                                    <div id="serverNameHover">{server.name}</div>
-                                    <div className="activeServerIndicator"></div>
-                                </div>
-                            )}
-                        </NavLink>
-                    )}
-                    <div className="serverInfo" onClick={() => setShowAddForm(true)}>
-                        <div className="noIconServer" id="addServerButton">
-                            <i className="fas fa-plus"></i>
-                        </div>
-                        <div id="serverNameHover">Add a Server</div>
+      <>
+        {isLoaded && (
+          <div className="serversContainer">
+            {servers[0] !== null &&
+              servers.map((server) => (
+                <NavLink
+                  key={`server_${server.id}`}
+                  to={`/channels/${server.id}`}
+                  className="singleServer"
+                  activeClassName="selectedServer"
+                >
+                  {server?.icon ? (
+                    <div className="serverInfo">
+                      <div
+                        className="serverIcon"
+                        style={{ backgroundImage: `url(${server.icon})` }}
+                      ></div>
+                      <div id="serverNameHover">{server.name}</div>
+                      <div className="activeServerIndicator"></div>
                     </div>
-                    <NavLink to={'/guild-discovery'} className="singleServer">
-                        <div className="serverInfo">
-                            <div className="noIconServer" id="addServerButton">
-                                <i className="fas fa-compass"></i>
-                            </div>
-                            <div id="expPublicServer">Explore Public Servers</div>
-                        </div>
-                    </NavLink>
+                  ) : (
+                    <div className="serverInfo">
+                      <div className="noIconServer">{server.name[0]}</div>
+                      <div id="serverNameHover">{server.name} </div>
+                      <div className="activeServerIndicator"></div>
+                    </div>
+                  )}
+                </NavLink>
+              ))}
+            <div className="serverInfo" onClick={() => setShowAddForm(true)}>
+              <div className="noIconServer" id="addServerButton">
+                <i className="fas fa-plus"></i>
+              </div>
+              <div id="serverNameHover">Add a Server</div>
+            </div>
+            <NavLink to={"/guild-discovery"} className="singleServer">
+              <div className="serverInfo">
+                <div className="noIconServer" id="addServerButton">
+                  <i className="fas fa-compass"></i>
                 </div>
-            )}
-            <>
-                {showAddForm && (
-                    <div className="addModal" id="addServerModal">
-                        <div className="addChannelFormContainer" id="addServerFormContainer">
-                            <h3>Customize your server</h3>
-                            <h5>Give your new server a personality with a name and an icon. You can always change it later.</h5>
-                            <form onSubmit={addServer} autoComplete="off">
-                                <div className="addChannelInput">
-                                    <label className="addServerLabel">SERVER NAME</label>
-                                    <input className="addServerInput"
-                                        type="text"
-                                        value={serverName}
-                                        required
-                                        autoComplete="off"
-                                        onChange={(e) => setServerName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="addChannelInput">
-                                    <label className="addServerLabel">SERVER DESCRIPTION</label>
-                                    <input className="addServerInput"
-                                        type="text"
-                                        value={serverDescription}
-                                        autoComplete="off"
-                                        onChange={(e) => setServerDescription(e.target.value)}
-                                    />
-                                </div>
-                                <div className="addChannelInput">
-                                    <label className="addServerLabel">ICON</label>
-                                    <input className="addServerInput"
-                                        type="text"
-                                        value={serverIcon}
-                                        autoComplete="off"
-                                        onChange={(e) => setServerIcon(e.target.value)}
-                                    />
-                                </div>
-                                <div className="addChannelButtons" id="addServerButtons">
-                                    <button id="serverChannel" onClick={handleCancel}>Cancel</button>
-                                    <button className="createServer" id={allowAdd} type="submit">Create</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                )}
-            </>
+                <div id="expPublicServer">Explore Public Servers</div>
+              </div>
+            </NavLink>
+          </div>
+        )}
+        <>
+          {showAddForm && (
+            <div className="addModal" id="addServerModal">
+              <div
+                className="addChannelFormContainer"
+                id="addServerFormContainer"
+              >
+                <h3>Customize your server</h3>
+                <h5>
+                  Give your new server a personality with a name and an icon.
+                  You can always change it later.
+                </h5>
+                <form onSubmit={addServerf} autoComplete="off">
+                  <div className="addChannelInput">
+                    <label className="addServerLabel">SERVER NAME</label>
+                    <input
+                      className="addServerInput"
+                      type="text"
+                      value={serverName}
+                      required
+                      autoComplete="off"
+                      onChange={(e) => setServerName(e.target.value)}
+                    />
+                  </div>
+                  <div className="addChannelInput">
+                    <label className="addServerLabel">SERVER DESCRIPTION</label>
+                    <input
+                      className="addServerInput"
+                      type="text"
+                      value={serverDescription}
+                      autoComplete="off"
+                      onChange={(e) => setServerDescription(e.target.value)}
+                    />
+                  </div>
+                  <div className="addChannelInput">
+                    <label className="addServerLabel">ICON</label>
+                    <input
+                      className="addServerInput"
+                      type="text"
+                      value={serverIcon}
+                      autoComplete="off"
+                      onChange={(e) => setServerIcon(e.target.value)}
+                    />
+                  </div>
+                  <div className="addChannelButtons" id="addServerButtons">
+                    <button id="serverChannel" onClick={handleCancel}>
+                      Cancel
+                    </button>
+                    <button
+                      className="createServer"
+                      id={allowAdd}
+                      type="submit"
+                    >
+                      Create
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </>
-    )
+      </>
+    );
 }
 
 export default ServersContainer;
