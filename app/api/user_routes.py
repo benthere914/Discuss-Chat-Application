@@ -1,8 +1,8 @@
 import re
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User, Server_Member, db
-from app.models.server import Server
+from app.models import User, Server_Member, Server, db
+# from app.models.server import 
 from .auth_routes import validation_errors_to_error_messages
 from app.forms.NewServerForm import NewServerForm
 
@@ -44,6 +44,11 @@ def add_server(userId):
         server = Server(name = form.data['name'], description = form.data['description'], icon = form.data['icon'], owner_id = userId)
         db.session.add(server)
         db.session.commit()
+        server = server.to_dict()
+        serverMember = Server_Member(user_id=userId, server_id=server['id'])
+        db.session.add(serverMember)
+        db.session.commit()
+
         return server.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
