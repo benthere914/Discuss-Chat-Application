@@ -37,10 +37,22 @@
     color: white;
 }
 
+.editServerIcon {
+    color: rgb(185, 187, 190);
+    cursor: pointer;
+}
+
+.editServerIcon:hover {
+    color: white;
+}
+
 .serverNameContainer {
     width: 225px;
     border-bottom: 1px solid black;
     margin-bottom:  10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .serverName {

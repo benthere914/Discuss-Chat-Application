@@ -8,12 +8,10 @@ function SplashPage() {
     const user = useSelector(state => state.session.user);
 
     useEffect(() => {
-        document.title = "Discuss";
-      }, []);
-
-    if (user) {
-        history.push('/channels')
-    }
+        if (user) {
+            history.push('/channels')
+        }
+    }, [user])
 
     return (
         <>

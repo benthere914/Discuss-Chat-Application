@@ -44,6 +44,11 @@ function ServersContainer() {
         } else {
             setAllowAdd("notAllowed")
         }
+
+        return () => {
+            setAllowAdd("notAllowed")
+        }
+
     }, [serverName])
 
     const addServer = async (e) => {
