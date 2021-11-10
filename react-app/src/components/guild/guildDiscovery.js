@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchServer } from '../../store/search';
+import ServerCard from './singleSearch';
 
 import './guildDiscovery.css'
 
 const GuildDiscovery = () => {
   const dispatch = useDispatch();
 
-  const results = useSelector(state => state.search)
-
-  //replace any percent with %25
-  // any space with %20
+  const results = useSelector(state => Object.values(state.search));
+  const user = useSelector(state => state.session.user);
 
   const [searchParameters, setSearchParamters] = useState('')
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [showDefault, setShowDefault] = useState(true)
   const [showResults, setShowResults] = useState(false)
 
   useEffect(() => {
-    dispatch(searchServer('1'))
+    dispatch(searchServer('$$default$$'))
     .then(() => setIsLoaded(true));
 
     return () => {
@@ -26,6 +25,10 @@ const GuildDiscovery = () => {
     }
 
 }, [dispatch])
+
+useEffect(() => {
+  console.log(results)
+}, [results])
 
 
 const search = async (e) => {
@@ -76,9 +79,10 @@ const search = async (e) => {
                   <img className="searchBGImage" src="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636571660/Discuss/guildDiscovery_joyfnj.png" alt ="Search BG"/>
                 </div>
                 <div className="featuredContainer">
-                  <h4>
                     Featured communities
-                  </h4>
+                    {results?.map(server =>
+                      <ServerCard user={user} server={server} />
+                    )}
                 </div>
             </>
             )}
