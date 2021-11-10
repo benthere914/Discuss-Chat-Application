@@ -21,7 +21,7 @@ function SplashPage() {
                 <header>
                     <NavLink to="/" className="mainIcon">
                         <div className="logoContainer">
-                            <i id="discordIcon" class="fab fa-discord"></i>
+                            <i id="discordIcon" className="fab fa-discord"></i>
                             <div className="discussName">Discuss</div>
                         </div>
                     </NavLink>

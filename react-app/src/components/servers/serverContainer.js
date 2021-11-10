@@ -12,8 +12,14 @@ function ServersContainer() {
 
     const servers = useSelector(state => Object.values(state.serversReducer));
 
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [runOnce, setRunOnce] = useState(false)
+    const [serverName, setServerName] = useState('');
+    const [serverDescription, setServerDescription] = useState('');
+    const [serverIcon, setServerIcon] = useState('');
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [allowAdd, setAllowAdd] = useState("notAllowed")
+    const [isLoaded, setIsLoaded] = useState(true);
+    const [runOnce, setRunOnce] = useState(false);
+
 
     useEffect(() => {
         dispatch(loadUserServers(user?.id)).then(() => setIsLoaded(true));
@@ -33,9 +39,30 @@ function ServersContainer() {
         }
     }, [isLoaded])
 
+    useEffect(() => {
+        if (serverName.length > 0) {
+            setAllowAdd("nowCanCreate")
+        } else {
+            setAllowAdd("notAllowed")
+        }
+    }, [serverName])
+
+    const addServer = async (e) => {
+        e.preventDefault();
+        setShowAddForm(false)
+    }
+
+    const handleCancel = (e) => {
+        e.preventDefault()
+        setShowAddForm(false)
+        setServerName('')
+        setServerDescription('')
+        setServerIcon()
+    }
+
     return (
         <>
-            {isLoaded && runOnce && (
+            {isLoaded && (
                 <div className="serversContainer">
                     {servers[0] !== null && servers.map(server =>
                         <NavLink key={`server_${server.id}`} to={`/channels/${server.id}`} className="singleServer">
@@ -52,8 +79,58 @@ function ServersContainer() {
                             )}
                         </NavLink>
                     )}
+                    <div className="serverInfo" onClick={() => setShowAddForm(true)}>
+                        <div className="noIconServer" id="addServerButton">
+                            <i className="fas fa-plus"></i>
+                        </div>
+                        <div id="serverNameHover">Add a Server</div>
+                    </div>
                 </div>
             )}
+            <>
+                {showAddForm && (
+                    <div className="addModal" id="addServerModal">
+                        <div className="addChannelFormContainer" id="addServerFormContainer">
+                            <h3>Customize your server</h3>
+                            <h5>Give your new server a personality with a name and an icon. You can always change it later.</h5>
+                            <form onSubmit={addServer} autoComplete="off">
+                                <div className="addChannelInput">
+                                    <label className="addServerLabel">SERVER NAME</label>
+                                    <input className="addServerInput"
+                                        type="text"
+                                        value={serverName}
+                                        required
+                                        autoComplete="off"
+                                        onChange={(e) => setServerName(e.target.value)}
+                                    />
+                                </div>
+                                <div className="addChannelInput">
+                                    <label className="addServerLabel">SERVER DESCRIPTION</label>
+                                    <input className="addServerInput"
+                                        type="text"
+                                        value={serverDescription}
+                                        autoComplete="off"
+                                        onChange={(e) => setServerDescription(e.target.value)}
+                                    />
+                                </div>
+                                <div className="addChannelInput">
+                                    <label className="addServerLabel">ICON</label>
+                                    <input className="addServerInput"
+                                        type="text"
+                                        value={serverIcon}
+                                        autoComplete="off"
+                                        onChange={(e) => setServerIcon(e.target.value)}
+                                    />
+                                </div>
+                                <div className="addChannelButtons" id="addServerButtons">
+                                    <button id="serverChannel" onClick={handleCancel}>Cancel</button>
+                                    <button className="createServer" id={allowAdd} type="submit">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )}
+            </>
         </>
     )
 }
