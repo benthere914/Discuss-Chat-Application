@@ -164,15 +164,15 @@ function ServersContainer() {
                     />
                   </div>
                   <div className="addChannelButtons" id="addServerButtons">
+                    <div id="serverChannel" onClick={handleCancel}>
+                      Cancel
+                    </div>
                     <button
                       className="createServer"
                       id={allowAdd}
                       type="submit"
                     >
                       Create
-                    </button>
-                    <button id="serverChannel" onClick={handleCancel}>
-                      Cancel
                     </button>
                   </div>
                 </form>

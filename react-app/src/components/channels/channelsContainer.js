@@ -213,7 +213,7 @@ const handleEdit = async (e) => {
                             />
                         </div>
                         <div className="addChannelButtons">
-                            <button id="cancelChannel" onClick={handleCancel}>Cancel</button>
+                            <div id="cancelChannel" onClick={handleCancel}>Cancel</div>
                             <button className="createChannel"id={allowAdd} type="submit">Create Channel</button>
                         </div>
                     </form>
@@ -264,8 +264,8 @@ const handleEdit = async (e) => {
                             </div>
                             <div className="addChannelButtons" id="editServerButtons">
                                 <div className="deleteServer" onClick={() => setShowDelete(true)}>Delete</div>
-                                <div>
-                                    <button id="cancelChannel" onClick={handleEditCancel}>Cancel</button>
+                                <div className="editServerButtonCancelEdit">
+                                    <div id="cancelChannel" onClick={handleEditCancel}>Cancel</div>
                                     <button className="createChannel"id={allowEdit} onClick={handleEdit} type="submit">Edit Server</button>
                                 </div>
                             </div>
