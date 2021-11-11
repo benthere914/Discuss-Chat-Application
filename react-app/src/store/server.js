@@ -11,7 +11,7 @@ const loadServers = (servers) => ({
 
 const add_server = (servers) => ({
   type: ADD_SERVER,
-  payload: servers,
+  servers,
 });
 
 const single_server = (servers) => ({
@@ -96,7 +96,7 @@ export const addServer = (name, description, icon, id) => async (dispatch) => {
     const data = await response.json();
     dispatch(add_server(data));
     // dispatch(addMemberServer(data.id, id));
-    return {data, id} 
+    return {data, id}
   }
 };
 
@@ -112,6 +112,7 @@ export const deleteServer = (id) => async (dispatch) => {
   console.log("after fetch");
   if (response.ok) {
   const data = await response.json();
+  console.log(data)
   dispatch(remove(data));
   return data;
   }
@@ -156,12 +157,10 @@ const serversReducer = (state = initialState, action) => {
       return newState;
     }
     case ADD_SERVER: {
-      const newState = Object.assign({}, state);
-      newState.servers = {
-        ...newState.servers,
-        [action.payload.id]: action.payload,
-      };
-      return newState;
+      return {
+          ...state,
+          [action.servers.id]: action.servers
+      }
     }
     default:
       return state;

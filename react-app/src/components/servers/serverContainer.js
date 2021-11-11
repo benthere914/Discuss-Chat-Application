@@ -72,7 +72,7 @@ function ServersContainer() {
     return (
       <>
         {isLoaded && (
-          <div className="serversContainer">
+          <div id="serversContainer">
             {servers !== null ? (
               servers.map((server) => (
                 <NavLink
@@ -92,7 +92,7 @@ function ServersContainer() {
                     </div>
                   ) : (
                     <div className="serverInfo">
-                      <div className="noIconServer">{server?.name}</div>
+                      <div className="noIconServer">{server?.name[0]}</div>
                       <div id="serverNameHover">{server?.name} </div>
                       <div className="activeServerIndicator"></div>
                     </div>
