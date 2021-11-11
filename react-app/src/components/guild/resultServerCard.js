@@ -29,7 +29,7 @@ function ServerSearchCard({user, server, userServers}) {
 function joinServer() {
   dispatch(addMember(user.id, server.id));
 }
-    return (    
+    return (
         <div className="singleServerResultContainer">
             {server.icon? (
                 <div
@@ -54,7 +54,6 @@ function joinServer() {
                 )}
             </div>
         </div>
-      </div>
     );
 }
 
