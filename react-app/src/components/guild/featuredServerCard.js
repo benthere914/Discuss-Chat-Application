@@ -21,12 +21,7 @@ function ServerCard({user, server, userServers}) {
     }
 
     const leaveServer = async () => {
-        console.log("**********************")
-        console.log(user.id, server.id)
-        const errors = await dispatch(removeMember(user.id, server.id));
-        if (!errors) {
-            console.log("Left!!!!!!")
-        }
+        await dispatch(removeMember(user.id, server.id));
     }
 
     const alreadyJoined = checkIfUserInServer();

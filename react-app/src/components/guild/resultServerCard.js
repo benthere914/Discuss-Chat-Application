@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {removeMember} from '../../store/server';
-import { loadUserServers } from '../../store/server';
 
 import './resultServerCard.css'
 
@@ -22,12 +21,7 @@ function ServerSearchCard({user, server, userServers}) {
     }
 
     const leaveServer = async () => {
-        console.log("**********************")
-        console.log(user.id, server.id)
-        const errors = await dispatch(removeMember(user.id, server.id));
-        if (!errors) {
-            console.log("Left!!!!!!")
-        }
+        await dispatch(removeMember(user.id, server.id));
     }
 
     const alreadyJoined = checkIfUserInServer();
