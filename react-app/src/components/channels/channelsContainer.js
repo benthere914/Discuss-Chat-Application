@@ -213,7 +213,7 @@ const handleEdit = async (e) => {
                             />
                         </div>
                         <div className="addChannelButtons">
-                            <button id="cancelChannel" onClick={handleCancel}>Cancel</button>
+                            <div id="cancelChannel" onClick={handleCancel}>Cancel</div>
                             <button className="createChannel"id={allowAdd} type="submit">Create Channel</button>
                         </div>
                     </form>

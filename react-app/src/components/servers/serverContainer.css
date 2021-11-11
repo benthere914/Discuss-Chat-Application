@@ -122,14 +122,6 @@
     justify-content: space-between;
 }
 
-#addServerButtons button:first-child {
-    order: 2;
-}
-
-#serverChannel {
-    order: 1;
-}
-
 #serverChannel {
     background: none;
     border: none;
