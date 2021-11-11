@@ -7,8 +7,6 @@ import './resultServerCard.css'
 function ServerSearchCard({user, server, userServers}) {
     const dispatch = useDispatch();
 
-// const users = useSelector((state) => state.session.user);
-// const usersId = users.id;
     const checkIfUserInServer = () => {
         let alreadyJoined = false;
         for (let [key, value] of Object.entries(userServers)) {

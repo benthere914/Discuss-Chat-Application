@@ -62,6 +62,10 @@
     overflow-wrap: break-word;
 }
 
+#leaveServerIcon:hover {
+    color: rgb(237,66,69);
+}
+
 .textChannels {
     color: rgb(142,146,151);
     margin: 5px 0
