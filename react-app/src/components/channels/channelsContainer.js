@@ -33,10 +33,6 @@ function ChannelsContainer() {
 
     const [showDelete, setShowDelete] = useState('');
 
-    // useEffect(() => {
-    //     dispatch(singleServer(+serverId));
-    // }, [dispatch, singleServer, serverId]);
-
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
         dispatch(loadUserServers(user?.id))
@@ -101,11 +97,13 @@ function ChannelsContainer() {
     const handleDelete = async (e) => {
         e.preventDefault()
 
-        const deleteserver = await dispatch(deleteServer(serverId));
-        if (deleteserver) {
+        const errors = await dispatch(deleteServer(serverId));
+        if (!errors) {
             setShowDelete(false)
             setShowEditForm(false)
             history.push('/channels')
+        } else {
+            //Show an error somewhere
         }
     }
 
@@ -206,16 +204,16 @@ const handleEdit = async (e) => {
                 </div>
             </div>
         )}
-        {showEditForm && (
+        {showEditForm && server !== undefined && (
             <div className="addModal">
                 <div className="addChannelFormContainer" id="editChannelContainer">
                     <h3 id="serverOverview">Server Overview</h3>
                         <form autoComplete="off">
                             <div className="editServerFormContainer">
                                 {server?.icon? (
-                                    <div className="serverIconEdit" style={{backgroundImage: `url(${server.icon})`}}></div>
+                                    <div className="serverIconEdit" style={{backgroundImage: `url(${server?.icon})`}}></div>
                                 ):(
-                                    <div className="noIconServerEdit">{server.name[0]}</div>
+                                    <div className="noIconServerEdit">{server?.name[0]}</div>
                                 )}
                                 <div className="serverInputs" id="editForm">
                                     <div className="addChannelInput">
@@ -259,7 +257,7 @@ const handleEdit = async (e) => {
                     </div>
             </div>
         )}
-        {showDelete && (
+        {showDelete && server !== undefined && (
             <div className="addModal">
                 <div className="addChannelFormContainer">
                     <h3 id="deleteChannelHeader">Delete Server</h3>

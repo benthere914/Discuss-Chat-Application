@@ -77,7 +77,7 @@ const handleClose = () => {
                           className="searchInput"
                           type="text"
                           placeholder="Explore communities"
-                          autocomplete="off"
+                          autoComplete="off"
                           value={searchParameters}
                           onChange={(e) => setSearchParamters(e.target.value)}
 
@@ -93,8 +93,8 @@ const handleClose = () => {
                 <div className="featuredContainer">
                     <h4>Featured communities</h4>
                     <div className="serverResultsContainer">
-                      {results?.map(server =>
-                        <ServerCard user={user} server={server} userServers={servers}/>
+                      {results?.map((server, index) =>
+                        <ServerCard user={user} server={server} userServers={servers} key={`server_${index}`}/>
                       )}
                     </div>
                 </div>
@@ -117,7 +117,7 @@ const handleClose = () => {
                     id="searchAgainInput"
                     type="text"
                     placeholder="Explore communities"
-                    autocomplete="off"
+                    autoComplete="off"
                     value={searchParameters}
                     onChange={(e) => setSearchParamters(e.target.value)}
 
@@ -136,8 +136,8 @@ const handleClose = () => {
                     </div>
                   ) : (
                     <>
-                      {finalResults?.map(server =>
-                        <ServerSearchCard user={user} server={server} userServers={servers}/>
+                      {finalResults?.map((server, index) =>
+                        <ServerSearchCard user={user} server={server} userServers={servers} key={`result_${index}`}/>
                       )}
                     </>
                   )}

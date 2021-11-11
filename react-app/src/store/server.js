@@ -19,9 +19,9 @@ const single_server = (servers) => ({
   payload: servers,
 });
 
-const remove = (servers) => ({
+const remove = (serverId) => ({
   type: REMOVE_SERVER,
-  payload: servers,
+  serverId
 });
 
 //load user's servers
@@ -102,17 +102,15 @@ export const addServer = (name, description, icon, id) => async (dispatch) => {
 
 //delete a server
 export const deleteServer = (id) => async (dispatch) => {
-  console.log("before fetch");
   const response = await fetch(`/api/servers/${id}`, {
     method: "DELETE",
   });
-  console.log("after fetch");
-  console.log(response)
+
   if (response.ok) {
-    const data = await response.json();
-    console.log(data)
-    dispatch(remove(data));
-  return data;
+    dispatch(remove(id));
+    return null;
+  } else {
+    return ['An error occurred. Please try again.']
   }
 };
 
@@ -134,7 +132,7 @@ export const editServer = (name, description, icon, id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(add_server(data));
-    // return data;
+    return data;
   }
 };
 
@@ -151,7 +149,7 @@ const serversReducer = (state = initialState, action) => {
       return { ...allServers };
     case REMOVE_SERVER: {
       const newState = { ...state };
-      delete newState[action.server];
+      delete newState[action.serverId];
       return newState;
     }
     case ADD_SERVER: {
