@@ -46,9 +46,9 @@
     background-color: rgb(88,101,242);
     color: white;
     border-radius: 4px;
-    width: 130px;
+    width: 110px;
     text-align: center;
-    padding: 5px 0;
+    padding: 4px 1px;
     margin-top: 10px;
     cursor: pointer;
 }

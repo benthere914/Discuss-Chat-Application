@@ -89,7 +89,11 @@ const search = async (e) => {
             </>
             )}
             {showResults && (
-              <h1>Results Here!</h1>
+              <div className="serverResultsContainer">
+                {results?.map(server =>
+                  <ServerCard user={user} server={server} userServers={servers}/>
+                )}
+              </div>
             )}
           </>
         )}
