@@ -3,6 +3,7 @@ from flask_login import login_required
 from app.models import Channel, Server, db, Server_Member
 from app.forms import UpdateServerForm, addMemberForm, NewChannelForm
 from .auth_routes import validation_errors_to_error_messages
+import datetime
 
 server_routes = Blueprint('servers', __name__)
 
@@ -88,11 +89,21 @@ View and add members
 @server_routes.route('/<int:serverId>/members')
 @login_required
 def get_members(serverId):
+    now = datetime.datetime.now().minute
     membersServer = Server_Member.query.filter(Server_Member.server_id == serverId).all()
+    for member in membersServer:
+        member = member.user
+        checkin = member.last_checkIn
+        print(int(now) - int(checkin))
+        if (int(now) - int(checkin) >= 2):
+            member.online = False
+            # for i in range(10):
+            #     print('false')
+        else:
+            member.online = True
+    db.session.commit()
     members = {member.to_dict()['id']: member.user.to_dict() for member in membersServer}
-    for i in range(20):
-        print('******************')
-    print(members)
+
     return members
 
 
