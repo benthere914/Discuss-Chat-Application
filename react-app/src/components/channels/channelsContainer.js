@@ -41,7 +41,7 @@ function ChannelsContainer() {
         .then(() => setIsLoaded(true));
 
         return () => {
-            setIsLoaded()
+            setIsLoaded(false)
         }
 
     }, [dispatch, serverId, user])
@@ -177,83 +177,104 @@ const handleEdit = (e) => {
                 }
               })}
             </div>
-            {errors.length > 0 && (
-              <>
-                {errors.map((error) => (
-                  <p>{error}</p>
-                ))}
-              </>
-            )}
-            {showAddForm && (
-              <div className="addModal">
-                <div className="addChannelFormContainer">
-                  <h3>Create Text Channel</h3>
-                  <h5>in Text Channels</h5>
-                  <form onSubmit={addChannel} autoComplete="off">
-                    <div className="addChannelInput">
-                      <label>CHANNEL NAME</label>
-                      <input
-                        type="text"
-                        value={name}
-                        required
-                        placeholder="# new-channel"
-                        autoComplete="off"
-                        onChange={(e) => setChannelName(e.target.value)}
-                      />
-                    </div>
-                    <div className="addChannelButtons">
-                      <button id="cancelChannel" onClick={handleCancel}>
-                        Cancel
-                      </button>
-                      <button
-                        className="createChannel"
-                        id={allowAdd}
-                        type="submit"
-                      >
-                        Create Channel
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            )}
-            {showEditForm && (
-              <div className="addModal">
-                <div
-                  className="addChannelFormContainer"
-                  id="editChannelContainer"
-                >
-                  <h3 id="serverOverview">Server Overview</h3>
-                  <form onSubmit={addChannel} autoComplete="off">
-                    <div className="editServerFormContainer">
-                      {server?.icon ? (
-                        <div
-                          className="serverIconEdit"
-                          style={{ backgroundImage: `url(${server.icon})` }}
-                        ></div>
-                      ) : (
-                        <div className="noIconServerEdit">{server.name[0]}</div>
-                      )}
-                      <div className="serverInputs" id="editForm">
-                        <div className="addChannelInput">
-                          <label>SERVER NAME</label>
-                          <input
-                            type="text"
-                            value={serverName}
-                            required
-                            autoComplete="off"
-                            onChange={(e) => setServerName(e.target.value)}
-                          />
-                        </div>
-                        <div className="addChannelInput">
-                          <label>SERVER ICON</label>
-                          <input
-                            type="text"
-                            value={serverIcon}
-                            required
-                            autoComplete="off"
-                            onChange={(e) => setServerIcon(e.target.value)}
-                          />
+                    {errors.length > 0 && (
+                        <>
+                            {errors.map(error =>
+                                <p>{error}</p>
+                            )}
+                        </>
+                    )}
+                    {showAddForm && (
+                            <div className="addModal">
+                                <div className="addChannelFormContainer">
+                                    <h3>Create Text Channel</h3>
+                                    <h5>in Text Channels</h5>
+                                    <form onSubmit={addChannel} autoComplete="off">
+                                        <div className="addChannelInput">
+                                            <label>CHANNEL NAME</label>
+                                            <input
+                                                type="text"
+                                                value={name}
+                                                required
+                                                placeholder="# new-channel"
+                                                autoComplete="off"
+                                                onChange={(e) => setChannelName(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="addChannelButtons">
+                                            <button id="cancelChannel" onClick={handleCancel}>Cancel</button>
+                                            <button className="createChannel"id={allowAdd} type="submit">Create Channel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                    )}
+                    {showEditForm && (
+                            <div className="addModal">
+                                <div className="addChannelFormContainer" id="editChannelContainer">
+                                    <h3 id="serverOverview">Server Overview</h3>
+                                        <form onSubmit={addChannel} autoComplete="off">
+                                            <div className="editServerFormContainer">
+                                                {server?.icon? (
+                                                    <div className="serverIconEdit" style={{backgroundImage: `url(${server.icon})`}}></div>
+                                                ):(
+                                                    <div className="noIconServerEdit">{server.name[0]}</div>
+                                                )}
+                                                <div className="serverInputs" id="editForm">
+                                                    <div className="addChannelInput">
+                                                        <label>SERVER NAME</label>
+                                                        <input
+                                                            type="text"
+                                                            value={serverName}
+                                                            required
+                                                            autoComplete="off"
+                                                            onChange={(e) => setServerName(e.target.value)}
+                                                        />
+                                                    </div>
+                                                    <div className="addChannelInput">
+                                                        <label>SERVER ICON</label>
+                                                        <input
+                                                            type="text"
+                                                            value={serverIcon}
+                                                            required
+                                                            autoComplete="off"
+                                                            onChange={(e) => setServerIcon(e.target.value)}
+                                                        />
+                                                    </div>
+                                                    <div className="addChannelInput">
+                                                        <label>SERVER DESCRIPTION</label>
+                                                        <input
+                                                            type="text"
+                                                            value={serverDescription}
+                                                            autoComplete="off"
+                                                            onChange={(e) => setServerDescription(e.target.value)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="addChannelButtons" id="editServerButtons">
+                                                <div className="deleteServer" onClick={() => setShowDelete(true)}>Delete</div>
+                                                <div>
+                                                    <button id="cancelChannel" onClick={handleEditCancel}>Cancel</button>
+                                                    <button className="createChannel"id={allowEdit} type="submit">Edit Server</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                    )}
+                    {showDelete && (
+                        <div className="addModal">
+                            <div className="addChannelFormContainer">
+                                <h3 id="deleteChannelHeader">Delete Server</h3>
+                                <h5 id="deleteChannelSubHeader" >Are you sure you want to delete <span id="channelDeleteName">{server?.name}</span>? This cannot be undone.</h5>
+                                    <div className="addChannelButtons">
+                                        <div id="cancelChannel" onClick={handleDeleteCancel}>Cancel</div>
+                                        <div className="createChannel" id="deleteChannel" onClick={handleDelete}>Delete Server</div>
+                                    </div>
+                            </div>
                         </div>
                         <div className="addChannelInput">
                           <label>SERVER DESCRIPTION</label>
@@ -292,31 +313,7 @@ const handleEdit = (e) => {
                   </form>
                 </div>
               </div>
-            )}
-            {showDelete && (
-              <div className="addModal">
-                <div className="addChannelFormContainer">
-                  <h3 id="deleteChannelHeader">Delete Server</h3>
-                  <h5 id="deleteChannelSubHeader">
-                    Are you sure you want to delete{" "}
-                    <span id="channelDeleteName">{server?.name}</span>? This
-                    cannot be undone.
-                  </h5>
-                  <div className="addChannelButtons">
-                    <div id="cancelChannel" onClick={handleDeleteCancel}>
-                      Cancel
-                    </div>
-                    <div
-                      className="createChannel"
-                      id="deleteChannel"
-                      onClick={handleDelete}
-                    >
-                      Delete Server
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+            )}    
           </>
         )}
       </div>

@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import session from './session'
 import channelsReducer from './channel';
 import messagesReducer from './messages';
-
+import searchReducer from './search';
 import serversReducer from './server'
 
 
@@ -11,7 +11,8 @@ const rootReducer = combineReducers({
   session,
   channels: channelsReducer,
   messages: messagesReducer,
-  servers: serversReducer
+  servers: serversReducer,
+  search: searchReducer,
 });
 
 

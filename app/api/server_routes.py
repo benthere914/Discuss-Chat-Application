@@ -14,6 +14,7 @@ def all_servers():
     servers = Server.query.all()
     return {'servers': [server.to_dict() for server in servers]}
 
+
 #single server
 @server_routes.route('/<int:id>', methods=['GET'])
 @login_required
@@ -105,3 +106,14 @@ def add_member(serverId):
         db.session.commit()
         return server.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@server_routes.route('/search/<string:query>')
+# @login_required
+def search_servers(query):
+    query = query.replace('%20', ' ')
+    query = query.replace('%25', '%')
+    if query == '$$default$$':
+        return {server.name: server.to_dict() for server in Server.query.limit(10).all()}
+    else:
+        return {server.name: server.to_dict() for server in Server.query.filter(Server.name.ilike(f'%{query}%'))}

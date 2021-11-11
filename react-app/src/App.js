@@ -7,7 +7,7 @@ import SplashPage from './components/splash/splash';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import Messages from './components/messages/messages';
-import GuildChannelBar from './components/guild/guild';
+import GuildChannelBar from './components/guild/guildChannelBar';
 import GuildDiscovery from './components/guild/guildDiscovery';
 import ProfileBar from './components/Profile/ProfileBar';
 
