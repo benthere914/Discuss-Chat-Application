@@ -7,6 +7,7 @@ import {
   deleteServer,
   editServer,
   singleServer,
+  removeMember
 } from "../../store/server";
 import EditableChannel from './editableChannel';
 import './channelContainer.css'
@@ -24,6 +25,7 @@ function ChannelsContainer() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [showAddForm, setShowAddForm] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
+    const [showLeaveForm, setShowLeaveForm] = useState(false);
     const [allowAdd, setAllowAdd] = useState("notAllowed")
     const [allowEdit, setAllowEdit] = useState("notAllowed")
 
@@ -116,18 +118,32 @@ const handleEdit = async (e) => {
     setShowEditForm(false)
   }
 };
+
+    const handleLeaveServer = async () => {
+      await dispatch(removeMember(user.id, server.id));
+      history.push('/channels')
+    }
     return (
       <div className="channelContainer">
         {isLoaded && (
           <>
             <div className="serverNameContainer">
               <h3 className="serverName">{server?.name}</h3>
-              {user?.id === server?.owner_id && (
+              {user?.id === server?.owner_id? (
                 <div
                   onClick={() => setShowEditForm(true)}
                   className="editServerIcon"
                 >
                   <i className="fas fa-cog"></i>
+                </div>
+              ):
+              (
+                <div
+                  onClick={() => setShowLeaveForm(true)}
+                  className="editServerIcon"
+                  id="leaveServerIcon"
+                >
+                  <i className="fas fa-arrow-alt-circle-left"></i>
                 </div>
               )}
             </div>
@@ -265,6 +281,18 @@ const handleEdit = async (e) => {
                         <div className="addChannelButtons">
                             <div id="cancelChannel" onClick={handleDeleteCancel}>Cancel</div>
                             <div className="createChannel" id="deleteChannel" onClick={handleDelete}>Delete Server</div>
+                        </div>
+                </div>
+            </div>
+        )}
+        {showLeaveForm && server !== undefined && (
+            <div className="addModal">
+                <div className="addChannelFormContainer">
+                    <h3 id="deleteChannelHeader">Leave Server</h3>
+                    <h5 id="deleteChannelSubHeader" >Are you sure you want to leave <span id="channelDeleteName">{`#${server?.name}`}</span>?</h5>
+                        <div className="addChannelButtons">
+                            <div id="cancelChannel" onClick={() => setShowLeaveForm(false)}>Cancel</div>
+                            <div className="createChannel" id="deleteChannel" onClick={handleLeaveServer}>Leave Server</div>
                         </div>
                 </div>
             </div>

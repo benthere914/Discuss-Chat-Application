@@ -57,7 +57,13 @@
 
 .serverName {
     color: rgb(255,255,255);
+    max-width: 200px;
     margin-top: 20px;
+    overflow-wrap: break-word;
+}
+
+#leaveServerIcon:hover {
+    color: rgb(237,66,69);
 }
 
 .textChannels {

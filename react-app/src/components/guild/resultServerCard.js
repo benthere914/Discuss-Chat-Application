@@ -7,8 +7,6 @@ import './resultServerCard.css'
 function ServerSearchCard({user, server, userServers}) {
     const dispatch = useDispatch();
 
-// const users = useSelector((state) => state.session.user);
-// const usersId = users.id;
     const checkIfUserInServer = () => {
         let alreadyJoined = false;
         for (let [key, value] of Object.entries(userServers)) {
@@ -47,10 +45,18 @@ function joinServer() {
                     <h6>{server.name}</h6>
                     <p>{server.description}</p>
                 </div>
-                {alreadyJoined? (
-                    <div className="joinLeaveServer leave" onClick={leaveServer}>Leave Server</div>
-                ) : (
-                    <div className="joinLeaveServer join" onClick={joinServer}>Join Server</div>
+                {user.id === server.owner_id? (
+                    <>
+                        <div className="joinLeaveServer" id="ownThisServer" >You Own this Server</div>
+                    </>
+                ): (
+                    <>
+                        {alreadyJoined? (
+                            <div className="joinLeaveServer leave" onClick={leaveServer}>Leave Server</div>
+                        ) : (
+                            <div className="joinLeaveServer join" onClick={joinServer}>Join Server</div>
+                        )}
+                    </>
                 )}
             </div>
         </div>

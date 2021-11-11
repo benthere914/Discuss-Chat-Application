@@ -73,3 +73,14 @@
 .leave:hover {
     background-color: rgb(163, 42, 44);
 }
+
+#ownThisServer {
+    width: 150px;
+    padding: 5px 10px;
+    background-color: rgb(83, 83, 87);
+    cursor: default;
+}
+
+#ownThisServer:hover {
+    background-color: rgb(83, 83, 87);
+}
