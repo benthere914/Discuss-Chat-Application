@@ -15,7 +15,6 @@ const Members = () => {
     }
     const dispatch = useDispatch()
     const members = useSelector(state => Object.values(state.members))
-    console.log(members)
     useEffect(() => {
         dispatch(loadServerMembers(1))
 
@@ -28,7 +27,7 @@ const Members = () => {
             <ul>{members?.map((e) => (
                 <li>
                     <img clasname='memberIcon' src={`https://www.gravatar.com/avatar/${md5(e.email)}`} alt={e.username}></img>
-                    <i className='fas fa-circle memberActive' style={e.active?{color: 'green'}:{color:'red'}}></i>
+                    <i className='fas fa-circle memberActive' style={e.online?{color: 'green'}:{color:'red'}}></i>
                     <p className='memberUsername'>{shortenUsername(e.username)}</p>
                 </li>))}
             </ul>
