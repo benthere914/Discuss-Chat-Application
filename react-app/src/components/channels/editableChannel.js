@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
@@ -53,7 +53,7 @@ function EditableChannel({server, channel}) {
         <div className="channelNameHolder" id="editableChannel">
             {!showEdit && !showDelete && (
                 <>
-                    <Link key={`channel_${channel?.id}`} to={`/channels/${channel?.server_id}/${channel?.id}`}>
+                    <NavLink key={`channel_${channel?.id}`} to={`/channels/${channel?.server_id}/${channel?.id}`} activeClassName="selectedChannel">
                         <>
                             {channel?.name.length > 16 ? (
                                 <h4 className="channelName">{`# ${channel?.name.substring(0,16)}...`}</h4>
@@ -62,7 +62,7 @@ function EditableChannel({server, channel}) {
                                 <h4 className="channelName">{`# ${channel?.name}`}</h4>
                             )}
                         </>
-                    </Link>
+                    </NavLink>
                     <div className="editChannelIconContainer">
                         <div className="editChannelIcons" id="leftIcon" onClick={() => setShowEdit(true)}>
                             <i className="fas fa-cog"></i>
