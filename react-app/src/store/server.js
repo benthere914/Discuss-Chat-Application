@@ -56,7 +56,7 @@ export const addMember = (userId, server) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(add_server(data));
+    return data
   }
 };
 
