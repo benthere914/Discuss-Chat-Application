@@ -17,6 +17,8 @@ const GuildDiscovery = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showDefault, setShowDefault] = useState(true)
   const [showResults, setShowResults] = useState(false)
+  const [finalSearch, setFinalSearch] = useState('')
+
 
   useEffect(() => {
     dispatch(searchServer('$$default$$'))
@@ -31,6 +33,10 @@ const GuildDiscovery = () => {
 
 }, [dispatch])
 
+useEffect(() => {
+
+}, [])
+
 const search = async (e) => {
   e.preventDefault();
   if (searchParameters.length === 0) {
@@ -39,16 +45,21 @@ const search = async (e) => {
 
   //Clean the search parameters
   const finalParameters = searchParameters.split('%').join("%25").split(" ").join("%20")
-  console.log(finalParameters)
-
 
   //Dispatch
   await dispatch(searchServer(finalParameters))
 
+  setFinalSearch(searchParameters)
   setShowDefault(false)
   setShowResults(true)
 }
 
+const handleClose = () => {
+  dispatch(searchServer('$$default$$'))
+  .then(() => setShowResults(false))
+  .then(() => setSearchParamters(''))
+  .then(() => setShowDefault(true))
+}
 
   return (
       <div className="mainSearchContent">
@@ -89,11 +100,37 @@ const search = async (e) => {
             </>
             )}
             {showResults && (
-              <div className="serverResultsContainer">
-                {results?.map(server =>
-                  <ServerCard user={user} server={server} userServers={servers}/>
-                )}
-              </div>
+              <>
+                <div className="searchResultContainer">
+                  <div className="topResultsBar">
+                    <div className="backArrow" onClick={handleClose}>
+                      <i className="fas fa-arrow-left"></i>
+                    </div>
+                    <h3>{`${results?.length} communities for "${finalSearch}"`}</h3>
+                  </div>
+                </div>
+                <form>
+                  <div className="searchGuildForm" id="searchAgainForm">
+                    <input
+                    className="searchInput"
+                    id="searchAgainInput"
+                    type="text"
+                    placeholder="Explore communities"
+                    value={searchParameters}
+                    onChange={(e) => setSearchParamters(e.target.value)}
+
+                    />
+                    <button className="searchCompassButton" onClick={search}>
+                      <i className="fas fa-search"></i>
+                    </button>
+                  </div>
+                </form>
+                <div className="serverResultsContainer">
+                  {results?.map(server =>
+                    <ServerCard user={user} server={server} userServers={servers}/>
+                  )}
+                </div>
+              </>
             )}
           </>
         )}
