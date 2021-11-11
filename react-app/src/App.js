@@ -51,6 +51,7 @@ function App() {
             <div className="channelBar">
               <div className="emptyChannels">Select a Server</div>
               <ProfileBar/>
+              <Members/>
             </div>
           </div>
         </Route>
@@ -81,6 +82,7 @@ function App() {
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
+              <Members/>
             </div>
           <Messages/>
           </div>
