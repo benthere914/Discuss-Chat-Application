@@ -67,7 +67,7 @@ def update_data(userId):
     if (not user.check_password(body['password'])):
         password = 'Invalid password'
 
-    if (user.username == 'demo'):
+    if (user.username == 'Demo' or user.username == 'demo'):
         password = 'Cannot edit this user'
         data = 'Cannot edit this user'
 
@@ -102,7 +102,7 @@ def update_data(userId):
 def delete_user(userId):
     user = User.query.get(userId)
     body = request.get_json()
-    if (user.username == 'demo'):
+    if (user.username == 'Demo' or user.username == 'demo'):
         return {"message": "Cannot delete this user"}
     if (user.check_password(body["password"])):
         db.session.delete(user)
