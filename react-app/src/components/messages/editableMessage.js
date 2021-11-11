@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { deleteSingleMessage, updateMessageBody } from '../../store/messages';
+import './editableMessages.css'
 
 function EditableMessage({userId, channelId, message}) {
     const dispatch = useDispatch();
@@ -42,7 +42,14 @@ function EditableMessage({userId, channelId, message}) {
     return (
         <div className="messageNameHolder" id="editableMessage">
             {!showEdit && !showDelete && (
-                <>
+                <div className="owner-messages">
+                    <div className="own-msg-test"key={message?.id}>
+                    <div className="user-time">
+                        <div style={{ fontWeight: 900, fontSize: 15 }}> User {message?.user_id}</div>
+                        <div className="time">{message?.date}</div>
+                                        </div>
+                        {message?.message}
+                    </div>
                     <div className="editMessageIconContainer">
                         <div className="editMessageIcons" id="leftIconMessage" onClick={() => setShowEdit(true)}>
                             <i className="fas fa-cog"></i>
@@ -52,7 +59,7 @@ function EditableMessage({userId, channelId, message}) {
                         </div>
                     </div>
 
-                </>
+                </div>
             )}
             {showEdit && (
                 <div>

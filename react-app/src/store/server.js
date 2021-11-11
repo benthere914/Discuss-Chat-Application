@@ -11,7 +11,7 @@ const loadServers = (servers) => ({
 
 const add_server = (servers) => ({
   type: ADD_SERVER,
-  payload: servers,
+  servers,
 });
 
 const single_server = (servers) => ({
@@ -19,9 +19,9 @@ const single_server = (servers) => ({
   payload: servers,
 });
 
-const remove = (servers) => ({
+const remove = (serverId) => ({
   type: REMOVE_SERVER,
-  payload: servers,
+  serverId
 });
 
 //load user's servers
@@ -56,22 +56,26 @@ export const addMember = (userId, server) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(add_server(data));
+    return data
   }
 };
 
-//add servermember
-// const addMember = async (serverId) => {
-//   const response = await fetch(`/api/servers/${serverId}/members`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       serverId, userId
-//     }),
-//   });
-// }
+
+//remove a member from a server
+export const removeMember = (userId, serverId) => async (dispatch) => {
+  const response = await fetch(`/api/servers/members/${userId}/${serverId}`, {
+    method: 'DELETE'
+  });
+
+  if (response.ok) {
+    await dispatch(loadUserServers(userId))
+    return null;
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+
+}
+
 //add a server
 export const addServer = (name, description, icon, id) => async (dispatch) => {
   const response = await fetch(`/api/users/${id}/servers`, {
@@ -88,42 +92,41 @@ export const addServer = (name, description, icon, id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(add_server(data));
-    
     return data
   }
 };
 
 //delete a server
 export const deleteServer = (id) => async (dispatch) => {
-  console.log("before fetch");
   const response = await fetch(`/api/servers/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
-  console.log("after fetch");
+
   if (response.ok) {
-  const data = await response.json();
-  dispatch(remove(data));
-  return data;
+    dispatch(remove(id));
+    return null;
+  } else {
+    return ['An error occurred. Please try again.']
   }
 };
 
 //edit a server
-// export const editServer = (server, id) => async (dispatch) => {
-//   const { name } = server;
-export const editServer = (name, id) => async (dispatch) => {
+export const editServer = (name, description, icon, id) => async (dispatch) => {
   const response = await fetch(`/api/servers/${id}`, {
     method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       name,
+      description,
+      icon,
     }),
   });
   if (response.ok) {
-  const data = await response.json();
-  dispatch(add_server(data));
-  return data;
+    const data = await response.json();
+    dispatch(add_server(data));
+    return data;
   }
 };
 
@@ -140,16 +143,14 @@ const serversReducer = (state = initialState, action) => {
       return { ...allServers };
     case REMOVE_SERVER: {
       const newState = { ...state };
-      delete newState[action.server];
+      delete newState[action.serverId];
       return newState;
     }
     case ADD_SERVER: {
-      const newState = Object.assign({}, state);
-      newState.servers = {
-        ...newState.servers,
-        [action.payload.id]: action.payload,
-      };
-      return newState;
+      return {
+          ...state,
+          [action.servers.id]: action.servers
+      }
     }
     default:
       return state;

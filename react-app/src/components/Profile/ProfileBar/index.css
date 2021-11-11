@@ -8,6 +8,7 @@
     padding-left: 5px;
     background-color: rgb(41, 43, 47);
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .profileBar li{
@@ -23,7 +24,7 @@ img.profilePhoto{
 
 .profileWidget{
     position: fixed;
-    left: 270px;
+    left: 200px;
     bottom: 12px;
     color: rgb(185,187, 190);
     padding: 5px;
