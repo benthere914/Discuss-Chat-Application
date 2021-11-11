@@ -4,7 +4,7 @@ name: Push Container to Heroku
 on:
   push:
     branches:
-      - main
+      - production
 
 jobs:
   build:
@@ -18,8 +18,8 @@ jobs:
     - name: Build and push
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:push -a Discuss web
+      run: heroku container:push -a discuss-aa web
     - name: Release
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:release -a Discuss web
+      run: heroku container:release -a discuss-aa web
