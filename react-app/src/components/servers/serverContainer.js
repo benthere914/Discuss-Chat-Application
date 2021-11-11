@@ -72,7 +72,7 @@ function ServersContainer() {
     return (
       <>
         {isLoaded && (
-          <div className="serversContainer">
+          <div id="serversContainer">
             {servers?.[0] !== null &&
               servers.map((server) => (
                 <NavLink
