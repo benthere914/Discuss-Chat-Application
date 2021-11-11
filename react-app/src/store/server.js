@@ -68,6 +68,7 @@ export const removeMember = (userId, serverId) => async (dispatch) => {
   });
 
   if (response.ok) {
+    await dispatch(loadUserServers(userId))
     return null;
   } else {
     return ['An error occurred. Please try again.']

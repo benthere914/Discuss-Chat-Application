@@ -111,7 +111,7 @@ def add_member(serverId):
 @server_routes.route('/members/<int:userId>/<int:serverId>', methods=['DELETE'])
 @login_required
 def remove_member(userId, serverId):
-        member = Server_Member.query.filter(Server_Member.user_id == userId).filter(Server_Member.server_id == serverId)
+        member = Server_Member.query.filter(Server_Member.user_id == userId, Server_Member.server_id == serverId).first()
         if member:
             db.session.delete(member)
             db.session.commit()
