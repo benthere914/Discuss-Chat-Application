@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import {removeMember} from '../../store/server';
 
 import './featuredServerCard.css'
 
@@ -17,6 +18,10 @@ function ServerCard({user, server, userServers}) {
         }
 
         return alreadyJoined;
+    }
+
+    const leaveServer = async () => {
+        await dispatch(removeMember(user.id, server.id));
     }
 
     const alreadyJoined = checkIfUserInServer();
@@ -40,7 +45,7 @@ function ServerCard({user, server, userServers}) {
                     <p>{server.description}</p>
                 </div>
                 {alreadyJoined? (
-                    <div className="joinLeaveServer leave">Leave Server</div>
+                    <div className="joinLeaveServer leave" onClick={leaveServer}>Leave Server</div>
                 ) : (
                     <div className="joinLeaveServer join">Join Server</div>
                 )}

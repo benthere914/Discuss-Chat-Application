@@ -107,9 +107,19 @@ def add_member(serverId):
         return server.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+# Remove a member from a server
+@server_routes.route('/members/<int:userId>/<int:serverId>', methods=['DELETE'])
+@login_required
+def remove_member(userId, serverId):
+        member = Server_Member.query.filter(Server_Member.user_id == userId, Server_Member.server_id == serverId).first()
+        if member:
+            db.session.delete(member)
+            db.session.commit()
+            return "Member Deleted"
 
+# Server search
 @server_routes.route('/search/<string:query>')
-# @login_required
+@login_required
 def search_servers(query):
     query = query.replace('%20', ' ')
     query = query.replace('%25', '%')
