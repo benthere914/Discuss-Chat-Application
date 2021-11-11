@@ -46,7 +46,7 @@ function EditableMessage({userId, channelId, message}) {
                     <div className="own-msg-test"key={message?.id}>
                     <div className="user-time">
                         <div style={{ fontWeight: 900, fontSize: 15 }}> User {message?.user_id}</div>
-                        <div className="time">{message?.date}</div>
+                        <div className="time">{message?.date.slice(0,16)}</div>
                                         </div>
                         {message?.message}
                     </div>
