@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
+import {addMember} from './../../store/server';
 
 import './featuredServerCard.css'
 
 function ServerCard({user, server, userServers}) {
     const dispatch = useDispatch();
-
-
+const users = useSelector((state) => state.session.user);
+const usersId = users.id
     const checkIfUserInServer = () => {
         let alreadyJoined = false;
         for (let [key, value] of Object.entries(userServers)) {
@@ -20,6 +21,9 @@ function ServerCard({user, server, userServers}) {
     }
 
     const alreadyJoined = checkIfUserInServer();
+function joinServer(serverId){
+dispatch(addMember(usersId, serverId));
+}
 
     return (
         <div className="singleServerCardContainer">
@@ -42,7 +46,7 @@ function ServerCard({user, server, userServers}) {
                 {alreadyJoined? (
                     <div className="joinLeaveServer leave">Leave Server</div>
                 ) : (
-                    <div className="joinLeaveServer join">Join Server</div>
+                    <button className="joinLeaveServer join" onClick={() => joinServer(server.id)}>Join Server</button>
                 )}
             </div>
         </div>
