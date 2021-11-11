@@ -96,3 +96,10 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+
+@media screen and (min-width: 1580px) {
+    .featuredContainer h4 {
+        margin-top: 120px;
+    }
+  }

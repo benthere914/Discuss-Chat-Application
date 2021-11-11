@@ -35,12 +35,14 @@ function ServerCard({user, server, userServers}) {
                 </div>
             )}
             <div className="bottomServerCard">
-                <h6>{server.name}</h6>
-                <p>{server.description}</p>
+                <div className="serverText">
+                    <h6>{server.name}</h6>
+                    <p>{server.description}</p>
+                </div>
                 {alreadyJoined? (
-                    <div>Leave Server</div>
+                    <div className="joinLeaveServer leave">Leave Server</div>
                 ) : (
-                    <div>Join Server</div>
+                    <div className="joinLeaveServer join">Join Server</div>
                 )}
             </div>
         </div>

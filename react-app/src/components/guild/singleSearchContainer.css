@@ -38,4 +38,29 @@
     margin: 0;
     color: rgb(170,172,175);
     font-weight: lighter;
+    font-size: 15px;
+    margin-top: 6px;
+}
+
+.joinLeaveServer {
+    background-color: rgb(88,101,242);
+    color: white;
+    border-radius: 4px;
+    width: 130px;
+    text-align: center;
+    padding: 5px 0;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.leave {
+    background-color: rgb(211, 58, 60);
+}
+
+.joinLeaveServer:hover {
+    background-color: rgb(72, 83, 199);
+}
+
+.leave:hover {
+    background-color: rgb(163, 42, 44);
 }
