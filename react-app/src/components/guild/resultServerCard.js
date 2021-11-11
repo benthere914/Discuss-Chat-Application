@@ -35,9 +35,7 @@ function ServerSearchCard({user, server, userServers}) {
                 </div>
             )}
             <div className="rightServerCard">
-                <div
-                // className="serverText"
-                >
+                <div className="resultServerInfo">
                     <h6>{server.name}</h6>
                     <p>{server.description}</p>
                 </div>

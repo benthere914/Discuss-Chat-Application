@@ -19,6 +19,7 @@ const GuildDiscovery = () => {
   const [showDefault, setShowDefault] = useState(true)
   const [showResults, setShowResults] = useState(false)
   const [finalSearch, setFinalSearch] = useState('')
+  const [finalResults, setFinalResults] = useState({})
 
 
   useEffect(() => {
@@ -45,7 +46,8 @@ const search = async (e) => {
   const finalParameters = searchParameters.split('%').join("%25").split(" ").join("%20")
 
   //Dispatch
-  await dispatch(searchServer(finalParameters))
+  const theResults = await dispatch(searchServer(finalParameters))
+  setFinalResults(Object.values(theResults));
 
   setFinalSearch(searchParameters)
   setShowDefault(false)
@@ -75,6 +77,7 @@ const handleClose = () => {
                           className="searchInput"
                           type="text"
                           placeholder="Explore communities"
+                          autocomplete="off"
                           value={searchParameters}
                           onChange={(e) => setSearchParamters(e.target.value)}
 
@@ -114,6 +117,7 @@ const handleClose = () => {
                     id="searchAgainInput"
                     type="text"
                     placeholder="Explore communities"
+                    autocomplete="off"
                     value={searchParameters}
                     onChange={(e) => setSearchParamters(e.target.value)}
 
@@ -132,7 +136,7 @@ const handleClose = () => {
                     </div>
                   ) : (
                     <>
-                      {results?.map(server =>
+                      {finalResults?.map(server =>
                         <ServerSearchCard user={user} server={server} userServers={servers}/>
                       )}
                     </>
