@@ -75,6 +75,7 @@ function App() {
         </Route>
         <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
           <div className="mainContentContainer">
+          <ServersContainer />
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
