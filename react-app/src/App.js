@@ -8,7 +8,8 @@ import SplashPage from './components/splash/splash';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import Messages from './components/messages/messages';
-import GuildChannelBar from './components/guild/guildChannelBar';
+import Members from './components/members/members'
+import GuildChannelBar from './components/guild/guild';
 import GuildDiscovery from './components/guild/guildDiscovery';
 import ProfileBar from './components/Profile/ProfileBar';
 
@@ -69,6 +70,8 @@ function App() {
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
+              <Members/>
+
             </div>
           </div>
         </Route>

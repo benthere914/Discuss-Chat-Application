@@ -1,0 +1,62 @@
+.membersTab{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 0;
+    border-left: black solid;
+    width: 200px;
+    height: 100%;
+}
+
+.membersTitle{
+    position: relative;
+    left: 19px;
+    color: gray;
+}
+
+.membersTab ul{
+    list-style: none;
+}
+
+.membersTab ul li{
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    right: 40px;
+    width: 200px;
+    height: 50px;
+    bottom: 15px;
+
+}
+.membersTab ul li:hover{
+    background-color: rgb(49, 49, 54);
+
+}
+
+.membersTab ul li img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    left: 20px;
+    top: 5px
+}
+
+.memberActive{
+    transform: scale(0.8);
+    position: relative;
+    left: 2px;
+    top: 25px;
+    background-color: rgb(54,57,63);
+    height: 16px;
+    border-radius: 50%;
+    border: solid 3px rgb(54,57,63);
+}
+
+.memberUsername{
+    position: relative;
+    left: 10px;
+    bottom: 5px;
+    color: gray;
+    font-size: 20px;
+}

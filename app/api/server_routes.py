@@ -89,8 +89,11 @@ View and add members
 @login_required
 def get_members(serverId):
     membersServer = Server_Member.query.filter(Server_Member.server_id == serverId).all()
-    members = [member.to_dict() for member in membersServer]
-    return {"members": members}
+    members = {member.to_dict()['id']: member.user.to_dict() for member in membersServer}
+    for i in range(20):
+        print('******************')
+    print(members)
+    return members
 
 
 # Add a member to a server
