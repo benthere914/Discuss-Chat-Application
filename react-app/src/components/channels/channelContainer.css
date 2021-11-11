@@ -227,6 +227,11 @@
     justify-content: space-between;
 }
 
+.editServerButtonCancelEdit {
+    display: flex;
+    align-items: center;
+}
+
 .deleteServer {
     color: rgb(237,66,69);
     cursor: pointer;
