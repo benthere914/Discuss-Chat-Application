@@ -1,6 +1,8 @@
 import os
-import threading
-from .check_active_user import func
+
+# import threading
+# from .check_active_user import func
+
 from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -20,8 +22,12 @@ from .seeds import seed_commands
 from .config import Config
 
 app = Flask(__name__)
-thread = threading.Thread(target=func)
-thread.start()
+
+
+# thread = threading.Thread(target=func)
+# thread.start()
+
+
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'

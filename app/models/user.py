@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    icon = db.Column(db.String(2000), default='https://cdn.discordapp.com/attachments/904846014484209665/907160741671473152/v.2-white-blue-square.png')
     last_checkin = db.Column(db.Integer)
     online = db.Column(db.Boolean, default=False)
 
