@@ -101,7 +101,10 @@ def get_members(serverId):
     for member in membersServer:
         member = member.user
         checkin = member.last_checkIn
-        member.online = in_timeframe(int(now), int(checkin))
+        if bool(now) and bool(checkin):
+            member.online = in_timeframe(int(now), int(checkin))
+        else:
+            member.online = False
     db.session.commit()
     members = {member.to_dict()['id']: member.user.to_dict() for member in membersServer}
 
