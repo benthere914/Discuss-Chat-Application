@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserChannels, addNewChannel } from '../../store/channel';
-import { loadUserServers } from '../../store/server';
+import {
+  loadUserServers,
+  deleteServer,
+  editServer,
+  singleServer,
+} from "../../store/server";
 import EditableChannel from './editableChannel';
 import './channelContainer.css'
 
 function ChannelsContainer() {
     const dispatch = useDispatch();
-
    const { serverId } = useParams();
-
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
     const server = useSelector(state => state.servers[serverId])
@@ -28,6 +31,9 @@ function ChannelsContainer() {
     const [serverDescription, setServerDescription] = useState('');
 
     const [showDelete, setShowDelete] = useState('');
+  useEffect(() => {
+    dispatch(singleServer(+serverId));
+  }, [dispatch, singleServer, serverId]);
 
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
@@ -96,55 +102,81 @@ function ChannelsContainer() {
         setShowEditForm(false)
 
         //Delete dispatch
-
+const deleteserver = dispatch(deleteServer(serverId));
+if (deleteserver) {
+  window.location.reload();
+}
         //Push to channel page
     }
 
+const handleEdit = (e) => {
+  
+  e.preventDefault();
+  const editedserver = 
+  dispatch(
+    editServer(serverName, serverDescription, serverIcon, serverId)
+  );
+  console.log("THIS IS A CONSOLE", serverName, serverId);
+  if (editedserver) {
+    window.location.reload();
+  }
+};
     return (
-        <div className="channelContainer">
-            {isLoaded && (
-                <>
-                    <div className="serverNameContainer">
-                        <h3 className="serverName">{server?.name}</h3>
-                        {user?.id === server?.owner_id && (
-                            <div onClick={() => setShowEditForm(true)} className="editServerIcon">
-                                <i className="fas fa-cog"></i>
-                            </div>
-                        )}
+      <div className="channelContainer">
+        {isLoaded && (
+          <>
+            <div className="serverNameContainer">
+              <h3 className="serverName">{server?.name}</h3>
+              {user?.id === server?.owner_id && (
+                <div
+                  onClick={() => setShowEditForm(true)}
+                  className="editServerIcon"
+                >
+                  <i className="fas fa-cog"></i>
+                </div>
+              )}
+            </div>
+            <div className="textChannelHeaderContainer">
+              <h3 className="textChannels">TEXT CHANNELS</h3>
+              {user?.id === server?.owner_id && (
+                <div onClick={() => setShowAddForm(true)}>
+                  <i className="fas fa-plus"></i>
+                </div>
+              )}
+            </div>
+            <div className="channelList">
+              {channels?.map((channel) => {
+                if (user?.id === server?.owner_id) {
+                  return (
+                    <EditableChannel
+                      server={server}
+                      channel={channel}
+                      key={`editableChannel_${channel?.id}`}
+                    />
+                  );
+                } else {
+                  return (
+                    <div className="channelNameHolder">
+                      <Link
+                        key={`channel_${channel?.id}`}
+                        to={`/channels/${channel?.server_id}/${channel?.id}`}
+                      >
+                        <>
+                          {channel?.name.length > 16 ? (
+                            <h4 className="channelName">{`# ${channel?.name.substring(
+                              0,
+                              16
+                            )}...`}</h4>
+                          ) : (
+                            <h4 className="channelName">{`# ${channel?.name}`}</h4>
+                          )}
+                        </>
+                      </Link>
                     </div>
-                    <div className="textChannelHeaderContainer">
-                        <h3 className="textChannels">TEXT CHANNELS</h3>
-                        {user?.id === server?.owner_id && (
-                            <div onClick={() => setShowAddForm(true)}>
-                                <i className="fas fa-plus"></i>
-                            </div>
-                        )}
-                    </div>
-                    <div className="channelList">
-                        {channels?.map(channel => {
-                            if (user?.id === server?.owner_id) {
-                                return (
-                                    <EditableChannel server={server} channel={channel} key={`editableChannel_${channel?.id}`}/>
-                                )
-                            } else {
-                                return (
-                                    <div className="channelNameHolder">
-                                        <Link key={`channel_${channel?.id}`} to={`/channels/${channel?.server_id}/${channel?.id}`}>
-                                            <>
-                                                {channel?.name.length > 16 ? (
-                                                    <h4 className="channelName">{`# ${channel?.name.substring(0,16)}...`}</h4>
-                                                ):
-                                                (
-                                                    <h4 className="channelName">{`# ${channel?.name}`}</h4>
-                                                )}
-                                            </>
-                                        </Link>
-                                    </div>
-                                )
-                            }
-                        }
-                        )}
-                    </div>
+                  );
+                }
+              })}
+            </div>
                     {errors.length > 0 && (
                         <>
                             {errors.map(error =>
@@ -244,11 +276,48 @@ function ChannelsContainer() {
                                     </div>
                             </div>
                         </div>
-                    )}
-                </>
-            )}
-        </div>
-    )
+                        <div className="addChannelInput">
+                          <label>SERVER DESCRIPTION</label>
+                          <input
+                            type="text"
+                            value={serverDescription}
+                            autoComplete="off"
+                            onChange={(e) =>
+                              setServerDescription(e.target.value)
+                            }
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="addChannelButtons" id="editServerButtons">
+                      <div
+                        className="deleteServer"
+                        onClick={() => setShowDelete(true)}
+                      >
+                        Delete
+                      </div>
+                      <div>
+                        <button id="cancelChannel" onClick={handleEditCancel}>
+                          Cancel
+                        </button>
+                        <button
+                          className="createChannel"
+                          id={allowEdit}
+                          type="submit"
+                          onClick={handleEdit}
+                        >
+                          Edit Server
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}    
+          </>
+        )}
+      </div>
+    );
 }
 
 export default ChannelsContainer;

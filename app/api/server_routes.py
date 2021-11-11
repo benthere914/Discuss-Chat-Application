@@ -23,19 +23,20 @@ def single_servers(id):
     return servers.to_dict()
 
 #Update a Server name
-@server_routes.route('/<int:serverId>', methods=['PATCH'])
+@server_routes.route('/<int:serverId>', methods=['PUT'])
 @login_required
 def update_server(serverId):
     form = UpdateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        # server = Server.query.filter(Server.id == form.data['server_id']).first()
+        #server = Server.query.filter(Server.id == form.data['server_id']).first()
+         #channel = Channel.query.filter(Channel.id == form.data['channel_id']).first()
         server = Server.query.filter(Server.id == serverId).first()
         server.name = form.data['name']
+        server.description = form.data['description']
+        server.icon = form.data['icon']
         db.session.commit()
-
         return server.to_dict()
-
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 # Delete a Server

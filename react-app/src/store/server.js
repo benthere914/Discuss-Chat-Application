@@ -61,17 +61,24 @@ export const addMember = (userId, server) => async (dispatch) => {
 };
 
 //add servermember
-// const addMember = async (serverId) => {
+// export const addMemberServer = (serverId, userId) => async (dispatch) => {
 //   const response = await fetch(`/api/servers/${serverId}/members`, {
 //     method: "POST",
 //     headers: {
 //       "Content-Type": "application/json",
 //     },
 //     body: JSON.stringify({
-//       serverId, userId
+//       serverId,
+//       userId,
 //     }),
 //   });
-// }
+//    if (response.ok) {
+//      const data = await response.json();
+//      dispatch(add_server(data));
+//      // dispatch(addMemberServer(data.id, id));
+//      return { data, id };
+//    }
+// };
 //add a server
 export const addServer = (name, description, icon, id) => async (dispatch) => {
   const response = await fetch(`/api/users/${id}/servers`, {
@@ -88,8 +95,8 @@ export const addServer = (name, description, icon, id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(add_server(data));
-    
-    return data
+    // dispatch(addMemberServer(data.id, id));
+    return {data, id} 
   }
 };
 
@@ -113,17 +120,22 @@ export const deleteServer = (id) => async (dispatch) => {
 //edit a server
 // export const editServer = (server, id) => async (dispatch) => {
 //   const { name } = server;
-export const editServer = (name, id) => async (dispatch) => {
+export const editServer = (name, description, icon, id) => async (dispatch) => {
   const response = await fetch(`/api/servers/${id}`, {
     method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       name,
+      description,
+      icon,
     }),
   });
   if (response.ok) {
-  const data = await response.json();
-  dispatch(add_server(data));
-  return data;
+    const data = await response.json();
+    dispatch(add_server(data));
+    // return data;
   }
 };
 
