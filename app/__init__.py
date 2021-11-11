@@ -1,6 +1,7 @@
 import os
-
-# import threading
+import datetime
+import time
+import threading
 # from .check_active_user import func
 
 from flask import Flask, render_template, request, session, redirect
@@ -23,9 +24,12 @@ from .config import Config
 
 app = Flask(__name__)
 
-
+# def func():
+    # time.sleep(5)
+    # user = User.query.get(1)
 # thread = threading.Thread(target=func)
 # thread.start()
+# func()
 
 
 # Setup login manager
@@ -35,7 +39,11 @@ login.login_view = 'auth.unauthorized'
 
 @login.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    print(time.time_ns())
+    user = User.query.get(int(id))
+    user.last_checkIn = time.time_ns()
+    db.session.commit()
+    return user
 
 
 # Tell flask about our seed commands

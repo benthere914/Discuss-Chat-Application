@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     icon = db.Column(db.String(2000), default='https://cdn.discordapp.com/attachments/904846014484209665/907160741671473152/v.2-white-blue-square.png')
-    last_checkin = db.Column(db.Integer)
+    last_checkIn = db.Column(db.String(100))
     online = db.Column(db.Boolean, default=False)
 
     servers = db.relationship("Server", back_populates="user", cascade="all, delete")
@@ -36,5 +36,6 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'online': self.online,
-            'last_checkin': self.last_checkin
+            'icon': self.icon,
+            'last_checkin': self.last_checkIn
         }

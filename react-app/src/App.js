@@ -20,17 +20,6 @@ import Testedit from './components/Test/testedit'
 import NewServer from './components/Test/addserver'
 
 function App() {
-    // const user = useSelector(state => state.session.user);
-    // const update_checkin = async () => {
-    //     await fetch('api/users/update_checkin',
-    //     {
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'application/json',},
-    //         body: JSON.stringify({"id":user.id})
-    //     })
-    //     console.log('updated')
-    // }
-    // if (user){setInterval(update_checkin, 10000)}
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 

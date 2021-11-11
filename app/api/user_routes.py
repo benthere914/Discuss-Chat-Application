@@ -119,7 +119,7 @@ def update_checkin():
     body = request.get_json()
     id = body['id']
     user = User.query.get(id)
-    user.last_checkin = now
+    user.last_checkIn = now
     db.session.add(user)
     db.session.commit()
     return 'success'
