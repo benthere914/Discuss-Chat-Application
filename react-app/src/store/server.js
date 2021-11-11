@@ -92,8 +92,7 @@ export const addServer = (name, description, icon, id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(add_server(data));
-    // dispatch(addMemberServer(data.id, id));
-    return {data, id}
+    return data
   }
 };
 
@@ -112,8 +111,6 @@ export const deleteServer = (id) => async (dispatch) => {
 };
 
 //edit a server
-// export const editServer = (server, id) => async (dispatch) => {
-//   const { name } = server;
 export const editServer = (name, description, icon, id) => async (dispatch) => {
   const response = await fetch(`/api/servers/${id}`, {
     method: "PUT",
