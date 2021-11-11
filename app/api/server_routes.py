@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Channel, Server, db, Server_Member
-from app.forms import UpdateServerForm, addMemberForm, NewChannelForm
+from app.models import Channel, Server, Server_Member, db
+from app.forms import UpdateServerForm, AddMemberForm, NewChannelForm
 from .auth_routes import validation_errors_to_error_messages
 import datetime
 
@@ -68,23 +68,19 @@ def get_channels(serverId):
 @login_required
 def add_channel(serverId):
     form = NewChannelForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         channel = Channel(name=form.data['name'],
                 server_id=form.data['server_id'])
         db.session.add(channel)
         db.session.commit()
-
         return channel.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-
 '''
 View and add members
 '''
-
 # Get all members of a single server
 @server_routes.route('/<int:serverId>/members')
 @login_required
@@ -106,16 +102,19 @@ def get_members(serverId):
 
     return members
 
-
 # Add a member to a server
 @server_routes.route('/<int:serverId>/members', methods=['POST'])
 @login_required
 def add_member(serverId):
-    form = addMemberForm()
+    form = AddMemberForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("****************")
+    print(form.data)
     if form.validate_on_submit():
-        server = addMemberForm()
-        form.populate_obj(server)
+        # server = addMemberForm()
+        server= Server_Member(user_id=form.data['user_id'],
+                server_id=form.data['server_id'])
+        # form.populate_obj(server)
         db.session.add(server)
         db.session.commit()
         return server.to_dict()

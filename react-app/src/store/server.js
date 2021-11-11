@@ -3,6 +3,7 @@ const LOAD = "servers/LOAD_SERVERS";
 const ADD_SERVER = "servers/ADD_SERVER";
 const ONE_SERVER = "servers/ONE_SERVER";
 const REMOVE_SERVER = "servers/REMOVE_SERVER";
+const ADD_MEMBER = "servers/ADD_MEMBER";
 
 const loadServers = (servers) => ({
   type: LOAD,
@@ -22,6 +23,12 @@ const single_server = (servers) => ({
 const remove = (serverId) => ({
   type: REMOVE_SERVER,
   serverId
+});
+
+const add_member = (userId, serverId) => ({
+  type: ADD_SERVER,
+  userId,
+  serverId,
 });
 
 //load user's servers
@@ -45,21 +52,24 @@ export const singleServer = (serverId) => async (dispatch) => {
 };
 
 //add a member to a server
-export const addMember = (userId, server) => async (dispatch) => {
-  const { server_id, user_id } = server;
-  const response = await fetch(`/api/users/${userId}/servers`, {
+export const addMember = (user_id, server_id) => async (dispatch) => {
+  const response = await fetch(`/api/servers/${server_id}/members`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       server_id,
       user_id,
     }),
   });
-  if (response.ok) {
-    const data = await response.json();
-    return data
-  }
-};
 
+  if (response.ok) {
+    await dispatch(loadUserServers(user_id))
+    return null
+  }
+
+};
 
 //remove a member from a server
 export const removeMember = (userId, serverId) => async (dispatch) => {
@@ -148,9 +158,9 @@ const serversReducer = (state = initialState, action) => {
     }
     case ADD_SERVER: {
       return {
-          ...state,
-          [action.servers.id]: action.servers
-      }
+        ...state,
+        [action.servers.id]: action.servers,
+      };
     }
     default:
       return state;
