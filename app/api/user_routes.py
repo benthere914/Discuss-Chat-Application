@@ -116,14 +116,26 @@ def delete_user(userId):
     else:
         return {"message":"Incorrect Password"}
 
-@user_routes.route('/update_checkin', methods=['POST'])
-@login_required
+# @user_routes.route('/update_checkin', methods=['POST'])
+# @login_required
+# def update_checkin():
+#     now = datetime.datetime.now().minute
+#     body = request.get_json()
+#     id = body['id']
+#     user = User.query.get(id)
+#     user.last_checkIn = now
+#     db.session.add(user)
+#     db.session.commit()
+#     return 'success'
+
+@user_routes.route('/removeCheckin', methods=['POST'])
+# @login_required
 def update_checkin():
-    now = datetime.datetime.now().minute
     body = request.get_json()
     id = body['id']
     user = User.query.get(id)
-    user.last_checkIn = now
+    user.last_checkIn = 0
+    user.online = False
     db.session.add(user)
     db.session.commit()
     return 'success'
