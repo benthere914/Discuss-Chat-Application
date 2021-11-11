@@ -74,11 +74,11 @@ function ServersContainer() {
       <>
         {isLoaded && (
           <div className="serversContainer">
-            {servers?.[0] !== null &&
+            {servers !== null ? (
               servers.map((server) => (
                 <NavLink
-                  key={`server_${server.id}`}
-                  to={`/channels/${server.id}`}
+                  key={`server_${server?.id}`}
+                  to={`/channels/${server?.id}`}
                   className="singleServer"
                   activeClassName="selectedServer"
                 >
@@ -93,13 +93,13 @@ function ServersContainer() {
                     </div>
                   ) : (
                     <div className="serverInfo">
-                      <div className="noIconServer">{server.name[0]}</div>
-                      <div id="serverNameHover">{server.name} </div>
+                      <div className="noIconServer">{server?.name}</div>
+                      <div id="serverNameHover">{server?.name} </div>
                       <div className="activeServerIndicator"></div>
                     </div>
                   )}
                 </NavLink>
-              ))}
+              ))): null}
             <div className="serverInfo" onClick={() => setShowAddForm(true)}>
               <div className="noIconServer" id="addServerButton">
                 <i className="fas fa-plus"></i>

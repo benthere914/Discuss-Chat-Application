@@ -112,14 +112,14 @@ if (deleteserver) {
 const handleEdit = (e) => {
   
   e.preventDefault();
-  //const editedserver = 
+  const editedserver = 
   dispatch(
     editServer(serverName, serverDescription, serverIcon, serverId)
   );
   console.log("THIS IS A CONSOLE", serverName, serverId);
-  // if (editedserver) {
-  //   window.location.reload();
-  // }
+  if (editedserver) {
+    window.location.reload();
+  }
 };
     return (
       <div className="channelContainer">
