@@ -109,11 +109,12 @@ function ServersContainer() {
               </div>
               <div id="serverNameHover">Add a Server</div>
             </div>
-            <NavLink to={"/guild-discovery"} className="singleServer">
+            <NavLink to={"/guild-discovery"} className="singleServer" activeClassName="selectedServer">
               <div className="serverInfo">
                 <div className="noIconServer" id="addServerButton">
                   <i className="fas fa-compass"></i>
                 </div>
+                <div id="noShow" className="activeServerIndicator"></div>
                 <div id="expPublicServer">Explore Public Servers</div>
               </div>
             </NavLink>
