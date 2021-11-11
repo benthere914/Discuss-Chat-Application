@@ -26,7 +26,7 @@ def upgrade():
     sa.Column('icon', sa.String(length=1000), nullable=False),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    # sa.UniqueConstraint('name')
     )
     op.create_table('channels',
     sa.Column('id', sa.Integer(), nullable=False),
