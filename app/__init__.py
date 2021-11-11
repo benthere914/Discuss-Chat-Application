@@ -41,6 +41,7 @@ login.login_view = 'auth.unauthorized'
 def load_user(id):
     user = User.query.get(int(id))
     user.last_checkIn = datetime.datetime.now().minute
+    user.online = True
     db.session.commit()
     return user
 

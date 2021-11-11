@@ -51,6 +51,11 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
         reset()
         setProfileModalVisible(false)
         await dispatch(logout())
+        await fetch('/api/users/removeCheckin', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: user?.id}),
+        })
         history.push('/')
     }
 

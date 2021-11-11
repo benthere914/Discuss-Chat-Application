@@ -37,5 +37,5 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'online': self.online,
             'icon': self.icon,
-            'last_checkin': self.last_checkIn
+            'last_checkIn': self.last_checkIn
         }
