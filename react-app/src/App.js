@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import SplashPage from './components/splash/splash';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import Messages from './components/messages/messages';
-import GuildChannelBar from './components/guild/guildChannelBar';
+import Members from './components/members/members'
+import GuildChannelBar from './components/guild/guild';
 import GuildDiscovery from './components/guild/guildDiscovery';
 import ProfileBar from './components/Profile/ProfileBar';
 
@@ -68,6 +70,8 @@ function App() {
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
+              <Members/>
+
             </div>
           </div>
         </Route>

@@ -1,4 +1,9 @@
 import os
+import datetime
+import time
+import threading
+# from .check_active_user import func
+
 from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -19,6 +24,14 @@ from .config import Config
 
 app = Flask(__name__)
 
+# def func():
+    # time.sleep(5)
+    # user = User.query.get(1)
+# thread = threading.Thread(target=func)
+# thread.start()
+# func()
+
+
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
@@ -26,7 +39,10 @@ login.login_view = 'auth.unauthorized'
 
 @login.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    user = User.query.get(int(id))
+    user.last_checkIn = datetime.datetime.now().minute
+    db.session.commit()
+    return user
 
 
 # Tell flask about our seed commands

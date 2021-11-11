@@ -3,6 +3,7 @@ from flask_login import login_required
 from app.models import Channel, Server, Server_Member, db
 from app.forms import UpdateServerForm, AddMemberForm, NewChannelForm
 from .auth_routes import validation_errors_to_error_messages
+import datetime
 
 server_routes = Blueprint('servers', __name__)
 
@@ -84,9 +85,22 @@ View and add members
 @server_routes.route('/<int:serverId>/members')
 @login_required
 def get_members(serverId):
+    now = datetime.datetime.now().minute
     membersServer = Server_Member.query.filter(Server_Member.server_id == serverId).all()
-    members = [member.to_dict() for member in membersServer]
-    return {"members": members}
+    for member in membersServer:
+        member = member.user
+        checkin = member.last_checkIn
+        print(int(now) - int(checkin))
+        if (int(now) - int(checkin) >= 2):
+            member.online = False
+            # for i in range(10):
+            #     print('false')
+        else:
+            member.online = True
+    db.session.commit()
+    members = {member.to_dict()['id']: member.user.to_dict() for member in membersServer}
+
+    return members
 
 # Add a member to a server
 @server_routes.route('/<int:serverId>/members', methods=['POST'])
@@ -106,9 +120,19 @@ def add_member(serverId):
         return server.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+# Remove a member from a server
+@server_routes.route('/members/<int:userId>/<int:serverId>', methods=['DELETE'])
+@login_required
+def remove_member(userId, serverId):
+        member = Server_Member.query.filter(Server_Member.user_id == userId, Server_Member.server_id == serverId).first()
+        if member:
+            db.session.delete(member)
+            db.session.commit()
+            return "Member Deleted"
 
+# Server search
 @server_routes.route('/search/<string:query>')
-# @login_required
+@login_required
 def search_servers(query):
     query = query.replace('%20', ' ')
     query = query.replace('%25', '%')

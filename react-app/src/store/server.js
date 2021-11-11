@@ -53,7 +53,6 @@ export const singleServer = (serverId) => async (dispatch) => {
 
 //add a member to a server
 export const addMember = (user_id, server_id) => async (dispatch) => {
-  console.log("before?");
   const response = await fetch(`/api/servers/${server_id}/members`, {
     method: "POST",
     headers: {
@@ -64,13 +63,28 @@ export const addMember = (user_id, server_id) => async (dispatch) => {
       user_id,
     }),
   });
-  console.log("after");
+
   if (response.ok) {
     await dispatch(loadUserServers(user_id))
     return null
   }
 
 };
+
+//remove a member from a server
+export const removeMember = (userId, serverId) => async (dispatch) => {
+  const response = await fetch(`/api/servers/members/${userId}/${serverId}`, {
+    method: 'DELETE'
+  });
+
+  if (response.ok) {
+    await dispatch(loadUserServers(userId))
+    return null;
+  } else {
+    return ['An error occurred. Please try again.']
+  }
+
+}
 
 //add a server
 export const addServer = (name, description, icon, id) => async (dispatch) => {
@@ -88,8 +102,7 @@ export const addServer = (name, description, icon, id) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(add_server(data));
-    // dispatch(addMemberServer(data.id, id));
-    return {data, id}
+    return data
   }
 };
 
@@ -108,8 +121,6 @@ export const deleteServer = (id) => async (dispatch) => {
 };
 
 //edit a server
-// export const editServer = (server, id) => async (dispatch) => {
-//   const { name } = server;
 export const editServer = (name, description, icon, id) => async (dispatch) => {
   const response = await fetch(`/api/servers/${id}`, {
     method: "PUT",

@@ -56,8 +56,12 @@ function ServersContainer() {
         setServerName('')
         setServerDescription('')
         setServerIcon('')
+
         const newserver = await dispatch(addServer( serverName, serverDescription, serverIcon, user.id));
-        // if(newserver)
+
+        if(newserver) {
+          history.push(`/channels/${newserver.id}`)
+        }
         return newserver
     }
 
