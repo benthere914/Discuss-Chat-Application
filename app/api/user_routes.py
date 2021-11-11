@@ -48,7 +48,6 @@ def add_server(userId):
         serverMember = Server_Member(user_id=userId, server_id=server['id'])
         db.session.add(serverMember)
         db.session.commit()
-
         return server.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
