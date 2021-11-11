@@ -105,15 +105,13 @@ export const deleteServer = (id) => async (dispatch) => {
   console.log("before fetch");
   const response = await fetch(`/api/servers/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
   console.log("after fetch");
+  console.log(response)
   if (response.ok) {
-  const data = await response.json();
-  console.log(data)
-  dispatch(remove(data));
+    const data = await response.json();
+    console.log(data)
+    dispatch(remove(data));
   return data;
   }
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserChannels, addNewChannel } from '../../store/channel';
 import {
@@ -13,7 +13,8 @@ import './channelContainer.css'
 
 function ChannelsContainer() {
     const dispatch = useDispatch();
-   const { serverId } = useParams();
+    const history = useHistory();
+    const { serverId } = useParams();
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
     const server = useSelector(state => state.servers[serverId])
@@ -31,9 +32,10 @@ function ChannelsContainer() {
     const [serverDescription, setServerDescription] = useState('');
 
     const [showDelete, setShowDelete] = useState('');
-  useEffect(() => {
-    dispatch(singleServer(+serverId));
-  }, [dispatch, singleServer, serverId]);
+
+    // useEffect(() => {
+    //     dispatch(singleServer(+serverId));
+    // }, [dispatch, singleServer, serverId]);
 
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
@@ -96,29 +98,24 @@ function ChannelsContainer() {
         setShowDelete(false)
     }
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault()
-        setShowDelete(false)
-        setShowEditForm(false)
 
-        //Delete dispatch
-const deleteserver = dispatch(deleteServer(serverId));
-if (deleteserver) {
-  window.location.reload();
-}
-        //Push to channel page
+        const deleteserver = await dispatch(deleteServer(serverId));
+        if (deleteserver) {
+            setShowDelete(false)
+            setShowEditForm(false)
+            history.push('/channels')
+        }
     }
 
-const handleEdit = (e) => {
+const handleEdit = async (e) => {
 
   e.preventDefault();
-  const editedserver =
-  dispatch(
-    editServer(serverName, serverDescription, serverIcon, serverId)
-  );
-  console.log("THIS IS A CONSOLE", serverName, serverId);
+  const editedserver = await dispatch(editServer(serverName, serverDescription, serverIcon, serverId));
+
   if (editedserver) {
-    window.location.reload();
+    setShowEditForm(false)
   }
 };
     return (
@@ -209,11 +206,11 @@ const handleEdit = (e) => {
                 </div>
             </div>
         )}
-        {/* {showEditForm && (
+        {showEditForm && (
             <div className="addModal">
                 <div className="addChannelFormContainer" id="editChannelContainer">
                     <h3 id="serverOverview">Server Overview</h3>
-                        <form onSubmit={addChannel} autoComplete="off">
+                        <form autoComplete="off">
                             <div className="editServerFormContainer">
                                 {server?.icon? (
                                     <div className="serverIconEdit" style={{backgroundImage: `url(${server.icon})`}}></div>
@@ -236,7 +233,6 @@ const handleEdit = (e) => {
                                         <input
                                             type="text"
                                             value={serverIcon}
-                                            required
                                             autoComplete="off"
                                             onChange={(e) => setServerIcon(e.target.value)}
                                         />
@@ -256,64 +252,26 @@ const handleEdit = (e) => {
                                 <div className="deleteServer" onClick={() => setShowDelete(true)}>Delete</div>
                                 <div>
                                     <button id="cancelChannel" onClick={handleEditCancel}>Cancel</button>
-                                    <button className="createChannel"id={allowEdit} type="submit">Edit Server</button>
+                                    <button className="createChannel"id={allowEdit} onClick={handleEdit} type="submit">Edit Server</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-
-                </div>
-
-                )} */}
-                    {/* {showDelete && (
-                        <div className="addModal">
-                            <div className="addChannelFormContainer">
-                                <h3 id="deleteChannelHeader">Delete Server</h3>
-                                <h5 id="deleteChannelSubHeader" >Are you sure you want to delete <span id="channelDeleteName">{server?.name}</span>? This cannot be undone.</h5>
-                                    <div className="addChannelButtons">
-                                        <div id="cancelChannel" onClick={handleDeleteCancel}>Cancel</div>
-                                        <div className="createChannel" id="deleteChannel" onClick={handleDelete}>Delete Server</div>
-                                    </div>
-                            </div>
+            </div>
+        )}
+        {showDelete && (
+            <div className="addModal">
+                <div className="addChannelFormContainer">
+                    <h3 id="deleteChannelHeader">Delete Server</h3>
+                    <h5 id="deleteChannelSubHeader" >Are you sure you want to delete <span id="channelDeleteName">{server?.name}</span>? This cannot be undone.</h5>
+                        <div className="addChannelButtons">
+                            <div id="cancelChannel" onClick={handleDeleteCancel}>Cancel</div>
+                            <div className="createChannel" id="deleteChannel" onClick={handleDelete}>Delete Server</div>
                         </div>
-                        <div className="addChannelInput">
-                          <label>SERVER DESCRIPTION</label>
-                          <input
-                            type="text"
-                            value={serverDescription}
-                            autoComplete="off"
-                            onChange={(e) =>
-                              setServerDescription(e.target.value)
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="addChannelButtons" id="editServerButtons">
-                      <div
-                        className="deleteServer"
-                        onClick={() => setShowDelete(true)}
-                      >
-                        Delete
-                      </div>
-                      <div>
-                        <button id="cancelChannel" onClick={handleEditCancel}>
-                          Cancel
-                        </button>
-                        <button
-                          className="createChannel"
-                          id={allowEdit}
-                          type="submit"
-                          onClick={handleEdit}
-                        >
-                          Edit Server
-                        </button>
-                      </div>
-                    </div>
-                  </form>
                 </div>
-              </div>
-            )} */}
+            </div>
+        )}
+
           </>
         )}
       </div>
