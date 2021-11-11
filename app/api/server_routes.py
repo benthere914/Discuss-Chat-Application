@@ -115,4 +115,4 @@ def search_servers(query):
     if query == '$$default$$':
         return {server.name: server.to_dict() for server in Server.query.limit(10).all()}
     else:
-        return {server.name: server.to_dict() for server in Server.query.filter(Server.name.ilike(f'{query}%'))}
+        return {server.name: server.to_dict() for server in Server.query.filter(Server.name.ilike(f'%{query}%'))}

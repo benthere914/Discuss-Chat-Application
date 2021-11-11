@@ -11,7 +11,6 @@ function ServersContainer() {
 
     const user = useSelector(state => state.session.user);
 
-
     //Redirect to login screen if no user is logged in
     if (!user) {
         history.push('/login')
@@ -73,7 +72,7 @@ function ServersContainer() {
     return (
       <>
         {isLoaded && (
-          <div className="serversContainer">
+          <div id="serversContainer">
             {servers?.[0] !== null &&
               servers.map((server) => (
                 <NavLink
