@@ -10,6 +10,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    last_checkin = db.Column(db.Integer)
+    online = db.Column(db.Boolean, default=False)
 
     servers = db.relationship("Server", back_populates="user", cascade="all, delete")
     messages = db.relationship("Channel_Message", back_populates="user", cascade="all, delete")
@@ -31,5 +33,7 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'online': self.online,
+            'last_checkin': self.last_checkin
         }

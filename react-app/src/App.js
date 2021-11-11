@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import SplashPage from './components/splash/splash';
@@ -19,6 +20,17 @@ import Testedit from './components/Test/testedit'
 import NewServer from './components/Test/addserver'
 
 function App() {
+    const user = useSelector(state => state.session.user);
+    const update_checkin = async () => {
+        await fetch('api/users/update_checkin',
+        {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json',},
+            body: JSON.stringify({"id":user.id})
+        })
+        console.log('updated')
+    }
+    if (user){setInterval(update_checkin, 10000)}
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 
