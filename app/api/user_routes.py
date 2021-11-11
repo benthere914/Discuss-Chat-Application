@@ -1,4 +1,5 @@
 import re
+import datetime
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import User, Server_Member, Server, db
@@ -114,3 +115,15 @@ def delete_user(userId):
         return {"message":"Success"}
     else:
         return {"message":"Incorrect Password"}
+
+@user_routes.route('/update_checkin', methods=['POST'])
+@login_required
+def update_checkin():
+    now = datetime.datetime.now().minute
+    body = request.get_json()
+    id = body['id']
+    user = User.query.get(id)
+    user.last_checkIn = now
+    db.session.add(user)
+    db.session.commit()
+    return 'success'
