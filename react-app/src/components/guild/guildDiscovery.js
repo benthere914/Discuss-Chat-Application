@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { searchServer } from '../../store/search';
 import { loadUserServers } from '../../store/server';
-import ServerCard from './singleSearch';
+import ServerCard from './featuredServerCard';
+import ServerSearchCard from './resultServerCard';
 
 import './guildDiscovery.css'
 
@@ -33,9 +34,6 @@ const GuildDiscovery = () => {
 
 }, [dispatch])
 
-useEffect(() => {
-
-}, [])
 
 const search = async (e) => {
   e.preventDefault();
@@ -125,9 +123,19 @@ const handleClose = () => {
                     </button>
                   </div>
                 </form>
-                <div className="serverResultsContainer">
-                  {results?.map(server =>
-                    <ServerCard user={user} server={server} userServers={servers}/>
+                <div className="serverActualResultsContainer">
+                  {results?.length === 0? (
+                    <div className="noResultsContainer">
+                      <img src="https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636603006/Discuss/noResults_fle95m.png" alt="No Results" />
+                      <h5>No results found</h5>
+                      <h6>Try searching for something else.</h6>
+                    </div>
+                  ) : (
+                    <>
+                      {results?.map(server =>
+                        <ServerSearchCard user={user} server={server} userServers={servers}/>
+                      )}
+                    </>
                   )}
                 </div>
               </>

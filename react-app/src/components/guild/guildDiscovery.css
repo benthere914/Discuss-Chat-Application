@@ -136,6 +136,40 @@
     outline: 1px solid rgb(91, 91, 218);
 }
 
+.noResultsContainer {
+    width: 730px;
+    height: 394px;
+    background-color: rgb(47,49,54);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.noResultsContainer img {
+    width: 330px;
+    height: auto;
+}
+
+.noResultsContainer h5 {
+    color: white;
+    font-size: 30px;
+    margin: 20px 0 10px 0;
+}
+
+.noResultsContainer h6 {
+    color: rgb(132,134,138);
+    font-size: 15px;
+    margin: 10px 0;
+    font-weight: lighter;
+}
+
+.serverActualResultsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 @media screen and (min-width: 1580px) {
     .featuredContainer h4 {
         margin-top: 120px;

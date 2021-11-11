@@ -1,0 +1,16 @@
+.singleServerResultContainer {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid #42454A;
+}
+
+.resultImage {
+    width: 240px;
+    height: 135px;
+    max-height: 145px;
+    background-color: 42454A;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    transition: all .4s;
+}

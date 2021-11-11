@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import './singleSearchContainer.css'
+import './featuredServerCard.css'
 
 function ServerCard({user, server, userServers}) {
     const dispatch = useDispatch();
