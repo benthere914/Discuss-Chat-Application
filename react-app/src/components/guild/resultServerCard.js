@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {removeMember} from '../../store/server';
+import {addMember, removeMember} from '../../store/server';
 
 import './resultServerCard.css'
 
 function ServerSearchCard({user, server, userServers}) {
     const dispatch = useDispatch();
 
-
+// const users = useSelector((state) => state.session.user);
+// const usersId = users.id;
     const checkIfUserInServer = () => {
         let alreadyJoined = false;
         for (let [key, value] of Object.entries(userServers)) {
@@ -25,7 +26,9 @@ function ServerSearchCard({user, server, userServers}) {
     }
 
     const alreadyJoined = checkIfUserInServer();
-
+function joinServer() {
+  dispatch(addMember(user.id, server.id));
+}
     return (
         <div className="singleServerResultContainer">
             {server.icon? (
@@ -47,11 +50,11 @@ function ServerSearchCard({user, server, userServers}) {
                 {alreadyJoined? (
                     <div className="joinLeaveServer leave" onClick={leaveServer}>Leave Server</div>
                 ) : (
-                    <div className="joinLeaveServer join">Join Server</div>
+                    <div className="joinLeaveServer join" onClick={joinServer}>Join Server</div>
                 )}
             </div>
         </div>
-    )
+    );
 }
 
 export default ServerSearchCard;

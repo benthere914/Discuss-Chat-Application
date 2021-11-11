@@ -10,6 +10,6 @@ def member_exists(form, field):
     if server:
         raise ValidationError('User already exists in this server.')
 
-class UpdateServerForm(FlaskForm):
+class AddMemberForm(FlaskForm):
     server_id = IntegerField("server_id", validators=[DataRequired()])
     user_id = StringField("user_id", validators=[DataRequired(), member_exists])
