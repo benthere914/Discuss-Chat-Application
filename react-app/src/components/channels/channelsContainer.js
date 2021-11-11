@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserChannels, addNewChannel } from '../../store/channel';
-import { loadUserServers, deleteServer } from "../../store/server";
+import {
+  loadUserServers,
+  deleteServer,
+  editServer,
+  singleServer,
+} from "../../store/server";
 import EditableChannel from './editableChannel';
 import './channelContainer.css'
 
 function ChannelsContainer() {
     const dispatch = useDispatch();
-
    const { serverId } = useParams();
-
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
     const server = useSelector(state => state.servers[serverId])
@@ -28,6 +31,9 @@ function ChannelsContainer() {
     const [serverDescription, setServerDescription] = useState('');
 
     const [showDelete, setShowDelete] = useState('');
+  useEffect(() => {
+    dispatch(singleServer(+serverId));
+  }, [dispatch, singleServer, serverId]);
 
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
@@ -103,6 +109,18 @@ if (deleteserver) {
         //Push to channel page
     }
 
+const handleEdit = (e) => {
+  
+  e.preventDefault();
+  //const editedserver = 
+  dispatch(
+    editServer(serverName, serverDescription, serverIcon, serverId)
+  );
+  console.log("THIS IS A CONSOLE", serverName, serverId);
+  // if (editedserver) {
+  //   window.location.reload();
+  // }
+};
     return (
       <div className="channelContainer">
         {isLoaded && (
@@ -265,8 +283,9 @@ if (deleteserver) {
                           className="createChannel"
                           id={allowEdit}
                           type="submit"
+                          onClick={handleEdit}
                         >
-                          Edit Channel
+                          Edit Server
                         </button>
                       </div>
                     </div>
