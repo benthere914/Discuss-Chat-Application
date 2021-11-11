@@ -85,6 +85,16 @@ def add_channel(serverId):
 View and add members
 '''
 
+def in_timeframe(time1, time2):
+    if 5 < time1 <= 55:
+        return ((time1 - time2) <= 5)
+    elif 0 < time1 <= 5:
+        return (time2 >= 55 or time2 <= time1)
+    elif 55 < time1 <= 60:
+        return (time2 <= 5 or time2 >= time1)
+    else:
+        return False
+
 # Get all members of a single server
 @server_routes.route('/<int:serverId>/members')
 @login_required
@@ -94,13 +104,7 @@ def get_members(serverId):
     for member in membersServer:
         member = member.user
         checkin = member.last_checkIn
-        print(int(now) - int(checkin))
-        if (int(now) - int(checkin) >= 2):
-            member.online = False
-            # for i in range(10):
-            #     print('false')
-        else:
-            member.online = True
+        member.online = in_timeframe(int(now), int(checkin))
     db.session.commit()
     members = {member.to_dict()['id']: member.user.to_dict() for member in membersServer}
 
