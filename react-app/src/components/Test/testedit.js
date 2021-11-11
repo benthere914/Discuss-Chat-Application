@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  loadUserServers,
-  singleServer, addMember,
-  addServer,
+  singleServer,
   editServer,
   deleteServer
 } from "../../store/server";
@@ -19,7 +17,7 @@ function Testedit() {
   const oneServer = servers?.map((single) => (single?.name))
   // console.log("WHAT IS STHIS", oneServer)
    const [name, setName] = useState(oneServer?.name);
-  
+
 const handleSubmit = (e) => {
   console.log("THIS IS A CONSOLE", name, serverId)
   e.preventDefault();

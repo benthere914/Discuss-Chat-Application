@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { deleteSingleMessage, updateMessageBody } from '../../store/messages';
 
 function EditableMessage({userId, channelId, message}) {

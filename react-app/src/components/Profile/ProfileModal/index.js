@@ -1,10 +1,9 @@
 import './index.css';
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState } from 'react';
+import {useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import EditBox from './editBox'
 import { logout, deleteAccount } from '../../../store/session'
-import LogoutButton from '../../auth/LogoutButton'
 
 let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => {
     const history = useHistory()
@@ -82,6 +81,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 								<img
 									className="profileModalPhoto"
 									src={`https://www.gravatar.com/avatar/${hash}`}
+                                    alt={user?.username}
 								></img>
 							</li>
 							<li>
