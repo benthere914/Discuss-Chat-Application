@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/auth/LoginForm';
@@ -51,6 +51,7 @@ function App() {
             <div className="channelBar">
               <div className="emptyChannels">Select a Server</div>
               <ProfileBar/>
+              <Members/>
             </div>
           </div>
         </Route>
@@ -81,6 +82,7 @@ function App() {
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
+              <Members/>
             </div>
           <Messages/>
           </div>

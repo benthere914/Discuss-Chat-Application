@@ -54,7 +54,6 @@ let EditBox = ({
             setDataBorderColor('red')
             setDataOutlineColor('red')
             setDataExtraText(`- ${e?.data}`)
-            console.log('got ehre')
         }
         else{
             setData('')

@@ -16,7 +16,6 @@ function Messages() {
     const channels = useSelector(state => Object.values(state.channels));
     const userId = useSelector(state => state.session.user?.id);
 
-    console.log(messages)
 
     //state
     const [isLoaded, setIsLoaded] = useState(false);
@@ -45,7 +44,7 @@ function Messages() {
                 {messages?.map(message => {
                     if (userId === message?.user_id) {
                         return (
-                            <div className='owner-msg-box'>
+                            <div className='owner-msg-box' key={message?.message}>
                                 <img src={temp} className="temp" alt="temp-icon" width="40" height="40"></img>
                                 <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
                             </div>

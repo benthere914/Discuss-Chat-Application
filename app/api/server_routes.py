@@ -113,8 +113,6 @@ def get_members(serverId):
 def add_member(serverId):
     form = AddMemberForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("****************")
-    print(form.data)
     if form.validate_on_submit():
         # server = addMemberForm()
         server= Server_Member(user_id=form.data['user_id'],
