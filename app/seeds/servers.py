@@ -1,6 +1,8 @@
 from app.models import db, Server
 from coolname import generate_slug
 from faker import Faker
+
+from app.models.server_memebers import Server_Member
 fake = Faker()
 
 # Adds a demo user, you can add other users here if you want
@@ -20,6 +22,7 @@ def seed_servers():
 
     for i in range(1, 29):
         db.session.add(Server(name=generate_slug()[0:40], owner_id=(i), icon=fake.image_url()))
+        db.session.add(Server_Member(server_id=i, user_id=i))
         db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.

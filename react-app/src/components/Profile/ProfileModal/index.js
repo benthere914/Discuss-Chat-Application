@@ -87,6 +87,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 									className="profileModalPhoto"
 									src={user?.icon}
                                     alt={user?.username}
+                                    onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.discordapp.com/attachments/904846014484209665/907160741671473152/v.2-white-blue-square.png"}}
 								></img>
 							</li>
 							<li>
