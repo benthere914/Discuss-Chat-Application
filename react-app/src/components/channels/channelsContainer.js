@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserChannels, addNewChannel } from '../../store/channel';
 import {
@@ -103,26 +103,32 @@ function ChannelsContainer() {
         if (!errors) {
             setShowDelete(false)
             setShowEditForm(false)
-            history.push('/channels')
+            //history gives GET errors
+            return <Redirect to="/" />;
+            // history.push('/channels')
+            //  window.location.reload();
         } else {
             //Show an error somewhere
         }
     }
 
-const handleEdit = async (e) => {
+    const handleEdit = async (e) => {
 
-  e.preventDefault();
-  const editedserver = await dispatch(editServer(serverName, serverDescription, serverIcon, serverId));
+      e.preventDefault();
+      const editedserver = await dispatch(editServer(serverName, serverDescription, serverIcon, serverId));
 
-  if (editedserver) {
-    setShowEditForm(false)
-  }
-};
+      if (editedserver) {
+        setShowEditForm(false)
+      }
+    };
 
     const handleLeaveServer = async () => {
       await dispatch(removeMember(user.id, server.id));
+
       history.push('/channels')
+
     }
+
     return (
       <div className="channelContainer">
         {isLoaded && (
@@ -156,20 +162,20 @@ const handleEdit = async (e) => {
               )}
             </div>
             <div className="channelList">
-              {channels?.map((channel) => {
+              {channels?.map((channel, index) => {
                 if (user?.id === server?.owner_id) {
                   return (
                     <EditableChannel
                       server={server}
                       channel={channel}
-                      key={`editableChannel_${channel?.id}`}
+                      key={`editableChannel_${channel?.id}_${index}`}
                     />
                   );
                 } else {
                   return (
                     <div className="channelNameHolder">
                       <NavLink
-                        key={`channel_${channel?.id}`}
+                        key={`channel_${channel?.id}_${index}`}
                         to={`/channels/${channel?.server_id}/${channel?.id}`}
                         activeClassName="selectedChannel"
                       >

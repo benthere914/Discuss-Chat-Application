@@ -1,9 +1,7 @@
 .membersTab{
     display: flex;
     flex-direction: column;
-    position: fixed;
-    right: 0;
-    border-left: black solid;
+    border-left: 2px black solid;
     width: 200px;
     height: calc(100vh - 70px);
 }
@@ -26,6 +24,7 @@
     width: 200px;
     height: 50px;
     bottom: 15px;
+    cursor: default;
 
 }
 .membersTab ul li:hover{
@@ -34,8 +33,8 @@
 }
 
 .membersTab ul li img{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     position: relative;
     left: 20px;
@@ -43,7 +42,7 @@
 }
 
 .memberActive{
-    transform: scale(0.8);
+    transform: scale(0.6);
     position: relative;
     left: 2px;
     top: 25px;
@@ -58,5 +57,5 @@
     left: 10px;
     bottom: 5px;
     color: gray;
-    font-size: 20px;
+    font-size: 18px;
 }

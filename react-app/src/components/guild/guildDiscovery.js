@@ -107,7 +107,11 @@ const handleClose = () => {
                     <div className="backArrow" onClick={handleClose}>
                       <i className="fas fa-arrow-left"></i>
                     </div>
-                    <h3>{`${results?.length} communities for "${finalSearch}"`}</h3>
+                    {results?.length === 1? (
+                        <h3>{`1 community for "${finalSearch}"`}</h3>
+                    ):(
+                        <h3>{`${results?.length} communities for "${finalSearch}"`}</h3>
+                    )}
                   </div>
                 </div>
                 <form>
