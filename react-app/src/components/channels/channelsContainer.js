@@ -259,7 +259,7 @@ function ChannelsContainer() {
                         <form autoComplete="off">
                             <div className="editServerFormContainer">
                                 {server?.icon? (
-                                    <div className="serverIconEdit" style={{backgroundImage: `url(${server?.icon})`}}></div>
+                                    <div className="serverIconEdit" style={{backgroundImage: `url(${server?.icon}), url(https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636756080/Discuss/discussLogo_vuc5wk.png)`}}></div>
                                 ):(
                                     <div className="noIconServerEdit">{server?.name[0]}</div>
                                 )}
