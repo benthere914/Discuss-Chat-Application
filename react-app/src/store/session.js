@@ -5,6 +5,9 @@ const UPDATE_USERNAME = 'session/UPDATE_USERNAME'
 const UPDATE_USER_EMAIL = 'session/UPDATE_USER_EMAIL'
 const UPDATE_USER_PASSWORD = 'session/UPDATE_USER_PASSWORD'
 const UPDATE_USER_ICON = 'session/UPDATE_USER_ICON'
+const RESET = 'members/RESET'
+const reset_ = () => ({type: RESET})
+export const reset = () => (dispatch) => {dispatch(reset_())}
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -226,6 +229,8 @@ export default function reducer(state = initialState, action) {
         return {user: action.payload}
     case UPDATE_USER_ICON:
         return {user: action.payload}
+    case RESET:
+        return {}
     default:
       return state;
   }

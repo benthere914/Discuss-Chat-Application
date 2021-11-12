@@ -3,7 +3,9 @@ const LOAD = 'channels/LOAD_CHANNELS'
 const ADD_CHANNEL = 'channels/ADD_CHANNEL'
 const UPDATE_CHANNEL = 'channels/UPDATE_CHANNEL'
 const DELETE_CHANNEL = 'channels/DELETE_CHANNEL'
-
+const RESET = 'members/RESET'
+const reset_ = () => ({type: RESET})
+export const reset = () => (dispatch) => {dispatch(reset_())}
 const loadChannels = (channels) => ({
     type: LOAD,
     channels
@@ -130,6 +132,8 @@ const channelsReducer = (state = initialState, action) => {
             const newState = {...state}
             delete newState[action.channelId];
             return newState;
+        case RESET:
+            return {}
         default:
             return state;
     }
