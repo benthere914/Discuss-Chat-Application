@@ -12,6 +12,7 @@ import Members from './components/members/members'
 import GuildChannelBar from './components/guild/guildChannelBar';
 import GuildDiscovery from './components/guild/guildDiscovery';
 import ProfileBar from './components/Profile/ProfileBar';
+import PageNotFound from './components/guild/PageNotFound';
 
 import { authenticate } from './store/session';
 import ServersContainer from './components/servers/serverContainer';
@@ -85,6 +86,9 @@ function App() {
             <Messages/>
           </div>
         </ProtectedRoute>
+        <Route>
+          <PageNotFound />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

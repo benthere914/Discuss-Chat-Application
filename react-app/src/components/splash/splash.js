@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './splash.css';
 
@@ -12,6 +12,10 @@ function SplashPage() {
             history.push('/channels')
         }
     }, [user])
+
+    if (user) {
+        return <Redirect to="/channels" />;
+    }
 
     return (
         <>
