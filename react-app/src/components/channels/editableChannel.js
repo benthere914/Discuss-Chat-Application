@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateChannelName, deleteSingleChannel } from '../../store/channel';
@@ -48,6 +48,15 @@ function EditableChannel({server, channel}) {
         }
 
     }
+
+    //Cleanup function
+    useEffect(() => {
+
+        return () => {
+            setShowEdit(false)
+            setShowDelete(false)
+        }
+    }, [])
 
     return (
         <div className="channelNameHolder" id="editableChannel">
