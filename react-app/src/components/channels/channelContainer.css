@@ -237,3 +237,8 @@
     color: rgb(237,66,69);
     cursor: pointer;
 }
+
+.selectedChannel h4 {
+    color: white;
+    transform: scale(1.3);
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserChannels, addNewChannel } from '../../store/channel';
 import {
@@ -168,9 +168,10 @@ const handleEdit = async (e) => {
                 } else {
                   return (
                     <div className="channelNameHolder">
-                      <Link
+                      <NavLink
                         key={`channel_${channel?.id}`}
                         to={`/channels/${channel?.server_id}/${channel?.id}`}
+                        activeClassName="selectedChannel"
                       >
                         <>
                           {channel?.name.length > 16 ? (
@@ -182,7 +183,7 @@ const handleEdit = async (e) => {
                             <h4 className="channelName">{`# ${channel?.name}`}</h4>
                           )}
                         </>
-                      </Link>
+                      </NavLink>
                     </div>
                   );
                 }
