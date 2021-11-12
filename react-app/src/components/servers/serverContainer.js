@@ -17,13 +17,13 @@ function ServersContainer() {
     }
 
     const servers = useSelector(state => Object.values(state.servers));
+
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
     const [serverIcon, setServerIcon] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
     const [allowAdd, setAllowAdd] = useState("notAllowed");
-    const [isLoaded, setIsLoaded] = useState(true);
-
+    const [isLoaded, setIsLoaded] = useState(false);
 
 
     useEffect(() => {
@@ -36,6 +36,19 @@ function ServersContainer() {
         }
 
     }, [dispatch, user])
+
+    //Cleanup function
+    useEffect(() => {
+
+      return () => {
+        setServerName('');
+        setServerDescription('');
+        setServerIcon('');
+        setShowAddForm('');
+        setAllowAdd("notAllowed");
+        setIsLoaded(false)
+      }
+    }, [])
 
     useEffect(() => {
         if (serverName.length > 0) {
