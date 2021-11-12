@@ -116,13 +116,13 @@ function ServersContainer() {
                     <div className="serverInfo">
                       <div
                         className="serverIcon"
-                        style={{ backgroundImage: `url(${server.icon})` }}
+                        style={{ backgroundImage: `url(${server?.icon})` }}
                       ></div>
                       <div
                         id="serverNameHover"
                         style={{ top: hoverPosition }}
                         >
-                          {server.name}
+                          {server?.name}
                         </div>
                       <div className="activeServerIndicator"></div>
                     </div>
