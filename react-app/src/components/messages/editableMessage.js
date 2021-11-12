@@ -9,7 +9,6 @@ function EditableMessage({userId, channelId, message}) {
     const message_id = message.id;
     const user_id = userId;
     const [messageBody, setMessageBody] = useState(message?.message);
-    const [errors, setErrors] = useState([]);
 
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false)
@@ -19,23 +18,22 @@ function EditableMessage({userId, channelId, message}) {
     }
 
     const handleDelete = async (e) => {
-        setErrors([])
+
         e.preventDefault();
 
         const data = await dispatch(deleteSingleMessage(message_id))
         if (data) {
-            setErrors(data)
         } else {
             setShowDelete(false)
         }
     }
 
     const updateMessage = async (e) => {
-        setErrors([])
-        e.preventDefault();
+        e?.preventDefault();
 
         await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody))
-        window.location.reload()
+        setShowEdit(false)
+        // window.location.reload()
 
     }
 
@@ -80,6 +78,7 @@ function EditableMessage({userId, channelId, message}) {
                                         autoComplete="off"
                                         onChange={(e) => setMessageBody(e.target.value)}
                                         className="edit-input"
+                                        onKeyDown={(e) => {if (e.key === 'Enter'){updateMessage()}}}
                                     />
                                     <div className="edit-buttons">
                                         <button onClick={() => setShowEdit(false)}>

@@ -1,4 +1,3 @@
-import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import './PageNotFound.css'
