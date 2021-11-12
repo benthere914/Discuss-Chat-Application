@@ -28,7 +28,7 @@ const Members = () => {
             <p className='membersTitle'>{`Members - ${members?.length}`}</p>
             <ul>{members?.map((e) => (
                 <li key={e?.username}>
-                    <img clasname='memberIcon' src={e?.icon} alt={e?.username}></img>
+                    <img clasname='memberIcon' src={e?.icon} alt={e?.username } onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.discordapp.com/attachments/904846014484209665/907160741671473152/v.2-white-blue-square.png"}}></img>
                     <i className='fas fa-circle memberActive' style={e?.online?{color: 'green'}:{color:'red'}}></i>
                     <p className='memberUsername'>{shortenUsername(e?.username)}</p>
                 </li>))}
