@@ -38,7 +38,10 @@ function ChannelsContainer() {
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
         dispatch(loadUserServers(user?.id))
+        .then()
         .then(() => setIsLoaded(true));
+
+
 
         return () => {
             setIsLoaded(false)
@@ -127,6 +130,10 @@ function ChannelsContainer() {
 
       history.push('/channels')
 
+    }
+
+    if (!server) {
+      return <Redirect to="/channels" />;
     }
 
     return (

@@ -25,6 +25,10 @@ function Messages() {
     useEffect(() => {
             dispatch(loadChannelMessages(channelId)).then(() => setIsLoaded(true))
 
+            return () => {
+                setIsLoaded(false)
+            }
+
     }, [dispatch, channelId])
 
     const handleSubmit = async(e) => {
@@ -34,6 +38,8 @@ function Messages() {
         setMessage("")
 
       };
+
+
 
 
     return (
