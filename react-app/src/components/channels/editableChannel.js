@@ -113,9 +113,8 @@ function EditableChannel({server, channel}) {
 
             )}
         </div>
-      )}   
-    </div>
-  );
+    )
+
 }
 
 export default EditableChannel;
