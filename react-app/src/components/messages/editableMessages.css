@@ -110,4 +110,10 @@ h3 {
 
 #deleteMessage:hover {
     background-color: brown;
+    cursor: pointer
+}
+
+#cancelMessage:hover {
+
+    cursor: pointer
 }
