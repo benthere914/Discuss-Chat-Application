@@ -33,7 +33,7 @@ const GuildDiscovery = () => {
         setIsLoaded(false)
     }
 
-}, [dispatch])
+}, [dispatch, user])
 
 
 const search = async (e) => {

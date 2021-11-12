@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useDispatch } from 'react-redux';
 import {addMember, removeMember} from '../../store/server';
@@ -10,7 +10,7 @@ function ServerCard({user, server, userServers}) {
 
     const checkIfUserInServer = () => {
         let alreadyJoined = false;
-        for (let [key, value] of Object.entries(userServers)) {
+        for (let value of Object.values(userServers)) {
             if (value.id === server.id) {
                 alreadyJoined = true;
                 break;

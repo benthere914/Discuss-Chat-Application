@@ -6,7 +6,6 @@ import {
   loadUserServers,
   deleteServer,
   editServer,
-  singleServer,
   removeMember
 } from "../../store/server";
 import EditableChannel from './editableChannel';
@@ -106,10 +105,7 @@ function ChannelsContainer() {
         if (!errors) {
             setShowDelete(false)
             setShowEditForm(false)
-            //history gives GET errors
-            return <Redirect to="/" />;
-            // history.push('/channels')
-            //  window.location.reload();
+            return <Redirect to="/" />
         } else {
             //Show an error somewhere
         }

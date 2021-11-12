@@ -3,7 +3,6 @@ const LOAD = "servers/LOAD_SERVERS";
 const ADD_SERVER = "servers/ADD_SERVER";
 const ONE_SERVER = "servers/ONE_SERVER";
 const REMOVE_SERVER = "servers/REMOVE_SERVER";
-const ADD_MEMBER = "servers/ADD_MEMBER";
 
 const loadServers = (servers) => ({
   type: LOAD,
@@ -25,11 +24,6 @@ const remove = (serverId) => ({
   serverId
 });
 
-const add_member = (userId, serverId) => ({
-  type: ADD_SERVER,
-  userId,
-  serverId,
-});
 
 //load user's servers
 export const loadUserServers = (userId) => async (dispatch) => {
