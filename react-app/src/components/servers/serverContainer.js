@@ -82,7 +82,7 @@ function ServersContainer() {
           history.push(`/channels/${newserver.id}`)
           //  return newserver
         }
-       
+
     }
 
     const handleCancel = (e) => {
@@ -115,7 +115,7 @@ function ServersContainer() {
                     <div className="serverInfo">
                       <div
                         className="serverIcon"
-                        style={{ backgroundImage: `url(${server?.icon})` }}
+                        style={{ backgroundImage: `url(${server?.icon}), url(https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636756080/Discuss/discussLogo_vuc5wk.png)` }}
                       ></div>
                       <div
                         id="serverNameHover"
