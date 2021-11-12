@@ -7,6 +7,7 @@ import EditableMessage from "./editableMessage";
 import './messages.css'
 import temp from '../images/discuss-circular-transparent.jpg'
 import hashtag from '../images/hashtag.png'
+import Members from "../members/members";
 
 function Messages() {
     const dispatch = useDispatch();
@@ -45,53 +46,58 @@ function Messages() {
 
     return (
         <div className="flexContainer">
-        <div className="channel-name">
-            <img src={hashtag} className="hashtag" alt="temp-icon" width="30" height="30"></img>
-            {channel?.name}
-        </div>
-        <div className="messages-div">
-            {isLoaded && (
-            <>
-                {messages?.map(message => {
-                    if (userId === message?.user_id) {
-                        return (
+            <div className="channel-name">
+                <img src={hashtag} className="hashtag" alt="temp-icon" width="30" height="30"></img>
+                {channel?.name}
+            </div>
+            <div className="messages-and-input">
+                <div className="messages-div">
+                    {isLoaded && (
+                    <>
+                        {messages?.map(message => {
+                            if (userId === message?.user_id) {
+                                return (
 
-                            <div className='owner-msg-box'>
-                                <img src={temp} className="temp" alt="temp-icon" width="42" height="42"></img>
-                                <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
-                            </div>
-                        )
-                    } else {
-                        return (
-                                <div className='gen-msg-box'>
-                                    <img src={temp} className="temp" alt="temp-icon" width="42" height="42"></img>
-                                    <div key={message?.id} className="gen-messages">
-                                        <div className="user-time">
-                                            <div style={{ fontWeight: 900, fontSize: 15 }}> User {message?.user_id}</div>
-                                            <div className="time">{message?.date.slice(0,16)}</div>
-                                        </div>
-                                        {message?.message}
+                                    <div className='owner-msg-box'>
+                                        <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
+                                        <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
                                     </div>
-                                </div>
-                        )
-                    }
-                })}
-            </>
-            )}
+                                )
+                            } else {
+                                return (
+                                        <div className='gen-msg-box'>
+                                            <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
+                                            <div key={message?.id} className="gen-messages">
+                                                <div className="user-time">
+                                                    <div style={{ fontWeight: 900, fontSize: 17 }}> {message?.user?.username}</div>
+                                                    <div className="time">{message?.date.slice(0,16)}</div>
+                                                </div>
+                                                {message?.message}
+                                            </div>
+                                        </div>
+                                )
+                            }
+                        })}
+                    </>
+                    )}
 
 
-        </div>
-        <div className="addMessageContainer">
-                <form onSubmit={handleSubmit} autoComplete="off" className="messageForm">
-                        <input
-                        className='comment-input'
-                        type="text"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        maxLength={2000}
-                        placeholder={placeholder}
-                        required/>
-                </form>
+                </div>
+                <div className="addMessageContainer">
+                        <form onSubmit={handleSubmit} autoComplete="off" className="messageForm">
+                                <input
+                                className='comment-input'
+                                type="text"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                maxLength={2000}
+                                placeholder={placeholder}
+                                required/>
+                        </form>
+                </div>
+            </div>
+            <div className="messages-component-container">
+                <Members/>
             </div>
         </div>
     )

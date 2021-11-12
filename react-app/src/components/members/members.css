@@ -5,7 +5,7 @@
     right: 0;
     border-left: black solid;
     width: 200px;
-    height: 100%;
+    height: calc(100vh - 70px);
 }
 
 .membersTitle{

@@ -45,10 +45,13 @@ function EditableMessage({userId, channelId, message}) {
                 <div className="owner-messages">
                     <div className="own-msg-test"key={message?.id}>
                     <div className="user-time">
-                        <div style={{ fontWeight: 900, fontSize: 15 }}> User {message?.user_id}</div>
-                        <div className="time">{message?.date.slice(0,16)}</div>
-                                        </div>
+                        <div style={{ fontWeight: 900, fontSize: 15 }}> {message?.user?.username}</div>
+                            <div className="time">{message?.date.slice(0,16)}</div>
+                        </div>
+                        <div className="message-text">
                         {message?.message}
+                        </div>
+
                     </div>
                     <div className="editMessageIconContainer">
                         <div className="editMessageIcons" id="leftIconMessage" onClick={() => setShowEdit(true)}>
@@ -63,35 +66,47 @@ function EditableMessage({userId, channelId, message}) {
             )}
             {showEdit && (
                 <div>
-                    <form className="updateMessageForm" onSubmit={updateMessage} autoComplete="off">
-                        <input
-                            type="text"
-                            value={messageBody}
-                            required
-                            autoComplete="off"
-                            onChange={(e) => setMessageBody(e.target.value)}
-                        />
-                        <button type="submit">
-                            <div className="editChannelIcons" id="leftIcon">
-                                <i className="far fa-check-circle"></i>
+                    <div className="owner-messages">
+                        <div className="own-msg-test"key={message?.id}>
+                            <div className="user-time">
+                                <div style={{ fontWeight: 900, fontSize: 15 }}> {message?.user?.username}</div>
+                                        <div className="time">{message?.date.slice(0,16)}</div>
+                                </div>
+                                <form className="updateMessageForm" onSubmit={updateMessage} autoComplete="off">
+                                    <input
+                                        type="text"
+                                        value={messageBody}
+                                        required
+                                        autoComplete="off"
+                                        onChange={(e) => setMessageBody(e.target.value)}
+                                        className="edit-input"
+                                    />
+                                    <div className="edit-buttons">
+                                        <button onClick={() => setShowEdit(false)}>
+                                            <div className="editChannelIcons">
+                                                <i>cancel</i>
+                                            </div>
+                                        </button>
+                                        <button type="submit">
+                                            <div className="editChannelIcons" id="leftIcon">
+                                                <i>save</i>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                        </button>
-                        <button onClick={() => setShowEdit(false)}>
-                            <div className="editChannelIcons">
-                                <i className="fas fa-times"></i>
-                            </div>
-                        </button>
-                    </form>
+                        </div>
+
                 </div>
             )}
             {showDelete && (
-                <div className="addMessageModal">
+                <div className="editModal">
                     <div className="addMessageFormContainer">
                         <h3 id="deleteMessageHeader">Delete Message</h3>
-                        <h5 id="deleteMessageSubHeader" >Are you sure you want to delete <span id="channelDeleteMessage">{`#${message.message}`}</span>? This cannot be undone.</h5>
+                        <h5 id="deleteMessageSubHeader" >Are you sure you want to delete this message? </h5>
                             <div className="addMessageButtons">
                                 <div id="cancelMessage" onClick={handleCancel}>Cancel</div>
-                                <div className="createMessage" id="deleteMessage" onClick={handleDelete}>Delete Message</div>
+                                <div className="createMessage" id="deleteMessage" onClick={handleDelete}>Delete</div>
                             </div>
                     </div>
                 </div>

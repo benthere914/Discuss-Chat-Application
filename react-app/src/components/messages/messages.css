@@ -3,6 +3,7 @@
     flex-direction: column;
     flex-grow: 1;
     justify-content: space-between;
+    width: 50vw;
 }
 
 .channel-name {
@@ -29,16 +30,17 @@
     display: flex;
     flex-direction: column;
     height: 85vh;
-    width: 100%;
+    width: calc(100% - 5px);
     color: rgb(220, 219, 212);
     font-family: monospace;
-    font-size: 14px;
+    font-size: 15px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .temp {
-    padding-right: 15px;
+    margin-right: 15px;
+    border-radius: 50px;
 }
 
 .user-time {
@@ -59,7 +61,7 @@
     padding-left: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 100%;
+    width: calc(100% - 5px);
 }
 
 .messageNameHolder {
@@ -72,7 +74,11 @@
     padding-left: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 100%;
+    width: calc(100% - 5px);
+}
+
+.messgaeNameHolder {
+    width: calc(100% - 5px);
 }
 
 .gen-msg-box:hover {
@@ -82,7 +88,7 @@
 .owner-messages {
     display: flex;
     flex-direction: row;
-    width: 98%;
+    width: 95%;
     justify-content: space-between;
 }
 
@@ -90,12 +96,102 @@
     background-color: rgb(50, 53, 59);
 }
 
+.own-msg-test {
+    width: 100%;
+}
+
+.message-text {
+    inline-size: calc(100% - 100px);
+    overflow-wrap:break-word
+}
+
 .editMessageIconContainer {
     visibility: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 80px;
+
+}
+
+.fas {
+    color:rgb(184, 186, 189);
+    font-size: 17px;
+
+}
+
+.far {
+    color:rgb(184, 186, 189);
+    font-size: 17px;
+}
+
+.editMessageIconContainer > *{
+    padding-left: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(51,54,59);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+}
+
+.editMessageIconContainer > *:hover {
+    background-color: rgb(55,59,65);
+}
+
+.editMessageIconContainer > *:hover .fas {
+    color:rgb(220, 221, 222)
 }
 
 .owner-msg-box:hover .editMessageIconContainer {
     visibility: visible;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 10px;
+}
+
+.editMessageIcons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 40px;
+    padding-right: 10px;
+}
+
+.edit-input {
+    background-color: rgb(64, 68, 75);
+    border: 0px solid gray;
+    width: 95%;
+    border-radius: 5px;
+    outline-width: 0;
+    color: rgb(220, 219, 212);
+    font-family: monospace;
+    font-size: 14px;
+    padding-left: 10px;
+    overflow:visible
+}
+
+.edit-buttons > * {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	outline: inherit;
+    font-family: monospace;
+    font-size: 12px;
+}
+i{
+    color: rgb(39,149,238)
 }
 
 .messageForm {
@@ -121,7 +217,21 @@
     font-family: monospace;
     font-size: 14px;
     padding-left: 10px;
+    overflow:visible
 
 }
 
 .comment-input:focus { color: rgb(220, 219, 212) }
+
+.messages-and-input {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 200px);
+}
+
+.messages-component-container {
+    position: absolute;
+    top: 70px;
+    height: calc(100vh - 70px);
+}
+
