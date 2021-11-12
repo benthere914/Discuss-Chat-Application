@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
 import {addNewMessage, loadChannelMessages} from "../../store/messages"
 import EditableMessage from "./editableMessage";
+import './messages.css'
+import temp from '../images/discuss-circular-transparent.jpg'
 
 function Messages() {
     const dispatch = useDispatch();
@@ -14,7 +16,6 @@ function Messages() {
     const channels = useSelector(state => Object.values(state.channels));
     const userId = useSelector(state => state.session.user?.id);
 
-    console.log(messages)
 
     //state
     const [isLoaded, setIsLoaded] = useState(false);
@@ -30,46 +31,56 @@ function Messages() {
         e.preventDefault();
         // let newErrors = [];
         await dispatch(addNewMessage(channelId, userId, message))
+        setMessage("")
 
       };
 
-    return (
-        <>
-        {isLoaded && (
-          <>
-            {messages?.map(message => {
-                if (userId === message?.user_id) {
-                    return (
-                        <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
-                    )
-                } else {
-                    return (
-                            <div key={message?.id}>
-                                    {message?.message}
-                            </div>
-                    )
-                }
-            })}
-          </>
-        )}
 
-        <div className="addMessageContainer">
-            <form onSubmit={handleSubmit} autoComplete="off">
-                <div className="messageInputContainer">
-                    <textarea
-                    className='comment-input'
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    maxLength={200}
-                    required/>
-                </div>
-                <div className="messageButtonsContainer">
-                    <button type="submit"> Submit </button>
-                </div>
-            </form>
+    return (
+        <div className="flexContainer">
+        <div className="messages-div">
+            {isLoaded && (
+            <>
+                {messages?.map(message => {
+                    if (userId === message?.user_id) {
+                        return (
+                            <div className='owner-msg-box' key={message?.message}>
+                                <img src={temp} className="temp" alt="temp-icon" width="40" height="40"></img>
+                                <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
+                            </div>
+                        )
+                    } else {
+                        return (
+                                <div className='gen-msg-box'>
+                                    <img src={temp} className="temp" alt="temp-icon" width="40" height="40"></img>
+                                    <div key={message?.id} className="gen-messages">
+                                        <div className="user-time">
+                                            <div style={{ fontWeight: 900, fontSize: 15 }}> User {message?.user_id}</div>
+                                            <div className="time">{message?.date}</div>
+                                        </div>
+                                        {message?.message}
+                                    </div>
+                                </div>
+                        )
+                    }
+                })}
+            </>
+            )}
+
+
         </div>
-        </>
+        <div className="addMessageContainer">
+                <form onSubmit={handleSubmit} autoComplete="off" className="messageForm">
+                        <input
+                        className='comment-input'
+                        type="text"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        maxLength={200}
+                        required/>
+                </form>
+            </div>
+        </div>
     )
 
 }

@@ -1,10 +1,9 @@
 import './index.css';
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState } from 'react';
+import {useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import EditBox from './editBox'
 import { logout, deleteAccount } from '../../../store/session'
-import LogoutButton from '../../auth/LogoutButton'
 
 let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => {
     const history = useHistory()
@@ -52,6 +51,11 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
         reset()
         setProfileModalVisible(false)
         await dispatch(logout())
+        await fetch('/api/users/removeCheckin', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: user?.id}),
+        })
         history.push('/')
     }
 
@@ -82,6 +86,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 								<img
 									className="profileModalPhoto"
 									src={`https://www.gravatar.com/avatar/${hash}`}
+                                    alt={user?.username}
 								></img>
 							</li>
 							<li>
@@ -102,7 +107,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 										<p>{shortenUsername(user?.username, 23)}</p>
 									</li>
                                     {
-                                        user?.username !== 'demo' &&
+                                        user?.username !== 'Demo' && user?.username !== 'demo' &&
                                         <li id="editButton" onClick={() => {editHandler('Username')}}>
 										<p>Edit</p>
 									</li>
@@ -116,7 +121,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 										<p>{shortenEmail(user?.email, 23)}</p>
 									</li>
                                     {
-                                        user?.username !== 'demo' &&
+                                        user?.username !== 'Demo' && user?.username !== 'demo' &&
 
 									<li id="editButton" onClick={() => {editHandler('Email')}}>
 										<p>Edit</p>
@@ -131,7 +136,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 										<p>*********</p>
 									</li>
                                     {
-                                        user?.username !== 'demo' &&
+                                        user?.username !== 'Demo' && user?.username !== 'demo' &&
 									<li id="editButton" onClick={() => {editHandler('Password')}}>
 										<p>Edit</p>
 									</li>
@@ -141,7 +146,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 						</ul>
 					</div>
 				</div>
-            {user?.username !== 'demo' && editBoxVisible && <EditBox
+            {user?.username !== 'Demo' && user?.username !== 'demo' && editBoxVisible && <EditBox
             title={title}
             userId={user?.id}
             setEditBoxVisible={setEditBoxVisible}
@@ -165,7 +170,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 
 
             />}
-            {user?.username !== 'demo' &&
+            {user?.username !== 'Demo' && user?.username !== 'demo' &&
             <ul className='accountRemoval'>
                 <li>
                     <p>Account Removal</p>
@@ -176,7 +181,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
             </ul>
             }
 			</div>
-            {user?.username !== 'demo' && deleteModal && (
+            {user?.username !== 'Demo' && user?.username !== 'demo' && deleteModal && (
             <div className='deleteModal'>
                 <div className='deleteModalTop'>
                     <p className='deleteTitleMain'>Delete Account</p>

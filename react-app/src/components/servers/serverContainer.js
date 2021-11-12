@@ -11,7 +11,6 @@ function ServersContainer() {
 
     const user = useSelector(state => state.session.user);
 
-
     //Redirect to login screen if no user is logged in
     if (!user) {
         history.push('/login')
@@ -57,8 +56,12 @@ function ServersContainer() {
         setServerName('')
         setServerDescription('')
         setServerIcon('')
+
         const newserver = await dispatch(addServer( serverName, serverDescription, serverIcon, user.id));
-        // if(newserver)
+
+        if(newserver) {
+          history.push(`/channels/${newserver.id}`)
+        }
         return newserver
     }
 
@@ -73,12 +76,12 @@ function ServersContainer() {
     return (
       <>
         {isLoaded && (
-          <div className="serversContainer">
-            {servers?.[0] !== null &&
+          <div id="serversContainer">
+            {servers !== null ? (
               servers.map((server) => (
                 <NavLink
-                  key={`server_${server.id}`}
-                  to={`/channels/${server.id}`}
+                  key={`server_${server?.id}`}
+                  to={`/channels/${server?.id}`}
                   className="singleServer"
                   activeClassName="selectedServer"
                 >
@@ -93,24 +96,25 @@ function ServersContainer() {
                     </div>
                   ) : (
                     <div className="serverInfo">
-                      <div className="noIconServer">{server.name[0]}</div>
-                      <div id="serverNameHover">{server.name} </div>
+                      <div className="noIconServer">{server?.name[0]}</div>
+                      <div id="serverNameHover">{server?.name} </div>
                       <div className="activeServerIndicator"></div>
                     </div>
                   )}
                 </NavLink>
-              ))}
+              ))): null}
             <div className="serverInfo" onClick={() => setShowAddForm(true)}>
               <div className="noIconServer" id="addServerButton">
                 <i className="fas fa-plus"></i>
               </div>
               <div id="serverNameHover">Add a Server</div>
             </div>
-            <NavLink to={"/guild-discovery"} className="singleServer">
+            <NavLink to={"/guild-discovery"} className="singleServer" activeClassName="selectedServer">
               <div className="serverInfo">
                 <div className="noIconServer" id="addServerButton">
                   <i className="fas fa-compass"></i>
                 </div>
+                <div id="noShow" className="activeServerIndicator"></div>
                 <div id="expPublicServer">Explore Public Servers</div>
               </div>
             </NavLink>
@@ -161,9 +165,9 @@ function ServersContainer() {
                     />
                   </div>
                   <div className="addChannelButtons" id="addServerButtons">
-                    <button id="serverChannel" onClick={handleCancel}>
+                    <div id="serverChannel" onClick={handleCancel}>
                       Cancel
-                    </button>
+                    </div>
                     <button
                       className="createServer"
                       id={allowAdd}

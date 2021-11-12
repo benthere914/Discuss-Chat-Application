@@ -1,0 +1,86 @@
+.singleServerCardContainer {
+    width: 291px;
+    height: 320px;
+    max-height: 320px;
+    background-color: rgb(41,43,47);
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all .4s;
+}
+
+.singleServerCardContainer:hover {
+    background-color: rgb(34, 36, 39);
+    transform: scale(1.02);
+}
+
+.singleServerImage, .singleServerNoImage {
+    width: 100%;
+    height: 145px;
+    max-height: 145px;
+    background-color: grey;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: all .4s;
+}
+
+.bottomServerCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 155px;
+    height: 155px;
+    padding: 10px;
+}
+
+.bottomServerCard h6 {
+    margin: 0;
+    color: white;
+    font-size: 20px;
+}
+
+.bottomServerCard p {
+    max-height: 100px;
+    overflow-y: scroll;
+    margin: 0;
+    color: rgb(170,172,175);
+    font-weight: lighter;
+    font-size: 15px;
+    margin-top: 6px;
+}
+
+.joinLeaveServer {
+    background-color: rgb(88,101,242);
+    color: white;
+    border-radius: 4px;
+    width: 110px;
+    text-align: center;
+    padding: 4px 1px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.leave {
+    background-color: rgb(211, 58, 60);
+}
+
+.joinLeaveServer:hover {
+    background-color: rgb(72, 83, 199);
+}
+
+.leave:hover {
+    background-color: rgb(163, 42, 44);
+}
+
+#ownThisServer {
+    width: 150px;
+    padding: 5px 10px;
+    background-color: rgb(83, 83, 87);
+    cursor: default;
+}
+
+#ownThisServer:hover {
+    background-color: rgb(83, 83, 87);
+}

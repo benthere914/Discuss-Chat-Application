@@ -1,6 +1,5 @@
 import './index.css'
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../../../store/session'
 
 let EditBox = ({
@@ -55,7 +54,6 @@ let EditBox = ({
             setDataBorderColor('red')
             setDataOutlineColor('red')
             setDataExtraText(`- ${e?.data}`)
-            console.log('got ehre')
         }
         else{
             setData('')

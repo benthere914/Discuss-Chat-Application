@@ -1,0 +1,46 @@
+.singleServerResultContainer {
+    display: flex;
+    padding: 20px 0;
+    border-bottom: 1px solid #42454A;
+    width: 730px;
+    height: 135px;
+}
+
+.singleServerResultContainer:hover .resultImage {
+    transform: scale(1.05);
+}
+
+.resultImage {
+    width: 240px;
+    height: 135px;
+    min-width: 240px;
+    max-height: 135px;
+    background-color: 42454A;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    transition: all .4s;
+}
+
+.rightServerCard {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.resultServerInfo h6 {
+    color: white;
+    font-size: 20px;
+    margin: 0;
+}
+
+.resultServerInfo p {
+    max-height: 70px;
+    overflow-y: scroll;
+    margin: 0;
+    color: rgb(170,172,175);
+    font-weight: lighter;
+    font-size: 15px;
+    margin-top: 11px;
+}

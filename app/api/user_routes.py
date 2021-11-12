@@ -1,8 +1,9 @@
 import re
+import datetime
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User, Server_Member, db
-from app.models.server import Server
+from app.models import User, Server_Member, Server, db
+# from app.models.server import
 from .auth_routes import validation_errors_to_error_messages
 from app.forms.NewServerForm import NewServerForm
 
@@ -44,6 +45,10 @@ def add_server(userId):
         server = Server(name = form.data['name'], description = form.data['description'], icon = form.data['icon'], owner_id = userId)
         db.session.add(server)
         db.session.commit()
+        createdServer = server.to_dict()
+        serverMember = Server_Member(user_id=userId, server_id=createdServer['id'])
+        db.session.add(serverMember)
+        db.session.commit()
         return server.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -67,7 +72,7 @@ def update_data(userId):
     if (not user.check_password(body['password'])):
         password = 'Invalid password'
 
-    if (user.username == 'demo'):
+    if (user.username == 'Demo' or user.username == 'demo'):
         password = 'Cannot edit this user'
         data = 'Cannot edit this user'
 
@@ -102,7 +107,7 @@ def update_data(userId):
 def delete_user(userId):
     user = User.query.get(userId)
     body = request.get_json()
-    if (user.username == 'demo'):
+    if (user.username == 'Demo' or user.username == 'demo'):
         return {"message": "Cannot delete this user"}
     if (user.check_password(body["password"])):
         db.session.delete(user)
@@ -110,3 +115,27 @@ def delete_user(userId):
         return {"message":"Success"}
     else:
         return {"message":"Incorrect Password"}
+
+# @user_routes.route('/update_checkin', methods=['POST'])
+# @login_required
+# def update_checkin():
+#     now = datetime.datetime.now().minute
+#     body = request.get_json()
+#     id = body['id']
+#     user = User.query.get(id)
+#     user.last_checkIn = now
+#     db.session.add(user)
+#     db.session.commit()
+#     return 'success'
+
+@user_routes.route('/removeCheckin', methods=['POST'])
+# @login_required
+def update_checkin():
+    body = request.get_json()
+    id = body['id']
+    user = User.query.get(id)
+    user.last_checkIn = None
+    user.online = False
+    db.session.add(user)
+    db.session.commit()
+    return 'success'

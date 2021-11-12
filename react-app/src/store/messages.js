@@ -39,7 +39,6 @@ export const loadChannelMessages = (channelId) => async (dispatch) => {
 }
 
 export const addNewMessage = (channel_id, user_id, message) => async (dispatch) => {
-    console.log(channel_id)
     const response = await fetch(`/api/channels/${channel_id}/messages`, {
       method: 'POST',
       headers: {

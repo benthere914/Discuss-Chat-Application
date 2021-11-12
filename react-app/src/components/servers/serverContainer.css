@@ -1,6 +1,7 @@
-.serversContainer {
+#serversContainer {
     background-color: rgb(32,34,37);
     width: 72px;
+    min-width: 72px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,6 +184,10 @@
     transition: height 0.3s linear;
 }
 
+#noShow {
+    visibility: hidden;
+}
+
 .selectedServer .serverInfo div:first-of-type {
     border-radius: 30%;
     background-color: rgb(88,101,242);
@@ -192,4 +197,12 @@
     height: 40px;
     border-radius: 6px;
     top: 2px;
+}
+
+.selectedServer #noShow {
+    visibility: visible;
+}
+
+.selectedServer #addServerButton {
+    background-color: rgb(54,57,63);
 }
