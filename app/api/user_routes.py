@@ -66,7 +66,7 @@ def update_data(userId):
     if (not 'password' in body):
         password = 'must enter password'
 
-    if (not( ('username' in body and len(body['username']) > 0) or ('email' in body and len(body['email']) > 0) or ('newPassword' in body and len(body['newPassword']) > 0))):
+    if (not( ('username' in body and len(body['username']) > 0) or ('email' in body and len(body['email']) > 0) or ('newPassword' in body and len(body['newPassword']) > 0) or ('newIcon' in body and len(body['newIcon']) > 0))):
         data = 'must fill out all fields'
 
     if (not user.check_password(body['password'])):
@@ -94,6 +94,9 @@ def update_data(userId):
 
         if ('newPassword' in body):
             user.password = body['newPassword']
+
+        if ('newIcon' in body):
+            user.icon = body['newIcon']
 
         db.session.add(user)
         db.session.commit()

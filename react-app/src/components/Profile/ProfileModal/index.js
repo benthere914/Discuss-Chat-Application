@@ -85,7 +85,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 							<li>
 								<img
 									className="profileModalPhoto"
-									src={`https://www.gravatar.com/avatar/${hash}`}
+									src={user?.icon}
                                     alt={user?.username}
 								></img>
 							</li>
@@ -129,11 +129,25 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
                                     }
 								</ul>
 							</li>
+                            <li>
+								<ul className="modalIcon">
+									<li id="modalData">
+										<p>Photo Url</p>
+										<p>{shortenUsername(user?.icon, 50)}</p>
+									</li>
+                                    {
+                                        user?.username !== 'Demo' && user?.username !== 'demo' &&
+									<li id="editButton" onClick={() => {editHandler('Icon')}}>
+										<p>Edit</p>
+									</li>
+                                    }
+								</ul>
+							</li>
 							<li>
-								<ul className="modalEmail">
+								<ul className="modalPassword">
 									<li id="modalData">
 										<p>Password</p>
-										<p>*********</p>
+										<p>****************</p>
 									</li>
                                     {
                                         user?.username !== 'Demo' && user?.username !== 'demo' &&
@@ -143,6 +157,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
                                     }
 								</ul>
 							</li>
+
 						</ul>
 					</div>
 				</div>

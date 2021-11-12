@@ -27,8 +27,8 @@ const Members = () => {
         <div className='membersTab'>
             <p className='membersTitle'>{`Members - ${members?.length}`}</p>
             <ul>{members?.map((e) => (
-                <li key={e.username}>
-                    <img clasname='memberIcon' src={`https://www.gravatar.com/avatar/${md5(e?.email)}`} alt={e?.username}></img>
+                <li key={e?.username}>
+                    <img clasname='memberIcon' src={e?.icon} alt={e?.username}></img>
                     <i className='fas fa-circle memberActive' style={e?.online?{color: 'green'}:{color:'red'}}></i>
                     <p className='memberUsername'>{shortenUsername(e?.username)}</p>
                 </li>))}
