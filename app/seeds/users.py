@@ -1,18 +1,23 @@
 from app.models import db, User
+from faker import Faker
+fake = Faker()
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password', online=False)
+        username='Demo', email='demo@aa.io', password='password', last_checkIn=None, online=False)
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', online=False)
+        username='marnie', email='marnie@aa.io', password='password', last_checkIn=None, online=False)
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', online=False)
+        username='bobbie', email='bobbie@aa.io', password='password', last_checkIn=None, online=False)
+
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    for i in range(25):
+        db.session.add(User(username=fake.name(), email=fake.ascii_email(), password=fake.password(length=10), last_checkIn=None, online=False))
 
     db.session.commit()
 

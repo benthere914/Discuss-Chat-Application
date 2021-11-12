@@ -4,6 +4,7 @@ from app.models import Channel, Server, Server_Member, db
 from app.forms import UpdateServerForm, AddMemberForm, NewChannelForm
 from .auth_routes import validation_errors_to_error_messages
 import datetime
+from sqlalchemy import desc
 
 server_routes = Blueprint('servers', __name__)
 
@@ -98,6 +99,7 @@ def in_timeframe(time1, time2):
 def get_members(serverId):
     now = datetime.datetime.now().minute
     membersServer = Server_Member.query.filter(Server_Member.server_id == serverId).all()
+    print(membersServer)
     for member in membersServer:
         member = member.user
         checkin = member.last_checkIn
@@ -107,7 +109,10 @@ def get_members(serverId):
             member.online = False
     db.session.commit()
     members = {member.to_dict()['id']: member.user.to_dict() for member in membersServer}
-
+    # for i in range(20):
+    #     print('******************')
+    # for member in members:
+    #     print(member)
     return members
 
 # Add a member to a server

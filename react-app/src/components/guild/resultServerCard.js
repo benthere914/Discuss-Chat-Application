@@ -29,7 +29,7 @@ function joinServer() {
 }
     return (
         <div className="singleServerResultContainer">
-            {server.icon? (
+            {server?.icon? (
                 <div
                     className="resultImage"
                     style={{ backgroundImage: `url(${server.icon})` }}>
@@ -42,10 +42,10 @@ function joinServer() {
             )}
             <div className="rightServerCard">
                 <div className="resultServerInfo">
-                    <h6>{server.name}</h6>
-                    <p>{server.description}</p>
+                    <h6>{server?.name}</h6>
+                    <p>{server?.description}</p>
                 </div>
-                {user.id === server.owner_id? (
+                {user?.id === server?.owner_id? (
                     <>
                         <div className="joinLeaveServer" id="ownThisServer" >You Own this Server</div>
                     </>
