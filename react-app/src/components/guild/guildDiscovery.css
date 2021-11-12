@@ -10,7 +10,6 @@
     width: 100%;
     min-height: 286px;
     max-height: 375px;
-    height: vh;
     border-radius: 11px;
     position: relative;
     display: flex;

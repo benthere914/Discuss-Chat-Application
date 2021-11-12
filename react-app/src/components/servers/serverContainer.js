@@ -3,21 +3,27 @@ import { NavLink, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserServers, addServer } from '../../store/server';
 import { addNewChannel } from "../../store/channel";
+
 import './mainContent.css'
 import './serverContainer.css'
 
 function ServersContainer() {
     const dispatch = useDispatch();
     const history = useHistory();
- const { serverId } = useParams();
+    const params = useParams()
+    const servers = useSelector(state => Object.values(state.servers));
+    useEffect(() => {
+        if (servers.length > 0 && (Object.keys(params).length === 0)){
+            if (servers[0]){history.push(`/channels/${servers[0]?.id}`)}
+        }
+    }, [servers])
+
     const user = useSelector(state => state.session.user);
 
     //Redirect to login screen if no user is logged in
     if (!user) {
         history.push('/login')
     }
-
-    const servers = useSelector(state => Object.values(state.servers));
 
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
@@ -109,13 +115,13 @@ function ServersContainer() {
                     <div className="serverInfo">
                       <div
                         className="serverIcon"
-                        style={{ backgroundImage: `url(${server.icon})` }}
+                        style={{ backgroundImage: `url(${server?.icon})` }}
                       ></div>
                       <div
                         id="serverNameHover"
                         style={{ top: hoverPosition }}
                         >
-                          {server.name}
+                          {server?.name}
                         </div>
                       <div className="activeServerIndicator"></div>
                     </div>

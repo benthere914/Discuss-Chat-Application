@@ -15,6 +15,7 @@ function ChannelsContainer() {
     const dispatch = useDispatch();
     const history = useHistory();
     const { serverId } = useParams();
+    const params = useParams()
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
     const server = useSelector(state => state.servers[serverId])
@@ -33,14 +34,16 @@ function ChannelsContainer() {
     const [serverDescription, setServerDescription] = useState('');
 
     const [showDelete, setShowDelete] = useState('');
-
+    const _channels = useSelector(state => Object.values(state.channels));
+    useEffect(() => {
+        if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id == serverId){
+            if (_channels[0]){history.push(`/channels/${serverId}/${_channels[0]?.id}`)}
+        }
+    }, [_channels])
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
         dispatch(loadUserServers(user?.id))
-        .then()
         .then(() => setIsLoaded(true));
-
-
 
         return () => {
             setIsLoaded(false)
@@ -51,7 +54,7 @@ function ChannelsContainer() {
     useEffect(() => {
         setServerName(server?.name)
         setServerIcon(server?.icon)
-        setServerDescription(server?.description)
+        setServerDescription(server?.description || '')
     }, [server])
 
     useEffect(() => {
@@ -128,84 +131,99 @@ function ChannelsContainer() {
 
     }
 
-    if (!server) {
-      return <Redirect to="/channels" />;
-    }
+    // if (!server) {
+    //   return <Redirect to="/channels" />;
+    // }
 
     return (
       <div className="channelContainer">
         {isLoaded && (
           <>
             <div className="serverNameContainer">
-              <h3 className="serverName">{server?.name}</h3>
-              {user?.id === server?.owner_id? (
-                <div
-                  onClick={() => setShowEditForm(true)}
-                  className="editServerIcon"
-                >
-                  <i className="fas fa-cog"></i>
-                </div>
-              ):
-              (
-                <div
-                  onClick={() => setShowLeaveForm(true)}
-                  className="editServerIcon"
-                  id="leaveServerIcon"
-                >
-                  <i className="fas fa-arrow-alt-circle-left"></i>
-                </div>
-              )}
-            </div>
-            <div className="textChannelHeaderContainer">
-              <h3 className="textChannels">TEXT CHANNELS</h3>
-              {user?.id === server?.owner_id && (
-                <div onClick={() => setShowAddForm(true)}>
-                  <i className="fas fa-plus"></i>
-                </div>
-              )}
-            </div>
-            <div className="channelList">
-              {channels?.map((channel, index) => {
-                // <key={channel}>
-                if (user?.id === server?.owner_id) {
-                  return (
-                    <EditableChannel
-                      server={server}
-                      channel={channel}
-                      key={`editableChannel_${channel?.id}_${index}`}
-                    />
-                  );
-                } else {
-                  return (
-                    <div className="channelNameHolder" key={channel.id}>
-                      <NavLink
-                        key={`channel_${channel?.id}_${index}`}
-                        to={`/channels/${channel?.server_id}/${channel?.id}`}
-                        activeClassName="selectedChannel"
-                      >
-                        <>
-                          {channel?.name.length > 16 ? (
-                            <h4
-                              key={channel}
-                              className="channelName"
-                            >{`# ${channel?.name.substring(0, 16)}...`}</h4>
-                          ) : (
-                            <h4
-                              key={channel}
-                              className="channelName"
-                            >{`# ${channel?.name}`}</h4>
-                          )}
-                        </>
-                      </NavLink>
-                    </div>
-                  );
+                {server?.name? (
+                  <>
+                    <h3 className="serverName">
+                      {server.name}
+                    </h3>
+                    <>
+                      {user?.id === server?.owner_id? (
+                        <div
+                          onClick={() => setShowEditForm(true)}
+                          className="editServerIcon"
+                        >
+                          <i className="fas fa-cog"></i>
+                        </div>
+                      ):
+                      (
+                        <div
+                          onClick={() => setShowLeaveForm(true)}
+                          className="editServerIcon"
+                          id="leaveServerIcon"
+                        >
+                          <i className="fas fa-arrow-alt-circle-left"></i>
+                        </div>
+                      )}
+                    </>
+                  </>
+                ) : (
+                  <h3>Select a Valid Server </h3>
+                )
                 }
-              })}
             </div>
+            {server?.name? (
+              <div className="textChannelHeaderContainer">
+                <h3 className="textChannels">TEXT CHANNELS</h3>
+                {user?.id === server?.owner_id && (
+                  <div onClick={() => setShowAddForm(true)}>
+                    <i className="fas fa-plus"></i>
+                  </div>
+                )}
+              </div>
+            ) : (null)}
+            {server?.name? (
+              <div className="channelList">
+                {channels?.map((channel, index) => {
+                  // <key={channel}>
+                  if (user?.id === server?.owner_id) {
+                    return (
+                      <EditableChannel
+                        server={server}
+                        channel={channel}
+                        key={`editableChannel_${channel?.id}_${index}`}
+                      />
+                    );
+                  } else {
+                    return (
+                      <div className="channelNameHolder" key={`${channel?.id}_${index}`}>
+                        <NavLink
+                          key={`channel_${channel?.id}_${index}`}
+                          to={`/channels/${channel?.server_id}/${channel?.id}`}
+                          activeClassName="selectedChannel"
+                        >
+                          <>
+                            {channel?.name.length > 16 ? (
+                              <h4
+                                key={channel?.id}
+                                className="channelName"
+                              >{`# ${channel?.name.substring(0, 16)}...`}</h4>
+                            ) : (
+                              <h4
+                                key={channel?.id}
+                                className="channelName"
+                              >{`# ${channel?.name}`}</h4>
+                            )}
+                          </>
+                        </NavLink>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+            ) : (null)}
         {errors.length > 0 && (
             <>
-                {errors.map(error =>
-                    <p key={error}>{error}</p>
+                {errors.map((error, index) =>
+                    <p key={`${error}_${index}`}>{error}</p>
                 )}
             </>
         )}

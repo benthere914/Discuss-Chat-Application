@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import EditBox from './editBox'
 import { logout, deleteAccount } from '../../../store/session'
 
-let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => {
+let ProfileModal = ({ setProfileModalVisible, user, shortenUsername }) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const [editBoxVisible, setEditBoxVisible] = useState(false);
@@ -191,8 +191,8 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
                 <li>
                     <p>Account Removal</p>
                 </li>
-                <li>
-                    <p onClick={() => {setDeleteModal(true)}} className='deleteAccount'>Delete Account</p>
+                <li onClick={() => {setDeleteModal(true)}}>
+                    <p className='deleteAccount'>Delete Account</p>
                 </li>
             </ul>
             }
