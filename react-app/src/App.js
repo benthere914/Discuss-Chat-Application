@@ -51,8 +51,9 @@ function App() {
             <div className="channelBar">
               <div className="emptyChannels">Select a Server</div>
               <ProfileBar/>
-              <Members/>
             </div>
+            <div className="emptyMessages"></div>
+            <Members/>
           </div>
         </Route>
         <Route path='/guild-discovery' exact={true}>
