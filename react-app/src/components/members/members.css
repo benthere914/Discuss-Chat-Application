@@ -1,11 +1,10 @@
 .membersTab{
     display: flex;
     flex-direction: column;
-    position: fixed;
-    right: 0;
     border-left: black solid;
     width: 200px;
     height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .membersTitle{
@@ -26,6 +25,7 @@
     width: 200px;
     height: 50px;
     bottom: 15px;
+    cursor: default;
 
 }
 .membersTab ul li:hover{
@@ -58,5 +58,5 @@
     left: 10px;
     bottom: 5px;
     color: gray;
-    font-size: 20px;
+    font-size: 18px;
 }
