@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserServers, addServer } from '../../store/server';
-import { useParams } from 'react-router';
+import { addNewChannel } from "../../store/channel";
+
 import './mainContent.css'
 import './serverContainer.css'
 
@@ -23,7 +24,6 @@ function ServersContainer() {
     if (!user) {
         history.push('/login')
     }
-
 
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
@@ -70,19 +70,19 @@ function ServersContainer() {
 
     }, [serverName])
 
-    const addServerf = async (e) => {
+    const addServerf = async(e) => {
         e.preventDefault();
         setShowAddForm(false)
         setServerName('')
         setServerDescription('')
         setServerIcon('')
-
         const newserver = await dispatch(addServer( serverName, serverDescription, serverIcon, user.id));
-
         if(newserver) {
+           dispatch(addNewChannel(newserver.id, "general"));
           history.push(`/channels/${newserver.id}`)
+          //  return newserver
         }
-        return newserver
+       
     }
 
     const handleCancel = (e) => {
