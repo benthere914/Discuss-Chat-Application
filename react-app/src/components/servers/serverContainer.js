@@ -16,7 +16,7 @@ function ServersContainer() {
         if (servers.length > 0 && (Object.keys(params).length === 0) && window.location.pathname !== '/guild-discovery'){
             if (servers[0]){history.push(`/channels/${servers[0]?.id}`)}
         }
-    }, [servers])
+    }, [servers, history, params])
 
     const user = useSelector(state => state.session.user);
 
@@ -82,7 +82,7 @@ function ServersContainer() {
           history.push(`/channels/${newserver.id}`)
           //  return newserver
         }
-       
+
     }
 
     const handleCancel = (e) => {
