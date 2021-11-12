@@ -51,7 +51,7 @@ function ChannelsContainer() {
     useEffect(() => {
         setServerName(server?.name)
         setServerIcon(server?.icon)
-        setServerDescription(server?.description)
+        setServerDescription(server?.description || '')
     }, [server])
 
     useEffect(() => {
