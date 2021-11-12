@@ -166,6 +166,7 @@ function ChannelsContainer() {
             </div>
             <div className="channelList">
               {channels?.map((channel, index) => {
+                // <key={channel}>
                 if (user?.id === server?.owner_id) {
                   return (
                     <EditableChannel
@@ -176,7 +177,7 @@ function ChannelsContainer() {
                   );
                 } else {
                   return (
-                    <div className="channelNameHolder">
+                    <div className="channelNameHolder" key={channel.id}>
                       <NavLink
                         key={`channel_${channel?.id}_${index}`}
                         to={`/channels/${channel?.server_id}/${channel?.id}`}
@@ -184,12 +185,15 @@ function ChannelsContainer() {
                       >
                         <>
                           {channel?.name.length > 16 ? (
-                            <h4 className="channelName">{`# ${channel?.name.substring(
-                              0,
-                              16
-                            )}...`}</h4>
+                            <h4
+                              key={channel}
+                              className="channelName"
+                            >{`# ${channel?.name.substring(0, 16)}...`}</h4>
                           ) : (
-                            <h4 className="channelName">{`# ${channel?.name}`}</h4>
+                            <h4
+                              key={channel}
+                              className="channelName"
+                            >{`# ${channel?.name}`}</h4>
                           )}
                         </>
                       </NavLink>
@@ -201,7 +205,7 @@ function ChannelsContainer() {
         {errors.length > 0 && (
             <>
                 {errors.map(error =>
-                    <p>{error}</p>
+                    <p key={error}>{error}</p>
                 )}
             </>
         )}

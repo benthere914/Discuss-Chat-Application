@@ -6,7 +6,7 @@ import './editableChannels.css'
 
 function EditableChannel({server, channel}) {
   const dispatch = useDispatch();
-  const serverId = server.id;
+  const serverId = server?.id;
   const [name, setChannelName] = useState(channel?.name);
 //   const [errors, setErrors] = useState([]);
 
