@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import {addNewMessage, loadChannelMessages} from "../../store/messages"
 import EditableMessage from "./editableMessage";
 import './messages.css'
-import temp from '../images/discuss-circular-transparent.jpg'
 import hashtag from '../images/hashtag.png'
 import Members from "../members/members";
 

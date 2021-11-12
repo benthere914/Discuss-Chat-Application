@@ -1,5 +1,4 @@
-import md5 from "md5"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { loadServerMembers } from "../../store/members"
 import { useDispatch } from "react-redux"
@@ -17,10 +16,11 @@ const Members = () => {
     }
     const dispatch = useDispatch()
     const members = useSelector(state => Object.values(state.members))
-    useEffect(() => {
-        dispatch(loadServerMembers(params?.serverId)).then(() => {console.log(members, params?.serverId)})
 
-    }, [params?.serverId])
+    useEffect(() => {
+        dispatch(loadServerMembers(params?.serverId))
+
+    }, [dispatch, params?.serverId])
 
     return (
     <>

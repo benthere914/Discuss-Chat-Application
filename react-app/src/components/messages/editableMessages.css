@@ -80,7 +80,7 @@ h3 {
     width: 100%;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
 
 }

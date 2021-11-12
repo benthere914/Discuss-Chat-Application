@@ -8,7 +8,7 @@ function EditableChannel({server, channel}) {
   const dispatch = useDispatch();
   const serverId = server.id;
   const [name, setChannelName] = useState(channel?.name);
-  const [errors, setErrors] = useState([]);
+//   const [errors, setErrors] = useState([]);
 
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -18,12 +18,12 @@ function EditableChannel({server, channel}) {
   };
 
   const handleDelete = (e) => {
-    setErrors([]);
+    // setErrors([]);
     e.preventDefault();
     const channelId = channel.id;
     const data = dispatch(deleteSingleChannel(channelId));
     if (data) {
-      setErrors(data);
+    //   setErrors(data);
       return data
     } else {
       setShowDelete(false);
@@ -31,12 +31,12 @@ function EditableChannel({server, channel}) {
   };
 
   const updateChannel = async (e) => {
-    setErrors([]);
+    // setErrors([]);
     e.preventDefault();
     const channelId = channel.id;
     const data = await dispatch(updateChannelName(channelId, serverId, name));
     if (data) {
-      setErrors(data);
+    //   setErrors(data);
     } else {
       setShowEdit(false);
     }
@@ -91,7 +91,7 @@ function EditableChannel({server, channel}) {
                                 <i className="far fa-check-circle"></i>
                             </div>
                         </button>
-                        <button onClick={() => setShowEdit(false)}>
+                        <button type="button" onClick={() => setShowEdit(false)}>
                             <div className="editChannelIcons">
                                 <i className="fas fa-times"></i>
                             </div>

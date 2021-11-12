@@ -11,7 +11,7 @@ function SplashPage() {
         if (user) {
             history.push('/channels')
         }
-    }, [user])
+    }, [user, history])
 
     if (user) {
         return <Redirect to="/channels" />;

@@ -25,8 +25,6 @@ function ServersContainer() {
     const [allowAdd, setAllowAdd] = useState("notAllowed");
     const [isLoaded, setIsLoaded] = useState(false);
     const [hoverPosition, setHoverPosition] = useState(null);
-    const [activeSideBarPosition, setActiveSideBarPosition] = useState(null)
-
 
     useEffect(() => {
         if (user?.id) {
@@ -93,11 +91,6 @@ function ServersContainer() {
       setHoverPosition(elementPosition)
     }
 
-    const displaySideBar = (e) => {
-      const elementPosition = e.target.getBoundingClientRect().y + 2
-      setActiveSideBarPosition(elementPosition)
-    }
-
     return (
       <>
         {isLoaded && (
@@ -110,7 +103,6 @@ function ServersContainer() {
                   className="singleServer"
                   activeClassName="selectedServer"
                   onMouseOver={(e) => displayNameHover(e)}
-                  onClick={(e) => displaySideBar(e)}
                 >
                   {server?.icon ? (
                     <div className="serverInfo">
