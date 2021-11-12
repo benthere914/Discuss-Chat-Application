@@ -112,23 +112,23 @@ function ChannelsContainer() {
         }
     }
 
-const handleEdit = async (e) => {
+    const handleEdit = async (e) => {
 
-  e.preventDefault();
-  const editedserver = await dispatch(editServer(serverName, serverDescription, serverIcon, serverId));
+      e.preventDefault();
+      const editedserver = await dispatch(editServer(serverName, serverDescription, serverIcon, serverId));
 
-  if (editedserver) {
-    setShowEditForm(false)
-  }
-};
+      if (editedserver) {
+        setShowEditForm(false)
+      }
+    };
 
     const handleLeaveServer = async () => {
       await dispatch(removeMember(user.id, server.id));
-      //history push gives GET error in console
+
       history.push('/channels')
-      // window.location.reload();
-      // return <Redirect to="/channels" />;
+
     }
+
     return (
       <div className="channelContainer">
         {isLoaded && (
