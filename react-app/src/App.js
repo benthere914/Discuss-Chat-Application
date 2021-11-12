@@ -73,7 +73,6 @@ function App() {
               <ProfileBar/>
             </div>
             <div className="emptyMessages"></div>
-            <Members/>
           </div>
         </Route>
         <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
@@ -84,7 +83,6 @@ function App() {
               <ProfileBar/>
             </div>
             <Messages/>
-            <Members/>
           </div>
         </ProtectedRoute>
       </Switch>
