@@ -65,9 +65,6 @@ export const login = (email, password) => async (dispatch) => {
     })
   });
 
-  console.log("**********************")
-  console.log(email, password)
-
 
   if (response.ok) {
     const data = await response.json();
