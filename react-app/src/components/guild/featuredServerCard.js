@@ -31,7 +31,7 @@ dispatch(addMember(user.id, server.id));
 
     return (
         <div className="singleServerCardContainer">
-            {server.icon? (
+            {server?.icon? (
                 <div
                     className="singleServerImage"
                     style={{ backgroundImage: `url(${server.icon})` }}>
@@ -44,10 +44,10 @@ dispatch(addMember(user.id, server.id));
             )}
             <div className="bottomServerCard">
                 <div className="serverText">
-                    <h6>{server.name}</h6>
-                    <p>{server.description}</p>
+                    <h6>{server?.name}</h6>
+                    <p>{server?.description}</p>
                 </div>
-                {user.id === server.owner_id? (
+                {user?.id === server.owner_id? (
                     <>
                         <div className="joinLeaveServer" id="ownThisServer" >You Own this Server</div>
                     </>
