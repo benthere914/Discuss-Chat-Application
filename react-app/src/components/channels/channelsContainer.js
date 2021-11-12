@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useHistory, Redirect } from "react-router-dom";
+import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserChannels, addNewChannel } from '../../store/channel';
 import {
@@ -125,9 +125,9 @@ const handleEdit = async (e) => {
     const handleLeaveServer = async () => {
       await dispatch(removeMember(user.id, server.id));
       //history push gives GET error in console
-      // history.push('/channels')
+      history.push('/channels')
       // window.location.reload();
-      return <Redirect to="/" />;
+      // return <Redirect to="/channels" />;
     }
     return (
       <div className="channelContainer">
