@@ -1,10 +1,13 @@
 .membersTab{
     display: flex;
     flex-direction: column;
-    border-left: black solid;
+    border-left: 2px black solid;
     width: 200px;
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(47,49,54);
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .membersTitle{
@@ -34,8 +37,8 @@
 }
 
 .membersTab ul li img{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     position: relative;
     left: 20px;
@@ -43,7 +46,7 @@
 }
 
 .memberActive{
-    transform: scale(0.8);
+    transform: scale(0.6);
     position: relative;
     left: 2px;
     top: 25px;
