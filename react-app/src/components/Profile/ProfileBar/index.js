@@ -27,7 +27,7 @@ let ProfileBar = () => {
             {profileModalVisible && <ProfileModal hash={hash} setProfileModalVisible={setProfileModalVisible} user={user} shortenUsername={shortenUsername}/>}
             {user && <ul className='profileBar'>
                 <li>
-                    <img className='profilePhoto' src={`https://www.gravatar.com/avatar/${hash}`} alt={user?.username}></img>
+                    <img className='profilePhoto' src={user?.icon} alt={user?.username}></img>
                 </li>
                 <li>
                     <p className='profileUsername'>{shortenUsername(user?.username)}</p>

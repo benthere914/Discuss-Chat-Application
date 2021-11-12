@@ -51,8 +51,8 @@ function App() {
             <div className="channelBar">
               <div className="emptyChannels">Select a Server</div>
               <ProfileBar/>
-              <Members/>
             </div>
+            <div className="emptyMessages"></div>
           </div>
         </Route>
         <Route path='/guild-discovery' exact={true}>
@@ -71,20 +71,20 @@ function App() {
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
-              <Members/>
-
             </div>
+            <div className="emptyMessages"></div>
+            <Members/>
           </div>
         </Route>
         <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
           <div className="mainContentContainer">
-          <ServersContainer />
+            <ServersContainer />
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
-              <Members/>
             </div>
-          <Messages/>
+            <Messages/>
+            <Members/>
           </div>
         </ProtectedRoute>
       </Switch>

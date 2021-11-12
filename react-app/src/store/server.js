@@ -33,12 +33,15 @@ const add_member = (userId, serverId) => ({
 
 //load user's servers
 export const loadUserServers = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/users/${userId}/servers`);
+  if (userId) {
+    const response = await fetch(`/api/users/${userId}/servers`);
 
-  if (response.ok) {
-    const servers = await response.json();
-    dispatch(loadServers(servers));
+    if (response.ok) {
+      const servers = await response.json();
+      dispatch(loadServers(servers));
+    }
   }
+
 };
 
 //load single server

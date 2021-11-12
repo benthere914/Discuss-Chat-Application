@@ -4,6 +4,7 @@ const REMOVE_USER = 'session/REMOVE_USER';
 const UPDATE_USERNAME = 'session/UPDATE_USERNAME'
 const UPDATE_USER_EMAIL = 'session/UPDATE_USER_EMAIL'
 const UPDATE_USER_PASSWORD = 'session/UPDATE_USER_PASSWORD'
+const UPDATE_USER_ICON = 'session/UPDATE_USER_ICON'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -26,6 +27,11 @@ const updateUserEmail = (payload) => ({
 
 const updateUserPassWord = (payload) => ({
     type: UPDATE_USER_PASSWORD,
+    payload: payload
+})
+
+const updateUserIcon = (payload) => ({
+    type: UPDATE_USER_ICON,
     payload: payload
 })
 
@@ -190,6 +196,24 @@ export const updateUsername = (userId, username, password) => async (dispatch) =
 
   }
 
+  export const updateUserIcon_ = (userId, newIcon, password) => async (dispatch) => {
+    const response = await fetch(`/api/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        newIcon, password
+      })
+    });
+    const result = await response.json()
+    if (result.errors){
+        return result.errorData
+    }
+    dispatch(updateUserIcon(result))
+
+  }
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
@@ -199,6 +223,8 @@ export default function reducer(state = initialState, action) {
     case UPDATE_USERNAME:
         return {user: action.payload}
     case UPDATE_USER_EMAIL:
+        return {user: action.payload}
+    case UPDATE_USER_ICON:
         return {user: action.payload}
     default:
       return state;

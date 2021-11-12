@@ -1,15 +1,12 @@
 from app.models import db, User, Server, Server_Member
+import random
 
 def seed_members():
-    member1a = Server_Member(server_id=1, user_id=1)
-    member1b = Server_Member(server_id=2, user_id=1)
-    member2 = Server_Member(server_id=2, user_id=2)
-    member3 = Server_Member(server_id=3, user_id=3)
 
-    db.session.add(member1a)
-    db.session.add(member1b)
-    db.session.add(member2)
-    db.session.add(member3)
+
+    for i in range(1, 29):
+        for j in range(1,9):
+            db.session.add(Server_Member(server_id=i, user_id=random.choice([num for num in range(1, 26)])))
 
 
     db.session.commit()

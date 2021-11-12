@@ -162,21 +162,22 @@ const handleEdit = async (e) => {
               )}
             </div>
             <div className="channelList">
-              {channels?.map((channel) => {
+              {channels?.map((channel, index) => {
                 if (user?.id === server?.owner_id) {
                   return (
                     <EditableChannel
                       server={server}
                       channel={channel}
-                      key={`editableChannel_${channel?.id}`}
+                      key={`editableChannel_${channel?.id}_${index}`}
                     />
                   );
                 } else {
                   return (
                     <div className="channelNameHolder">
-                      <Link
-                        key={`channel_${channel?.id}`}
+                      <NavLink
+                        key={`channel_${channel?.id}_${index}`}
                         to={`/channels/${channel?.server_id}/${channel?.id}`}
+                        activeClassName="selectedChannel"
                       >
                         <>
                           {channel?.name.length > 16 ? (
@@ -188,7 +189,7 @@ const handleEdit = async (e) => {
                             <h4 className="channelName">{`# ${channel?.name}`}</h4>
                           )}
                         </>
-                      </Link>
+                      </NavLink>
                     </div>
                   );
                 }
