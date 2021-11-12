@@ -227,10 +227,16 @@ i{
     display: flex;
     flex-direction: column;
     width: calc(100% - 200px);
+    flex-grow: 1;
 }
 
-.messages-component-container {
+/* .messages-component-container {
     position: absolute;
     top: 70px;
     height: calc(100vh - 70px);
+} */
+
+.messagesAndMembers {
+    display: flex;
+    flex-direction: row;
 }
