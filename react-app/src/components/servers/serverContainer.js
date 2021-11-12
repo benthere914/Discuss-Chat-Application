@@ -2,12 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserServers, addServer } from '../../store/server';
+import { useParams } from 'react-router';
 import './mainContent.css'
 import './serverContainer.css'
 
 function ServersContainer() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const params = useParams()
+    const servers = useSelector(state => Object.values(state.servers));
+    useEffect(() => {
+        if (servers.length > 0 && (Object.keys(params).length === 0)){
+            if (servers[0]){history.push(`/channels/${servers[0]?.id}`)}
+        }
+    }, [servers])
 
     const user = useSelector(state => state.session.user);
 
@@ -16,7 +24,6 @@ function ServersContainer() {
         history.push('/login')
     }
 
-    const servers = useSelector(state => Object.values(state.servers));
 
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
