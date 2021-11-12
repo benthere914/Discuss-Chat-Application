@@ -60,7 +60,7 @@ export const login = (email, password) => async (dispatch) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      email,
+      email: email.toLowerCase(),
       password
     })
   });
@@ -122,9 +122,9 @@ export const signUp = (username, email, password) => async (dispatch) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      username,
-      email,
-      password,
+      username: username.toLowerCase(),
+      email: email.toLowerCase(),
+      password: password.toLowerCase(),
     }),
   });
 
