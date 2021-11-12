@@ -19,6 +19,8 @@ export const loadServerMembers = (serverId) => async (dispatch) => {
 const membersReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD:
+            let temp = Object.entries(action.payload)
+            console.log(temp.sort((a, b) => a[1]['username'] - b[1]['username']))
             return action.payload
         default:
             return state

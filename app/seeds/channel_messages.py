@@ -1,5 +1,8 @@
-from app.models import db, Channel_Message
+from app.models import db, Channel_Message, Server_Member
 import datetime
+import random
+from faker import Faker
+fake = Faker()
 
 def seed_messages():
     channel1message1 = Channel_Message(channel_id=1, user_id=1,  message="Demo(1): channel 1 message 1/3", date=datetime.datetime.today())
@@ -15,6 +18,9 @@ def seed_messages():
     db.session.add(channel2message1)
     db.session.add(channel2message2)
     db.session.add(channel3message1)
+    # for i in range(1, 102):
+    #     for i in range(25):
+            # db.session.add(Channel_Message(channel_id=i), user_id=)
 
     db.session.commit()
 
