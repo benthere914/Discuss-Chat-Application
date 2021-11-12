@@ -1,0 +1,113 @@
+.addModal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: rgba(68, 68, 68, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+
+}
+
+.modal-container {
+    background-color: rgb(54, 57, 63);
+    width: 450px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.top-part {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h3 {
+    color:white
+}
+
+#deleteMessageSubHeader {
+    color: rgb(209,211,212);
+    font-family: monospace;
+    font-size: 14px;
+
+}
+
+.message-preview {
+    display: flex;
+    flex-direction: row;
+    width: calc(90%);
+    color: rgb(220, 219, 212);
+    font-family: monospace;
+    font-size: 15px;
+    box-shadow: 0 0 2px black;
+    padding-right: 18px;
+    padding-left: 18px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+
+}
+
+.message-text {
+    inline-size: calc(100% - 100px);
+    overflow-wrap: break-word
+}
+
+.message-top-half {
+    display: flex;
+    flex-direction: row;
+}
+
+.message-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.bottom-part {
+    display: flex;
+    flex-direction: row-reverse;;
+    background-color: rgb(47,49,54);
+    height: 60px;
+    width: 100%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    justify-content: end;
+    align-items: center;
+
+}
+
+#cancelMessage {
+    color: white;
+    color:white;
+    width: 90px;
+    height: 35px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#deleteMessage {
+    background-color: rgb(237,66,69);
+    color:white;
+    width: 90px;
+    height: 35px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+#deleteMessage:hover {
+    background-color: brown;
+}

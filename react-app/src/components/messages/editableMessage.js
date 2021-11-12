@@ -100,14 +100,28 @@ function EditableMessage({userId, channelId, message}) {
                 </div>
             )}
             {showDelete && (
-                <div className="editModal">
-                    <div className="addMessageFormContainer">
-                        <h3 id="deleteMessageHeader">Delete Message</h3>
-                        <h5 id="deleteMessageSubHeader" >Are you sure you want to delete this message? </h5>
-                            <div className="addMessageButtons">
-                                <div id="cancelMessage" onClick={handleCancel}>Cancel</div>
-                                <div className="createMessage" id="deleteMessage" onClick={handleDelete}>Delete</div>
-                            </div>
+                <div className="addModal" id="addServerModal">
+                    <div className="modal-container">
+                        <div className="top-part">
+                            <h3 id="deleteMessageHeader">Delete Message</h3>
+                            <h5 id="deleteMessageSubHeader" >Are you sure you want to delete this message? </h5>
+                                <div className="message-preview">
+                                    <div className="message-top-half">
+                                        <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
+                                    </div>
+                                    <div className="message-bottom-half">
+                                        <div className="message-header">
+                                        {message?.user?.username}
+                                        <div className="time">{message?.date.slice(0,16)}</div>
+                                        </div>
+                                            {message?.message}
+                                    </div>
+                                </div>
+                        </div>
+                        <div className="bottom-part">
+                            <div id="deleteMessage" onClick={handleDelete}>Delete</div>
+                            <div id="cancelMessage" onClick={handleCancel}>Cancel</div>
+                        </div>
                     </div>
                 </div>
 
