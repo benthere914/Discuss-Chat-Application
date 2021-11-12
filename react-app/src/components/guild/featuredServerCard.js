@@ -34,7 +34,7 @@ dispatch(addMember(user.id, server.id));
             {server?.icon? (
                 <div
                     className="singleServerImage"
-                    style={{ backgroundImage: `url(${server.icon})` }}>
+                    style={{ backgroundImage: `url(${server.icon}), url(https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636589623/Discuss/discussIcon_tkg8y9.png)`}}>
                 </div>
             ) : (
                 <div

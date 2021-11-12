@@ -11,7 +11,7 @@ import Messages from './components/messages/messages';
 import GuildChannelBar from './components/guild/guildChannelBar';
 import GuildDiscovery from './components/guild/guildDiscovery';
 import ProfileBar from './components/Profile/ProfileBar';
-import PageNotFound from './components/guild/PageNotFound';
+import PageNotFound from './components/404/PageNotFound';
 
 import { authenticate } from './store/session';
 import ServersContainer from './components/servers/serverContainer';

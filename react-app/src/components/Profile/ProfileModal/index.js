@@ -4,8 +4,16 @@ import {useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import EditBox from './editBox'
 import { logout, deleteAccount } from '../../../store/session'
+import * as serverActions from '../../../store/server'
+import * as channelActions from '../../../store/channel'
+import * as memberActions from '../../../store/members'
+import * as messageActions from '../../../store/messages'
+import * as sessionActions from '../../../store/session'
+import * as searchActions from '../../../store/search'
 
-let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => {
+
+
+let ProfileModal = ({ setProfileModalVisible, user, shortenUsername }) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const [editBoxVisible, setEditBoxVisible] = useState(false);
@@ -47,6 +55,14 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
         setTitle(string);
 
     }
+    const resetSate = () => {
+        dispatch(serverActions.reset())
+        dispatch(channelActions.reset())
+        dispatch(memberActions.reset())
+        dispatch(messageActions.reset())
+        dispatch(searchActions.reset())
+        dispatch(sessionActions.reset())
+    }
     const logoutHandler = async () => {
         reset()
         setProfileModalVisible(false)
@@ -56,7 +72,9 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({id: user?.id}),
         })
+
         history.push('/')
+        resetSate()
     }
 
     const deleteAccountHandler = () => {
@@ -191,8 +209,8 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
                 <li>
                     <p>Account Removal</p>
                 </li>
-                <li>
-                    <p onClick={() => {setDeleteModal(true)}} className='deleteAccount'>Delete Account</p>
+                <li onClick={() => {setDeleteModal(true)}}>
+                    <p className='deleteAccount'>Delete Account</p>
                 </li>
             </ul>
             }
