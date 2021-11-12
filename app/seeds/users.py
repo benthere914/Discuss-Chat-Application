@@ -5,17 +5,17 @@ fake = Faker()
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password', last_checkIn=None, online=False)
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', last_checkIn=None, online=False)
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', last_checkIn=None, online=False)
+    # demo = User(
+    #     username='Demo', email='demo@aa.io', password='password', last_checkIn=None, online=False)
+    # marnie = User(
+    #     username='marnie', email='marnie@aa.io', password='password', last_checkIn=None, online=False)
+    # bobbie = User(
+    #     username='bobbie', email='bobbie@aa.io', password='password', last_checkIn=None, online=False)
 
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    # db.session.add(demo)
+    # db.session.add(marnie)
+    # db.session.add(bobbie)
     for i in range(1, 26):
         db.session.add(User(username=fake.name(), email=fake.ascii_email(), icon=fake.image_url(), password='password', last_checkIn=None, online=False))
 

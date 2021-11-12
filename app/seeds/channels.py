@@ -16,7 +16,7 @@ def seed_channels():
     # db.session.add(three)
 
     # db.session.commit()
-    for i in range(1, 29):
+    for i in range(1, 26):
         for j in range(1, 8):
             db.session.add(Channel(name=generate_slug()[0:40], server_id=i))
     db.session.commit()

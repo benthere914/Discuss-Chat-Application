@@ -20,7 +20,7 @@ def seed_servers():
     #     db.session.add(serv)
     #     db.session.commit()
 
-    for i in range(1, 29):
+    for i in range(1, 26):
         db.session.add(Server(name=generate_slug()[0:40], owner_id=(i), icon=fake.image_url()))
         db.session.add(Server_Member(server_id=i, user_id=i))
         db.session.commit()

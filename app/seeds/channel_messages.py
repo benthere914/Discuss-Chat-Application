@@ -19,7 +19,7 @@ def seed_messages():
     # db.session.add(channel2message2)
     # db.session.add(channel3message1)
 
-    for i in range(1, 29):
+    for i in range(1, 26):
         members = [member.to_dict() for member in Server_Member.query.filter(Server_Member.server_id == i).all()]
         channels = [channel.to_dict() for channel in Channel.query.filter(Channel.server_id == i).all()]
         for j in range(len(channels)):
