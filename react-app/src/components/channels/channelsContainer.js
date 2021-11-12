@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserChannels, addNewChannel } from '../../store/channel';
 import {
@@ -103,7 +103,10 @@ function ChannelsContainer() {
         if (!errors) {
             setShowDelete(false)
             setShowEditForm(false)
-            history.push('/channels')
+            //history gives GET errors
+            return <Redirect to="/" />;
+            // history.push('/channels')
+            //  window.location.reload();
         } else {
             //Show an error somewhere
         }
@@ -121,7 +124,10 @@ const handleEdit = async (e) => {
 
     const handleLeaveServer = async () => {
       await dispatch(removeMember(user.id, server.id));
-      history.push('/channels')
+      //history push gives GET error in console
+      // history.push('/channels')
+      // window.location.reload();
+      return <Redirect to="/" />;
     }
     return (
       <div className="channelContainer">
