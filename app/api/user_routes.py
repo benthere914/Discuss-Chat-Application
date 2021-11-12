@@ -134,7 +134,7 @@ def update_checkin():
     body = request.get_json()
     id = body['id']
     user = User.query.get(id)
-    user.last_checkIn = 0
+    user.last_checkIn = None
     user.online = False
     db.session.add(user)
     db.session.commit()
