@@ -27,7 +27,7 @@ let ProfileBar = () => {
             {profileModalVisible && <ProfileModal hash={hash} setProfileModalVisible={setProfileModalVisible} user={user} shortenUsername={shortenUsername}/>}
             {user && <ul className='profileBar'>
                 <li>
-                    <img className='profilePhoto' src={`https://www.gravatar.com/avatar/${hash}`} alt={user?.username}></img>
+                    <img className='profilePhoto' src={user?.icon} onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.discordapp.com/attachments/904846014484209665/907160741671473152/v.2-white-blue-square.png"}} alt={user?.username}></img>
                 </li>
                 <li>
                     <p className='profileUsername'>{shortenUsername(user?.username)}</p>

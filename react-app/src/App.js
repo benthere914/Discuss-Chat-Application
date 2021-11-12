@@ -8,10 +8,10 @@ import SplashPage from './components/splash/splash';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import Messages from './components/messages/messages';
-import Members from './components/members/members'
 import GuildChannelBar from './components/guild/guildChannelBar';
 import GuildDiscovery from './components/guild/guildDiscovery';
 import ProfileBar from './components/Profile/ProfileBar';
+import PageNotFound from './components/404/PageNotFound';
 
 import { authenticate } from './store/session';
 import ServersContainer from './components/servers/serverContainer';
@@ -51,8 +51,8 @@ function App() {
             <div className="channelBar">
               <div className="emptyChannels">Select a Server</div>
               <ProfileBar/>
-              <Members/>
             </div>
+            <div className="emptyMessages"></div>
           </div>
         </Route>
         <Route path='/guild-discovery' exact={true}>
@@ -71,22 +71,23 @@ function App() {
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
-              <Members/>
-
             </div>
+            <div className="emptyMessages"></div>
           </div>
         </Route>
         <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
           <div className="mainContentContainer">
-          <ServersContainer />
+            <ServersContainer />
             <div className="channelBar">
               <ChannelsContainer />
               <ProfileBar/>
-              <Members/>
             </div>
-          <Messages/>
+            <Messages/>
           </div>
         </ProtectedRoute>
+        <Route>
+          <PageNotFound />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserServers, addServer } from '../../store/server';
+import { addNewChannel } from "../../store/channel";
+
 import './mainContent.css'
 import './serverContainer.css'
 
 function ServersContainer() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const params = useParams()
+    const servers = useSelector(state => Object.values(state.servers));
+    useEffect(() => {
+        if (servers.length > 0 && (Object.keys(params).length === 0) && window.location.pathname !== '/guild-discovery'){
+            if (servers[0]){history.push(`/channels/${servers[0]?.id}`)}
+        }
+    }, [servers, history, params])
 
     const user = useSelector(state => state.session.user);
 
@@ -16,15 +25,13 @@ function ServersContainer() {
         history.push('/login')
     }
 
-    const servers = useSelector(state => Object.values(state.servers));
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
     const [serverIcon, setServerIcon] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
     const [allowAdd, setAllowAdd] = useState("notAllowed");
-    const [isLoaded, setIsLoaded] = useState(true);
-
-
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [hoverPosition, setHoverPosition] = useState(null);
 
     useEffect(() => {
         if (user?.id) {
@@ -36,6 +43,19 @@ function ServersContainer() {
         }
 
     }, [dispatch, user])
+
+    //Cleanup function
+    useEffect(() => {
+
+      return () => {
+        setServerName('');
+        setServerDescription('');
+        setServerIcon('');
+        setShowAddForm('');
+        setAllowAdd("notAllowed");
+        setIsLoaded(false)
+      }
+    }, [])
 
     useEffect(() => {
         if (serverName.length > 0) {
@@ -50,19 +70,19 @@ function ServersContainer() {
 
     }, [serverName])
 
-    const addServerf = async (e) => {
+    const addServerf = async(e) => {
         e.preventDefault();
         setShowAddForm(false)
         setServerName('')
         setServerDescription('')
         setServerIcon('')
-
         const newserver = await dispatch(addServer( serverName, serverDescription, serverIcon, user.id));
-
         if(newserver) {
+           dispatch(addNewChannel(newserver.id, "general"));
           history.push(`/channels/${newserver.id}`)
+          //  return newserver
         }
-        return newserver
+
     }
 
     const handleCancel = (e) => {
@@ -71,6 +91,11 @@ function ServersContainer() {
         setServerName('')
         setServerDescription('')
         setServerIcon('')
+    }
+
+    const displayNameHover = (e) => {
+      const elementPosition = e.target.getBoundingClientRect().y + 7
+      setHoverPosition(elementPosition)
     }
 
     return (
@@ -84,20 +109,31 @@ function ServersContainer() {
                   to={`/channels/${server?.id}`}
                   className="singleServer"
                   activeClassName="selectedServer"
+                  onMouseOver={(e) => displayNameHover(e)}
                 >
                   {server?.icon ? (
                     <div className="serverInfo">
                       <div
                         className="serverIcon"
-                        style={{ backgroundImage: `url(${server.icon})` }}
+                        style={{ backgroundImage: `url(${server?.icon}), url(https://res.cloudinary.com/dt8q1ngxj/image/upload/v1636756080/Discuss/discussLogo_vuc5wk.png)` }}
                       ></div>
-                      <div id="serverNameHover">{server.name}</div>
+                      <div
+                        id="serverNameHover"
+                        style={{ top: hoverPosition }}
+                        >
+                          {server?.name}
+                        </div>
                       <div className="activeServerIndicator"></div>
                     </div>
                   ) : (
                     <div className="serverInfo">
                       <div className="noIconServer">{server?.name[0]}</div>
-                      <div id="serverNameHover">{server?.name} </div>
+                      <div
+                        id="serverNameHover"
+                        style={{ top: hoverPosition }}
+                        >
+                          {server?.name}
+                        </div>
                       <div className="activeServerIndicator"></div>
                     </div>
                   )}

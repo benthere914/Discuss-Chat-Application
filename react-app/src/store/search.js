@@ -1,5 +1,7 @@
 const SEARCH_SERVERS = 'SEARCH/SEARCH_SERVERS';
-
+const RESET = 'members/RESET'
+const reset_ = () => ({type: RESET})
+export const reset = () => (dispatch) => {dispatch(reset_())}
 const search_server = (payload) => ({
     type: SEARCH_SERVERS,
     payload: payload
@@ -19,6 +21,8 @@ const searchReducer = (state = {}, action) => {
     switch (action.type) {
         case SEARCH_SERVERS:
             return action.payload
+        case RESET:
+            return {}
         default:
             return state
     }

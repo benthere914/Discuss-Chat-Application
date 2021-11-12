@@ -3,8 +3,9 @@ const LOAD = "servers/LOAD_SERVERS";
 const ADD_SERVER = "servers/ADD_SERVER";
 const ONE_SERVER = "servers/ONE_SERVER";
 const REMOVE_SERVER = "servers/REMOVE_SERVER";
-const ADD_MEMBER = "servers/ADD_MEMBER";
-
+const RESET = 'members/RESET'
+const reset_ = () => ({type: RESET})
+export const reset = () => (dispatch) => {dispatch(reset_())}
 const loadServers = (servers) => ({
   type: LOAD,
   servers,
@@ -25,20 +26,18 @@ const remove = (serverId) => ({
   serverId
 });
 
-const add_member = (userId, serverId) => ({
-  type: ADD_SERVER,
-  userId,
-  serverId,
-});
 
 //load user's servers
 export const loadUserServers = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/users/${userId}/servers`);
+  if (userId) {
+    const response = await fetch(`/api/users/${userId}/servers`);
 
-  if (response.ok) {
-    const servers = await response.json();
-    dispatch(loadServers(servers));
+    if (response.ok) {
+      const servers = await response.json();
+      dispatch(loadServers(servers));
+    }
   }
+
 };
 
 //load single server
@@ -162,6 +161,8 @@ const serversReducer = (state = initialState, action) => {
         [action.servers.id]: action.servers,
       };
     }
+    case RESET:
+        return {}
     default:
       return state;
   }

@@ -1,5 +1,4 @@
-import md5 from "md5"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { loadServerMembers } from "../../store/members"
 import { useDispatch } from "react-redux"
@@ -17,18 +16,19 @@ const Members = () => {
     }
     const dispatch = useDispatch()
     const members = useSelector(state => Object.values(state.members))
-    useEffect(() => {
-        dispatch(loadServerMembers(params?.serverId)).then(() => {console.log(members, params?.serverId)})
 
-    }, [params?.serverId])
+    useEffect(() => {
+        dispatch(loadServerMembers(params?.serverId))
+
+    }, [dispatch, params?.serverId])
 
     return (
     <>
         <div className='membersTab'>
             <p className='membersTitle'>{`Members - ${members?.length}`}</p>
             <ul>{members?.map((e) => (
-                <li key={e.username}>
-                    <img clasname='memberIcon' src={`https://www.gravatar.com/avatar/${md5(e?.email)}`} alt={e?.username}></img>
+                <li key={e?.username}>
+                    <img clasname='memberIcon' src={e?.icon} alt={e?.username } onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.discordapp.com/attachments/904846014484209665/907160741671473152/v.2-white-blue-square.png"}}></img>
                     <i className='fas fa-circle memberActive' style={e?.online?{color: 'green'}:{color:'red'}}></i>
                     <p className='memberUsername'>{shortenUsername(e?.username)}</p>
                 </li>))}

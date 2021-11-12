@@ -3,7 +3,7 @@
     list-style: none;
     flex-direction: row;
     align-items: center;
-    width: 240px;
+    width: 245px;
     height: 50px;
     padding-left: 5px;
     background-color: rgb(41, 43, 47);
@@ -20,11 +20,13 @@
 img.profilePhoto{
     border-radius: 50%;
     height: 35px;
+    width: 35px;
+    object-fit: cover;
 }
 
 .profileWidget{
     position: fixed;
-    left: 200px;
+    left: 250px;
     bottom: 12px;
     color: rgb(185,187, 190);
     padding: 5px;

@@ -75,6 +75,9 @@ let EditBox = ({
         else if (title === 'Password'){
             dispatch(sessionActions.updateUserPassword(userId, data, password)).then((e) => {reset(e)})
         }
+        else if (title === 'Icon'){
+            dispatch(sessionActions.updateUserIcon_(userId, data, password)).then((e) => {reset(e)})
+        }
     }
 
     const onChangeHandler = (func1, func2, func3, func4, e) => {

@@ -4,8 +4,16 @@ import {useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import EditBox from './editBox'
 import { logout, deleteAccount } from '../../../store/session'
+import * as serverActions from '../../../store/server'
+import * as channelActions from '../../../store/channel'
+import * as memberActions from '../../../store/members'
+import * as messageActions from '../../../store/messages'
+import * as sessionActions from '../../../store/session'
+import * as searchActions from '../../../store/search'
 
-let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => {
+
+
+let ProfileModal = ({ setProfileModalVisible, user, shortenUsername }) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const [editBoxVisible, setEditBoxVisible] = useState(false);
@@ -47,6 +55,14 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
         setTitle(string);
 
     }
+    const resetSate = () => {
+        dispatch(serverActions.reset())
+        dispatch(channelActions.reset())
+        dispatch(memberActions.reset())
+        dispatch(messageActions.reset())
+        dispatch(searchActions.reset())
+        dispatch(sessionActions.reset())
+    }
     const logoutHandler = async () => {
         reset()
         setProfileModalVisible(false)
@@ -56,7 +72,9 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({id: user?.id}),
         })
+
         history.push('/')
+        resetSate()
     }
 
     const deleteAccountHandler = () => {
@@ -85,8 +103,9 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
 							<li>
 								<img
 									className="profileModalPhoto"
-									src={`https://www.gravatar.com/avatar/${hash}`}
+									src={user?.icon}
                                     alt={user?.username}
+                                    onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.discordapp.com/attachments/904846014484209665/907160741671473152/v.2-white-blue-square.png"}}
 								></img>
 							</li>
 							<li>
@@ -129,11 +148,25 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
                                     }
 								</ul>
 							</li>
+                            <li>
+								<ul className="modalIcon">
+									<li id="modalData">
+										<p>Photo Url</p>
+										<p>{shortenUsername(user?.icon, 50)}</p>
+									</li>
+                                    {
+                                        user?.username !== 'Demo' && user?.username !== 'demo' &&
+									<li id="editButton" onClick={() => {editHandler('Icon')}}>
+										<p>Edit</p>
+									</li>
+                                    }
+								</ul>
+							</li>
 							<li>
-								<ul className="modalEmail">
+								<ul className="modalPassword">
 									<li id="modalData">
 										<p>Password</p>
-										<p>*********</p>
+										<p>****************</p>
 									</li>
                                     {
                                         user?.username !== 'Demo' && user?.username !== 'demo' &&
@@ -143,6 +176,7 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
                                     }
 								</ul>
 							</li>
+
 						</ul>
 					</div>
 				</div>
@@ -175,8 +209,8 @@ let ProfileModal = ({ hash, setProfileModalVisible, user, shortenUsername }) => 
                 <li>
                     <p>Account Removal</p>
                 </li>
-                <li>
-                    <p onClick={() => {setDeleteModal(true)}} className='deleteAccount'>Delete Account</p>
+                <li onClick={() => {setDeleteModal(true)}}>
+                    <p className='deleteAccount'>Delete Account</p>
                 </li>
             </ul>
             }

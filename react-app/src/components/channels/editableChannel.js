@@ -1,53 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
 
 function EditableChannel({server, channel}) {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const serverId = server?.id;
+  const [name, setChannelName] = useState(channel?.name);
+//   const [errors, setErrors] = useState([]);
 
-    const serverId = server.id;
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
-    const [name, setChannelName] = useState(channel?.name);
-    const [errors, setErrors] = useState([]);
+  const handleCancel = () => {
+    setShowDelete(false);
+  };
 
-    const [showEdit, setShowEdit] = useState(false)
-    const [showDelete, setShowDelete] = useState(false)
-
-    const handleCancel = () => {
-        setShowDelete(false)
+  const handleDelete = (e) => {
+    // setErrors([]);
+    e.preventDefault();
+    const channelId = channel.id;
+    const data = dispatch(deleteSingleChannel(channelId));
+    if (data) {
+    //   setErrors(data);
+      return data
+    } else {
+      setShowDelete(false);
     }
+  };
 
-    const handleDelete = async (e) => {
-        setErrors([])
-        e.preventDefault();
+  const updateChannel = async (e) => {
+    // setErrors([]);
+    e.preventDefault();
+    const channelId = channel.id;
+    const data = await dispatch(updateChannelName(channelId, serverId, name));
+    if (data) {
+    //   setErrors(data);
+    } else {
+      setShowEdit(false);
+    }
+  };
 
-        const channelId = channel.id
+    //Cleanup function
+    useEffect(() => {
 
-        const data = await dispatch(deleteSingleChannel(channelId))
-        if (data) {
-            setErrors(data)
-        } else {
+        return () => {
+            setShowEdit(false)
             setShowDelete(false)
         }
-    }
-
-
-    const updateChannel = async (e) => {
-        setErrors([])
-        e.preventDefault();
-
-        const channelId = channel.id
-
-        const data = await dispatch(updateChannelName(channelId, serverId, name))
-        if (data) {
-            setErrors(data)
-        } else {
-            setShowEdit(false)
-        }
-
-    }
+    }, [])
 
     return (
         <div className="channelNameHolder" id="editableChannel">
@@ -89,7 +91,7 @@ function EditableChannel({server, channel}) {
                                 <i className="far fa-check-circle"></i>
                             </div>
                         </button>
-                        <button onClick={() => setShowEdit(false)}>
+                        <button type="button" onClick={() => setShowEdit(false)}>
                             <div className="editChannelIcons">
                                 <i className="fas fa-times"></i>
                             </div>
@@ -111,8 +113,8 @@ function EditableChannel({server, channel}) {
 
             )}
         </div>
-
     )
+
 }
 
 export default EditableChannel;

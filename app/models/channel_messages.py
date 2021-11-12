@@ -18,5 +18,6 @@ class Channel_Message(db.Model):
             'channel_id': self.channel_id,
             'user_id': self.user_id,
             'message': self.message,
-            'date': self.date
+            'date': self.date,
+            'user': self.user.to_dict()
         }

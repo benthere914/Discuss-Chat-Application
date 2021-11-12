@@ -30,13 +30,14 @@ function LoginForm() {
   };
 
   const demoLogin = async (e) => {
+
     const demoEmail = 'demo@aa.io';
     const demoPassword = 'password'
 
     setEmail(demoEmail)
     setPassword(demoPassword)
 
-    await dispatch(login(email, password));
+    await dispatch(login('demo@aa.io', 'password'));
 
   };
 
@@ -61,7 +62,7 @@ function LoginForm() {
           <form id="signUpForm" autoComplete="off" onSubmit={onLogin}>
             <div className="formField">
               <label id={loginError}>
-                EMAIL OR USERNAME
+                EMAIL
                 {errors.length > 0 && (
                   <span className="loginError"> - Login or password is invalid.</span>
                 )}

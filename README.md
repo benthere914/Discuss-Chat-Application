@@ -1,15 +1,24 @@
-# Flask React Project
+# DISCUSS
+https://discuss-aa.herokuapp.com/
 
-This is the starter for the Flask React project.
+Discuss is a place to find and create your community and meet others that share your interests. 
+It was inspired by Discord and built using React.js and Python
+
+Login Page:
+![](https://imgur.com/1W0E5GS.png)
+
+Discover View:
+![](https://imgur.com/cq5bqzJ.png)
+
+### Features
+* Create servers and channels
+* Join and leave servers
+* Messaging within channels
+* Explore different servers
 
 ## Getting started
 
 1. Clone this repository (only this branch)
-
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
-
 2. Install dependencies
 
       ```bash
