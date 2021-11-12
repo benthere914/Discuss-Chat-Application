@@ -4,8 +4,8 @@ import random
 def seed_members():
 
 
-    nums = [num for num in range(1, 26)]
-    for i in range(1, 26):
+    nums = [num for num in range(1, 29)]
+    for i in range(1, 29):
         memberNums = []
         for _ in range(10):
             rand = random.choice(nums)
