@@ -62,7 +62,7 @@ function LoginForm() {
           <form id="signUpForm" autoComplete="off" onSubmit={onLogin}>
             <div className="formField">
               <label id={loginError}>
-                EMAIL OR USERNAME
+                EMAIL
                 {errors.length > 0 && (
                   <span className="loginError"> - Login or password is invalid.</span>
                 )}
