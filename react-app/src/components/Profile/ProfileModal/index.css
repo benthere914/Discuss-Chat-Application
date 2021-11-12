@@ -173,11 +173,11 @@
     justify-content: space-around;
     width: 500px;
     height: 370px;
-    z-index: 3;
+    z-index: 6;
     position: absolute;
-    left: 35%;
-    top: 20%;
-    box-shadow: 0 0 0 70vmax rgba(0,0,0,.6);
+    left: 37.5%;
+    top: 30%;
+    box-shadow: 0 0 0 70vmax rgba(0,0,0,.8);
     background-color: rgb(32,34, 37);
 }
 
