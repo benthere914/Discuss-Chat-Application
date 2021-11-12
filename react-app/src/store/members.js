@@ -1,4 +1,7 @@
 const LOAD = 'members/LOAD_MEMBERS'
+const RESET = 'members/RESET'
+const reset_ = () => ({type: RESET})
+export const reset = () => (dispatch) => {dispatch(reset_())}
 
 const loadMembers = payload => ({
     type: LOAD,
@@ -20,6 +23,8 @@ const membersReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD:
             return action.payload
+        case RESET:
+            return {}
         default:
             return state
     }

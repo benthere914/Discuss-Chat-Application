@@ -4,7 +4,9 @@ const LOAD = 'messages/LOAD_MESSASGES'
 const ADD_MESSAGE = 'channels/ADD_MESSAGE'
 const UPDATE_MESSAGE = 'channels/UPDATE_MESSAGE'
 const DELETE_MESSAGE = 'messages/DELETE_CHANNEL'
-
+const RESET = 'members/RESET'
+const reset_ = () => ({type: RESET})
+export const reset = () => (dispatch) => {dispatch(reset_())}
 const loadMessages = messages => ({
     type: LOAD,
     messages
@@ -132,6 +134,8 @@ const messagesReducer = (state = initialState, action) => {
             const newState = {...state}
             delete newState[action.message_id];
             return newState;
+        case RESET:
+            return {}
         default:
             return state;
     }
