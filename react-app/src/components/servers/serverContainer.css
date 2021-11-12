@@ -1,11 +1,14 @@
 #serversContainer {
     background-color: rgb(32,34,37);
-    width: 72px;
-    min-width: 72px;
+    width: 64px;
+    min-width: 64px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 12px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-left: 4px;
 }
 
 .singleServer {
@@ -52,9 +55,8 @@
 
 #serverNameHover {
     visibility: hidden;
-    position: absolute;
-    top: 7px;
-    left: 65px;
+    position: fixed;
+    left: 71px;
     text-decoration: none;
     color: white;
     padding: 7px;
@@ -174,12 +176,12 @@
 .activeServerIndicator {
     position: absolute;
     top: 18px;
-    left: -19px;
+    left: -16px;
     text-decoration: none;
     background-color: white;
     border-radius: 50%;
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     transition: top 0.2s linear;
     transition: height 0.3s linear;
 }

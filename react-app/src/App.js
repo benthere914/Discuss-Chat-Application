@@ -53,7 +53,6 @@ function App() {
               <ProfileBar/>
             </div>
             <div className="emptyMessages"></div>
-            <Members/>
           </div>
         </Route>
         <Route path='/guild-discovery' exact={true}>

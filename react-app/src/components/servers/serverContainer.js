@@ -24,6 +24,8 @@ function ServersContainer() {
     const [showAddForm, setShowAddForm] = useState(false);
     const [allowAdd, setAllowAdd] = useState("notAllowed");
     const [isLoaded, setIsLoaded] = useState(false);
+    const [hoverPosition, setHoverPosition] = useState(null);
+    const [activeSideBarPosition, setActiveSideBarPosition] = useState(null)
 
 
     useEffect(() => {
@@ -86,6 +88,16 @@ function ServersContainer() {
         setServerIcon('')
     }
 
+    const displayNameHover = (e) => {
+      const elementPosition = e.target.getBoundingClientRect().y + 7
+      setHoverPosition(elementPosition)
+    }
+
+    const displaySideBar = (e) => {
+      const elementPosition = e.target.getBoundingClientRect().y + 2
+      setActiveSideBarPosition(elementPosition)
+    }
+
     return (
       <>
         {isLoaded && (
@@ -97,6 +109,8 @@ function ServersContainer() {
                   to={`/channels/${server?.id}`}
                   className="singleServer"
                   activeClassName="selectedServer"
+                  onMouseOver={(e) => displayNameHover(e)}
+                  onClick={(e) => displaySideBar(e)}
                 >
                   {server?.icon ? (
                     <div className="serverInfo">
@@ -104,13 +118,23 @@ function ServersContainer() {
                         className="serverIcon"
                         style={{ backgroundImage: `url(${server.icon})` }}
                       ></div>
-                      <div id="serverNameHover">{server.name}</div>
+                      <div
+                        id="serverNameHover"
+                        style={{ top: hoverPosition }}
+                        >
+                          {server.name}
+                        </div>
                       <div className="activeServerIndicator"></div>
                     </div>
                   ) : (
                     <div className="serverInfo">
                       <div className="noIconServer">{server?.name[0]}</div>
-                      <div id="serverNameHover">{server?.name} </div>
+                      <div
+                        id="serverNameHover"
+                        style={{ top: hoverPosition }}
+                        >
+                          {server?.name}
+                        </div>
                       <div className="activeServerIndicator"></div>
                     </div>
                   )}
