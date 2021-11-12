@@ -64,14 +64,14 @@ function Messages() {
                                 if (userId === message?.user_id) {
                                     return (
 
-                                        <div className='owner-msg-box' key={message?.message}>
+                                        <div className='owner-msg-box' key={message?.id}>
                                             <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
                                             <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
                                         </div>
                                     )
                                 } else {
                                     return (
-                                            <div className='gen-msg-box'>
+                                            <div className='gen-msg-box' key={message?.id}>
                                                 <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
                                                 <div key={message?.id} className="gen-messages">
                                                     <div className="user-time">
