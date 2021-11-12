@@ -5,49 +5,42 @@ import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
 
 function EditableChannel({server, channel}) {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const serverId = server.id;
+  const [name, setChannelName] = useState(channel?.name);
+  const [errors, setErrors] = useState([]);
 
-    const serverId = server.id;
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
-    const [name, setChannelName] = useState(channel?.name);
-    const [errors, setErrors] = useState([]);
+  const handleCancel = () => {
+    setShowDelete(false);
+  };
 
-    const [showEdit, setShowEdit] = useState(false)
-    const [showDelete, setShowDelete] = useState(false)
-
-    const handleCancel = () => {
-        setShowDelete(false)
+  const handleDelete = (e) => {
+    setErrors([]);
+    e.preventDefault();
+    const channelId = channel.id;
+    const data = dispatch(deleteSingleChannel(channelId));
+    if (data) {
+      setErrors(data);
+      return data
+    } else {
+      setShowDelete(false);
     }
+  };
 
-    const handleDelete = async (e) => {
-        setErrors([])
-        e.preventDefault();
-
-        const channelId = channel.id
-
-        const data = await dispatch(deleteSingleChannel(channelId))
-        if (data) {
-            setErrors(data)
-        } else {
-            setShowDelete(false)
-        }
+  const updateChannel = async (e) => {
+    setErrors([]);
+    e.preventDefault();
+    const channelId = channel.id;
+    const data = await dispatch(updateChannelName(channelId, serverId, name));
+    if (data) {
+      setErrors(data);
+    } else {
+      setShowEdit(false);
     }
-
-
-    const updateChannel = async (e) => {
-        setErrors([])
-        e.preventDefault();
-
-        const channelId = channel.id
-
-        const data = await dispatch(updateChannelName(channelId, serverId, name))
-        if (data) {
-            setErrors(data)
-        } else {
-            setShowEdit(false)
-        }
-
-    }
+  };
 
     //Cleanup function
     useEffect(() => {
@@ -120,8 +113,9 @@ function EditableChannel({server, channel}) {
 
             )}
         </div>
-
-    )
+      )}   
+    </div>
+  );
 }
 
 export default EditableChannel;
