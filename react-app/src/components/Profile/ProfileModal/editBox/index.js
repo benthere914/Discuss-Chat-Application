@@ -76,7 +76,6 @@ let EditBox = ({
             dispatch(sessionActions.updateUserPassword(userId, data, password)).then((e) => {reset(e)})
         }
         else if (title === 'Icon'){
-            console.log('got here to icon')
             dispatch(sessionActions.updateUserIcon_(userId, data, password)).then((e) => {reset(e)})
         }
     }

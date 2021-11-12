@@ -191,7 +191,7 @@ let ProfileModal = ({ setProfileModalVisible, user, shortenUsername }) => {
                 <li>
                     <p>Account Removal</p>
                 </li>
-                <li onClick={() => {setDeleteModal(true); console.log('got here 999')}}>
+                <li onClick={() => {setDeleteModal(true)}}>
                     <p className='deleteAccount'>Delete Account</p>
                 </li>
             </ul>
