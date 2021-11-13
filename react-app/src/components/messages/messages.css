@@ -136,7 +136,11 @@
 #editIcons {
     color:rgb(184, 186, 189);
     font-size: 17px;
+}
 
+#editIcons:hover {
+    color: white;
+    cursor: pointer;
 }
 
 .editMessageIconContainer > *{
@@ -152,13 +156,13 @@
     width: 40px;
 }
 
-.editMessageIconContainer > *:hover {
-    background-color: rgb(55,59,65);
+/* .editMessageIcons:hover {
+    color: rgb(55,59,65);
 }
 
 .editMessageIconContainer > *:hover {
     color:rgb(220, 221, 222)
-}
+} */
 
 .owner-msg-box:hover .editMessageIconContainer {
     visibility: visible;
