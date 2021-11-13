@@ -15,20 +15,11 @@ else:
 # create your SocketIO instance
 socketio = SocketIO(cors_allowed_origins=origins)
 
-@socketio.on("connect")
-def show_connect():
-    # code to follow
-    print("CLIENT CONNECTED*****************************")
-
 
 @socketio.on("send-chat")
 def handle_chat(chatData):
-    # code to follow
-    # emit("chat", chatData, broadcast=True)
-    print("CLIENT CONNECTED SENT A CHAT**************************")
-    print(chatData)
-
-    emit("receive-message", chatData, broadcast=True, include_self=False)
+    finalChat = {'id': chatData['id'], 'message': chatData['message'], "user": chatData['user'], "user_id": chatData['user_id'], 'date': chatData['date']}
+    emit("receive-message", finalChat, broadcast=True, include_self=True)
 
 
 @socketio.on("leave")

@@ -56,7 +56,7 @@ export const addNewMessage = (channel_id, user_id, message) => async (dispatch) 
     if (response.ok) {
       const data = await response.json();
       dispatch(addMessage(data))
-      return null;
+      return data;
     } else if (response.status < 500) {
       const data = await response.json();
       if (data.errors) {
@@ -123,7 +123,7 @@ const messagesReducer = (state = initialState, action) => {
         case ADD_MESSAGE:
             return {
                 ...state,
-                [action.message.id]: action.message,
+                // [action.message.id]: action.message,
             }
         case UPDATE_MESSAGE:
             return {

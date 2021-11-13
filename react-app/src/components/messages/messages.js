@@ -26,7 +26,7 @@ function Messages() {
     //state
     const [isLoaded, setIsLoaded] = useState(false);
     const [message, setMessage] = useState("");
-    const [liveMessages, setLiveMessages] = useState(messages);
+    const [liveMessages, setLiveMessages] = useState([]);
 
     // useEffect(() => {
     //     setLiveMessages(messages)
@@ -38,21 +38,39 @@ function Messages() {
     const placeholder = `Message #${channel?.name}`
 
     //Create socket on connection
+    // useEffect(() => {
+
+    //     // create websocket/connect
+    //     socket = io();
+
+    //     //listen for chat events
+    //     socket.on("receive-message", chat => {
+    //         //when we recieve a live chat, add it to messages array
+    //         // setLiveMessages(liveMessages => [...liveMessages, chat])
+    //         console.log("Got it!", chat)
+    //         console.log("What is happening")
+    //         // dispatch(addNewMessage(chat.channelId, chat.userId, chat.message))
+
+    //     })
+
+
+    //     // when component unmounts, disconnect
+    //     return (() => {
+    //         socket.disconnect()
+    //     })
+    // }, [])
+
     useEffect(() => {
 
-        // create websocket/connect
+        // create websocket
         socket = io();
 
-        //listen for chat events
-        socket.on("receive-message", chat => {
-            //when we recieve a live chat, add it to messages array
-            // setLiveMessages(liveMessages => [...liveMessages, chat])
-            console.log("Got it!", chat)
-            console.log("What is happening")
-            dispatch(addNewMessage(chat.channelId, chat.userId, chat.message))
-
+        // listen for chat events
+        socket.on("receive-message", (chat) => {
+            // when we recieve a chat, add it into our messages array in state
+            console.log(chat)
+            setLiveMessages(liveMessages => [...liveMessages, chat])
         })
-
 
         // when component unmounts, disconnect
         return (() => {
@@ -73,8 +91,8 @@ function Messages() {
     const handleSubmit = async(e) => {
         e.preventDefault();
         // let newErrors = [];
-        await dispatch(addNewMessage(channelId, userId, message))
-        socket.emit("send-chat", {channelId, userId, message})
+        const newMessage = await dispatch(addNewMessage(channelId, userId, message))
+        socket.emit("send-chat", newMessage)
         setMessage("")
 
       };
@@ -116,8 +134,33 @@ function Messages() {
                                     )
                                 }
                             })}
+                            {liveMessages?.map(message => {
+                                if (userId === message?.user_id) {
+                                    return (
+
+                                        <div className='owner-msg-box' key={message?.id}>
+                                            <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
+                                            <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
+                                        </div>
+                                    )
+                                } else {
+                                    return (
+                                            <div className='gen-msg-box' key={message?.id}>
+                                                <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
+                                                <div key={message?.id} className="gen-messages">
+                                                    <div className="user-time">
+                                                        <div style={{ fontWeight: 900, fontSize: 17 }}> {message?.user?.username}</div>
+                                                        <div className="time">{message?.date.slice(0,16)}</div>
+                                                    </div>
+                                                    {message?.message}
+                                                </div>
+                                            </div>
+                                    )
+                                }
+                            })}
                         </>
                         )}
+
 
 
                     </div>
