@@ -55,6 +55,10 @@
     padding-left: 10px;
 }
 
+.gen-messages {
+    width: 65vw ;
+}
+
 .gen-msg-box {
     display: flex;
     flex-direction: row;
@@ -101,8 +105,8 @@
 }
 
 .message-text {
-    inline-size: calc(100% - 100px);
     overflow-wrap:break-word
+
 }
 
 .editMessageIconContainer {
@@ -116,15 +120,10 @@
 
 }
 
-.fas {
+#editIcons {
     color:rgb(184, 186, 189);
     font-size: 17px;
 
-}
-
-.far {
-    color:rgb(184, 186, 189);
-    font-size: 17px;
 }
 
 .editMessageIconContainer > *{
@@ -190,7 +189,7 @@
     font-family: monospace;
     font-size: 12px;
 }
-i{
+.edit-hyper{
     color: rgb(39,149,238)
 }
 
