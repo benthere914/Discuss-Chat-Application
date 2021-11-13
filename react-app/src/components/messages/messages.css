@@ -245,14 +245,26 @@ i{
 }
 .welcomeMessage {
 font-weight: 900;
-font-size: 20px;
+font-size: 30px;
+font-family: Arial, Helvetica, sans-serif;
 }
 
 .welcomeInfo {
     font-weight: 400;
     line-height: 35px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 hr {
-    border-color: grey;
+    border-color: #474748;
+}
+
+.fa-hashtag {
+    /* color: red; */
+    border-radius: 50%;
+    /* border: 5px solid white; */
+    padding: 15px;
+    font-size: 55px;
+    background-color: #4c4c52;
+    margin-bottom: 10px;
 }

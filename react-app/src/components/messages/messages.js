@@ -65,10 +65,15 @@ function Messages() {
           <div className="messages-and-input">
             <div className="messages-div">
               <div className="welcomeDiv">
+                <div>
+                  <i class="fas fa-hashtag fa-10x"></i>
+                </div>
                 <span className="welcomeMessage">
                   Welcome to #{channel?.name}!
                 </span>
-                <div className="welcomeInfo">This is the start of #{channel?.name} channel.</div>
+                <div className="welcomeInfo">
+                  This is the start of #{channel?.name} channel.
+                </div>
                 <hr />
               </div>
               {isLoaded && (
