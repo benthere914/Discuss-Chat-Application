@@ -28,7 +28,8 @@
 
 .messages-div {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
     height: 85vh;
     width: calc(100% - 5px);
     color: rgb(220, 219, 212);
@@ -36,6 +37,7 @@
     font-size: 15px;
     overflow-y: auto;
     overflow-x: hidden;
+    vertical-align: bottom;
 }
 
 .temp {
@@ -79,7 +81,6 @@
     padding-top: 10px;
     padding-bottom: 10px;
     width: calc(100% - 20px);
-    height:100%
 }
 
 .messgaeNameHolder {
