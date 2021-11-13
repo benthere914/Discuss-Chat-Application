@@ -7,15 +7,15 @@ import EditableMessage from "./editableMessage";
 import './messages.css'
 import hashtag from '../images/hashtag.png'
 import Members from "../members/members";
+import { io } from 'socket.io-client';
+
+let socket;
 
 function Messages() {
     const dispatch = useDispatch();
     const { channelId } = useParams();
 
 
-    //state
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [message, setMessage] = useState("")
 
     //selectors
     const messages = useSelector(state => Object.values(state.messages));
@@ -23,10 +23,42 @@ function Messages() {
     const channel = channels.find(channel => channel?.id === parseInt(channelId));
     const userId = useSelector(state => state.session.user?.id);
 
+    //state
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [message, setMessage] = useState("");
+    const [liveMessages, setLiveMessages] = useState(messages);
+
+    // useEffect(() => {
+    //     setLiveMessages(messages)
+
+    // }, [messages])
+
 
     //misc
     const placeholder = `Message #${channel?.name}`
 
+    //Create socket on connection
+    useEffect(() => {
+
+        // create websocket/connect
+        socket = io();
+
+        //listen for chat events
+        socket.on("receive-message", chat => {
+            //when we recieve a live chat, add it to messages array
+            // setLiveMessages(liveMessages => [...liveMessages, chat])
+            console.log("Got it!", chat)
+            console.log("What is happening")
+            dispatch(addNewMessage(chat.channelId, chat.userId, chat.message))
+
+        })
+
+
+        // when component unmounts, disconnect
+        return (() => {
+            socket.disconnect()
+        })
+    }, [])
 
     //functions
     useEffect(() => {
@@ -42,10 +74,10 @@ function Messages() {
         e.preventDefault();
         // let newErrors = [];
         await dispatch(addNewMessage(channelId, userId, message))
+        socket.emit("send-chat", {channelId, userId, message})
         setMessage("")
 
       };
-
 
 
 
