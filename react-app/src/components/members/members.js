@@ -25,7 +25,7 @@ const Members = () => {
     return (
     <>
         <div className='membersTab'>
-            <p className='membersTitle'>{`Members - ${members?.length}`}</p>
+            <p className='membersTitle'>{`MEMBERS - ${members?.length}`}</p>
             <ul>{members?.map((e) => (
                 <li key={e?.username}>
                     <img clasname='memberIcon' src={e?.icon} alt={e?.username } onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.discordapp.com/attachments/904846014484209665/907160741671473152/v.2-white-blue-square.png"}}></img>
