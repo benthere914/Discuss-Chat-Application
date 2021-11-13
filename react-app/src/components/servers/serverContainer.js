@@ -12,6 +12,7 @@ function ServersContainer() {
     const history = useHistory();
     const params = useParams()
     const servers = useSelector(state => Object.values(state.servers));
+
     useEffect(() => {
         if (servers.length > 0 && (Object.keys(params).length === 0) && window.location.pathname !== '/guild-discovery'){
             if (servers[0]){history.push(`/channels/${servers[0]?.id}`)}
