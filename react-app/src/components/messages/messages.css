@@ -240,3 +240,20 @@ i{
     display: flex;
     flex-direction: row;
 }
+.welcomeDiv {
+    padding: 10px 0 10px 15px;
+}
+.welcomeMessage {
+font-weight: 900;
+font-size: 20px;
+/* line-height: 100px; */
+}
+
+.welcomeInfo {
+    font-weight: 400;
+    line-height: 35px;
+}
+
+hr {
+    border-color: grey;
+}
