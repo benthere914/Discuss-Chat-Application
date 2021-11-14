@@ -254,3 +254,29 @@
     display: flex;
     flex-direction: row;
 }
+.welcomeDiv {
+    padding: 10px 0 10px 15px;
+}
+.welcomeMessage {
+font-weight: 900;
+font-size: 30px;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.welcomeInfo {
+    font-weight: 400;
+    line-height: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+hr {
+    border-color: #474748;
+}
+
+.fa-hashtag {
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 47px;
+    background-color: #4c4c52;
+    margin-bottom: 10px;
+}

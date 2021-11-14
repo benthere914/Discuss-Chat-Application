@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
+// import { addNewMessage } from "../../store/messages";
 import { loadUserChannels, addNewChannel } from '../../store/channel';
 import {
   loadUserServers,
@@ -78,7 +79,9 @@ function ChannelsContainer() {
         setErrors([])
 
         const data = await dispatch(addNewChannel(serverId, name))
+        
         if (data) {
+          // dispatch(addNewMessage(channelId, userId, "hello"));
             setErrors(data)
         } else {
             setChannelName('')
