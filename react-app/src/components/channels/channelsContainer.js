@@ -78,11 +78,14 @@ function ChannelsContainer() {
         setErrors([])
 
         const data = await dispatch(addNewChannel(serverId, name))
-        if (data) {
+        if (data[0] !== "Created") {
             setErrors(data)
+            console.log("ERRORRRRRR")
         } else {
+          console.log("NOoooooooooooo")
             setChannelName('')
             setShowAddForm(false)
+            history.push(`/channels/${serverId}/${data[1]}`)
         }
     }
 
