@@ -169,7 +169,7 @@ function ChannelsContainer() {
                     </>
                   </>
                 ) : (
-                  <h3>Select a Valid Server </h3>
+                  <h3 id="selectValidServer">Select a Valid Server </h3>
                 )
                 }
             </div>
