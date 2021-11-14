@@ -42,6 +42,8 @@ function Messages() {
         e.preventDefault();
         // let newErrors = [];
         await dispatch(addNewMessage(channelId, userId, message))
+        // window.scroll(0, document.querySelector(".messages-div").scrollHeight)
+        document.querySelector(".messages-div").scrollTop = document.querySelector(".messages-div").scrollHeight
         setMessage("")
 
       };

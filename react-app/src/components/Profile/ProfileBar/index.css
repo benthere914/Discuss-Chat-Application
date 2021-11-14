@@ -26,17 +26,15 @@ img.profilePhoto{
 
 .profileWidget{
     position: fixed;
-    left: 250px;
+    left: 270px;
     bottom: 12px;
     color: rgb(185,187, 190);
     padding: 5px;
     background-color: rgb(41, 43, 47)
-
-    /* background-color: red; */
 }
 
 .profileWidget:hover{
     cursor: pointer;
-    background-color: rgb(54, 57, 63);
-    /* border: solid red; */
+    color: rgb(255,255,255);
+
 }

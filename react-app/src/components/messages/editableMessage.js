@@ -42,34 +42,36 @@ function EditableMessage({userId, channelId, message}) {
             {!showEdit && !showDelete && (
                 <div className="owner-messages">
                     <div className="own-msg-test"key={message?.id}>
-                    <div className="user-time">
-                        <div style={{ fontWeight: 900, fontSize: 15 }}> {message?.user?.username}</div>
-                            <div className="time">{message?.date.slice(0,16)}</div>
+                        <div className="text-header">
+                            <div className="user-time">
+                                <div style={{ fontWeight: 900, fontSize: 15 }}> {message?.user?.username}</div>
+                                <div className="time">{message?.date.slice(0,16)}</div>
+                            </div>
+                            <div className="editMessageIconContainer">
+                                 <div className="editMessageIcons" id="leftIconMessage" onClick={() => setShowEdit(true)}>
+                                    <i className="fas fa-cog" id="editIcons"></i>
+                                </div>
+                                <div className="editMessageIcons" onClick={() => setShowDelete(true)}>
+                                    <i className="far fa-trash-alt" id="editIcons"></i>
+                                </div>
+                            </div>
                         </div>
                         <div className="message-text">
-                        {message?.message}
-                        </div>
-
-                    </div>
-                    <div className="editMessageIconContainer">
-                        <div className="editMessageIcons" id="leftIconMessage" onClick={() => setShowEdit(true)}>
-                            <i className="fas fa-cog"></i>
-                        </div>
-                        <div className="editMessageIcons" onClick={() => setShowDelete(true)}>
-                            <i className="far fa-trash-alt"></i>
+                            {message?.message}
                         </div>
                     </div>
-
                 </div>
             )}
             {showEdit && (
                 <div>
                     <div className="owner-messages">
                         <div className="own-msg-test"key={message?.id}>
-                            <div className="user-time">
-                                <div style={{ fontWeight: 900, fontSize: 15 }}> {message?.user?.username}</div>
-                                        <div className="time">{message?.date.slice(0,16)}</div>
+                            <div className="edit-column">
+                                <div className="user-time">
+                                    <div style={{ fontWeight: 900, fontSize: 15 }}> {message?.user?.username}</div>
+                                    <div className="time">{message?.date.slice(0,16)}</div>
                                 </div>
+                            </div>
                                 <form className="updateMessageForm" onSubmit={updateMessage} autoComplete="off">
                                     <input
                                         type="text"
@@ -83,12 +85,12 @@ function EditableMessage({userId, channelId, message}) {
                                     <div className="edit-buttons">
                                         <button onClick={() => setShowEdit(false)}>
                                             <div className="editChannelIcons">
-                                                <i>cancel</i>
+                                                <i className="edit-hyper">cancel</i>
                                             </div>
                                         </button>
                                         <button type="submit">
                                             <div className="editChannelIcons" id="leftIcon">
-                                                <i>save</i>
+                                                <i className="edit-hyper">save</i>
                                             </div>
                                         </button>
                                     </div>
@@ -113,7 +115,9 @@ function EditableMessage({userId, channelId, message}) {
                                         {message?.user?.username}
                                         <div className="time">{message?.date.slice(0,16)}</div>
                                         </div>
-                                            {message?.message}
+                                            <div className="message-text">
+                                                {message?.message}
+                                            </div>
                                     </div>
                                 </div>
                         </div>

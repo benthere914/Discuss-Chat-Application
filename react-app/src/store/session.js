@@ -127,7 +127,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
     body: JSON.stringify({
       username: username.toLowerCase(),
       email: email.toLowerCase(),
-      password: password.toLowerCase(),
+      password: password,
     }),
   });
 
