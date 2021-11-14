@@ -1,7 +1,7 @@
 import './index.css';
 import React, {useState } from 'react';
 import {useDispatch } from 'react-redux';
-import { useHistory, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import EditBox from './editBox'
 import { logout, deleteAccount } from '../../../store/session'
 import * as serverActions from '../../../store/server'
@@ -14,7 +14,6 @@ import * as searchActions from '../../../store/search'
 
 
 let ProfileModal = ({ setProfileModalVisible, user, shortenUsername }) => {
-    const history = useHistory()
     const dispatch = useDispatch()
     const [editBoxVisible, setEditBoxVisible] = useState(false);
     const [title, setTitle] = useState('')
