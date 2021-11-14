@@ -69,20 +69,21 @@ function Messages() {
         <div className="messagesAndMembers">
           <div className="messages-and-input">
             <div className="messages-div">
-              <div className="welcomeDiv">
-                <div>
-                  <i class="fas fa-hashtag fa-10x"></i>
-                </div>
-                <span className="welcomeMessage">
-                  Welcome to #{channel?.name}!
-                </span>
-                <div className="welcomeInfo">
-                  This is the start of the #{channel?.name} channel.
-                </div>
-                <hr />
-              </div>
               {isLoaded && (
                 <>
+                  <div className="welcomeDiv">
+                    <div>
+                      <i class="fas fa-hashtag fa-10x"></i>
+                    </div>
+                    <span className="welcomeMessage">
+                      Welcome to #{channel?.name}!
+                    </span>
+                    <div className="welcomeInfo">
+                      This is the start of the #{channel?.name} channel.
+                    </div>
+                    <hr />
+                  </div>
+
                   {messages?.map((message) => {
                     if (userId === message?.user_id) {
                       return (
