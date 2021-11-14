@@ -15,8 +15,6 @@ function Messages() {
     const dispatch = useDispatch();
     const { channelId } = useParams();
 
-
-
     //selectors
     const messages = useSelector(state => Object.values(state.messages));
     const channels = useSelector(state => Object.values(state.channels));
@@ -27,38 +25,11 @@ function Messages() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [message, setMessage] = useState("");
     const [liveMessages, setLiveMessages] = useState([]);
-
-    // useEffect(() => {
-    //     setLiveMessages(messages)
-
-    // }, [messages])
-
+    const [lastRoom, setLastRoom] = useState(channelId);
 
     //misc
     const placeholder = `Message #${channel?.name}`
 
-    //Create socket on connection
-    // useEffect(() => {
-
-    //     // create websocket/connect
-    //     socket = io();
-
-    //     //listen for chat events
-    //     socket.on("receive-message", chat => {
-    //         //when we recieve a live chat, add it to messages array
-    //         // setLiveMessages(liveMessages => [...liveMessages, chat])
-    //         console.log("Got it!", chat)
-    //         console.log("What is happening")
-    //         // dispatch(addNewMessage(chat.channelId, chat.userId, chat.message))
-
-    //     })
-
-
-    //     // when component unmounts, disconnect
-    //     return (() => {
-    //         socket.disconnect()
-    //     })
-    // }, [])
 
     useEffect(() => {
 
@@ -68,8 +39,8 @@ function Messages() {
         // listen for chat events
         socket.on("receive-message", (chat) => {
             // when we recieve a chat, add it into our messages array in state
-            console.log(chat)
             setLiveMessages(liveMessages => [...liveMessages, chat])
+            // console.log("I GOT THE MESSAGE!!!!!!!!!!!!")
         })
 
         // when component unmounts, disconnect
@@ -77,6 +48,16 @@ function Messages() {
             socket.disconnect()
         })
     }, [])
+
+    // Join and leave rooms
+    useEffect(() => {
+        console.log("Leaving Room", lastRoom)
+        socket.emit("leave", {lastRoom: Number(lastRoom)})
+        console.log("Joining Room", channelId)
+        socket.emit("join-room", {currentRoom: Number(channelId)});
+        setLiveMessages([]);
+        setLastRoom(channelId);
+      }, [channelId]);
 
     //functions
     useEffect(() => {
@@ -90,6 +71,7 @@ function Messages() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+
         // let newErrors = [];
         const newMessage = await dispatch(addNewMessage(channelId, userId, message))
         socket.emit("send-chat", newMessage)
