@@ -1,7 +1,7 @@
 import './index.css';
 import React, {useState } from 'react';
 import {useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from "react-router-dom";
 import EditBox from './editBox'
 import { logout, deleteAccount } from '../../../store/session'
 import * as serverActions from '../../../store/server'
@@ -72,9 +72,9 @@ let ProfileModal = ({ setProfileModalVisible, user, shortenUsername }) => {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({id: user?.id}),
         })
-
-        history.push('/')
+        // history.push('/')
         resetSate()
+        return <Redirect to="/" />;
     }
 
     const deleteAccountHandler = () => {
