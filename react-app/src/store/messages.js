@@ -97,14 +97,16 @@ export const updateMessageBody = (message_id, channel_id, user_id, message, live
       }
 }
 
-export const deleteSingleMessage = (message_id) => async (dispatch) => {
+export const deleteSingleMessage = (message_id, liveMessage) => async (dispatch) => {
   const response = await fetch(`/api/messages/${message_id}`, {
       method: 'DELETE',
       body: JSON.stringify({message_id})
   });
 
-  if (response.ok) {
+  if (response.ok && !liveMessage) {
     dispatch(deleteMessage(message_id))
+    return null;
+  } else if (response.ok && liveMessage ){
     return null;
   } else {
     return ['An error occurred. Please try again.']

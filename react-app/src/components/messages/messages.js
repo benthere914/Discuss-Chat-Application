@@ -120,7 +120,7 @@ function Messages() {
                                 if (userId === message?.user_id) {
                                     return (
 
-                                        <div className='owner-msg-box' key={message?.id}>
+                                        <div className='owner-msg-box' key={message?.id} data-messagetodelete={message.id}>
                                             <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
                                             <EditableMessage userId={message?.user_id} channelId={channelId} message={message} liveMessage={true} key={`editableMessage_${message?.id}`}/>
                                         </div>
