@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useParams, useHistory } from "react-router-dom";
+import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserServers, addServer } from '../../store/server';
 import { addNewChannel } from "../../store/channel";
@@ -21,10 +21,7 @@ function ServersContainer() {
 
     const user = useSelector(state => state.session.user);
 
-    //Redirect to login screen if no user is logged in
-    if (!user) {
-        history.push('/login')
-    }
+
 
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
@@ -97,6 +94,11 @@ function ServersContainer() {
     const displayNameHover = (e) => {
       const elementPosition = e.target.getBoundingClientRect().y + 7
       setHoverPosition(elementPosition)
+    }
+
+    //Redirect to login screen if no user is logged in
+    if (!user) {
+      return <Redirect to="/login" />
     }
 
     return (
