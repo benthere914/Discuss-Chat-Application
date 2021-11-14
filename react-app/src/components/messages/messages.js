@@ -73,7 +73,7 @@ function Messages() {
                 <>
                   <div className="welcomeDiv">
                     <div>
-                      <i class="fas fa-hashtag fa-10x"></i>
+                      <i className="fas fa-hashtag fa-10x"></i>
                     </div>
                     <span className="welcomeMessage">
                       Welcome to #{channel?.name}!
