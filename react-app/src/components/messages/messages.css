@@ -28,7 +28,7 @@
 
 .messages-div {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: flex-start;
     height: 85vh;
     width: calc(100% - 5px);
@@ -38,6 +38,10 @@
     overflow-y: auto;
     overflow-x: hidden;
     vertical-align: bottom;
+}
+
+.welcomeDiv {
+    margin-top: auto;
 }
 
 .temp {

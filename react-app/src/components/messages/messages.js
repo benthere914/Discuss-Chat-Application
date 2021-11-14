@@ -1,5 +1,5 @@
 //react
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
 import {addNewMessage, loadChannelMessages} from "../../store/messages"
@@ -27,6 +27,7 @@ function Messages() {
     //misc
     const placeholder = `Message #${channel?.name}`
 
+    const messagesEnd = useRef(null)
 
     //functions
     useEffect(() => {
@@ -36,7 +37,12 @@ function Messages() {
                 setIsLoaded(false)
             }
 
+
     }, [dispatch, channelId])
+
+    useEffect(() => {
+      messagesEnd.current?.scrollIntoView()
+    })
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -124,6 +130,7 @@ function Messages() {
                   })}
                 </>
               )}
+              <div ref={messagesEnd}></div>
             </div>
             <div className="addMessageContainer">
               <form
