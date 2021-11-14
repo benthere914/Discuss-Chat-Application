@@ -67,7 +67,7 @@ export const addNewMessage = (channel_id, user_id, message) => async (dispatch) 
     }
 }
 
-export const updateMessageBody = (message_id, channel_id, user_id, message) => async (dispatch) => {
+export const updateMessageBody = (message_id, channel_id, user_id, message, liveMessage) => async (dispatch) => {
     const response = await fetch(`/api/messages/${message_id}`, {
         method: 'PATCH',
         headers: {
@@ -81,10 +81,12 @@ export const updateMessageBody = (message_id, channel_id, user_id, message) => a
         }),
       });
 
-      if (response.ok) {
+      if (response.ok && !liveMessage) {
         const data = await response.json();
         dispatch(updateMessage(data))
         return null;
+      } else if (response.ok && liveMessage) {
+        return null
       } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {

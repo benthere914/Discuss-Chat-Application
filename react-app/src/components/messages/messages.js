@@ -98,7 +98,7 @@ function Messages() {
 
                                         <div className='owner-msg-box' key={message?.id}>
                                             <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
-                                            <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
+                                            <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} liveMessage={false} key={`editableMessage_${message?.id}`}/>
                                         </div>
                                     )
                                 } else {
@@ -122,7 +122,7 @@ function Messages() {
 
                                         <div className='owner-msg-box' key={message?.id}>
                                             <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
-                                            <EditableMessage userId={message?.user_id} channelId={message?.channel_id} message={message} key={`editableMessage_${message?.id}`}/>
+                                            <EditableMessage userId={message?.user_id} channelId={channelId} message={message} liveMessage={true} key={`editableMessage_${message?.id}`}/>
                                         </div>
                                     )
                                 } else {

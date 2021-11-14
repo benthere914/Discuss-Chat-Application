@@ -3,7 +3,7 @@ import {  useDispatch } from 'react-redux';
 import { deleteSingleMessage, updateMessageBody } from '../../store/messages';
 import './editableMessages.css'
 
-function EditableMessage({userId, channelId, message}) {
+function EditableMessage({userId, channelId, message, liveMessage}) {
     const dispatch = useDispatch();
     const channel_id = channelId;
     const message_id = message.id;
@@ -11,7 +11,8 @@ function EditableMessage({userId, channelId, message}) {
     const [messageBody, setMessageBody] = useState(message?.message);
 
     const [showEdit, setShowEdit] = useState(false);
-    const [showDelete, setShowDelete] = useState(false)
+    const [showDelete, setShowDelete] = useState(false);
+    const [editedMessage, setEditedMessage] = useState(message)
 
     const handleCancel = () => {
         setShowDelete(false)
@@ -22,18 +23,31 @@ function EditableMessage({userId, channelId, message}) {
         e.preventDefault();
 
         const data = await dispatch(deleteSingleMessage(message_id))
+
         if (data) {
         } else {
             setShowDelete(false)
         }
+
+
+
     }
 
     const updateMessage = async (e) => {
         e?.preventDefault();
 
-        await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody))
-        setShowEdit(false)
-        // window.location.reload()
+        if (!liveMessage) {
+            console.log(message_id, channel_id, user_id, messageBody, liveMessage)
+            await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
+            setShowEdit(false)
+            // window.location.reload()
+        } else {
+            console.log(message_id, channel_id, user_id, messageBody, liveMessage)
+            await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
+            // setMessageBody(messageBody)
+            console.log("Edited live message")
+            setShowEdit(false)
+        }
 
     }
 
@@ -57,7 +71,7 @@ function EditableMessage({userId, channelId, message}) {
                             </div>
                         </div>
                         <div className="message-text">
-                            {message?.message}
+                            {messageBody}
                         </div>
                     </div>
                 </div>
