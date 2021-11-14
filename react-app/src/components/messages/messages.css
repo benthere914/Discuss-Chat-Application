@@ -260,11 +260,9 @@ hr {
 }
 
 .fa-hashtag {
-    /* color: red; */
     border-radius: 50%;
-    /* border: 5px solid white; */
     padding: 15px;
-    font-size: 55px;
+    font-size: 47px;
     background-color: #4c4c52;
     margin-bottom: 10px;
 }

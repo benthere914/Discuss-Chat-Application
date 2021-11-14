@@ -46,9 +46,6 @@ function Messages() {
 
       };
 
-
-
-
     return (
       <div className="flexContainer">
         <div className="channel-name">
@@ -72,7 +69,7 @@ function Messages() {
                   Welcome to #{channel?.name}!
                 </span>
                 <div className="welcomeInfo">
-                  This is the start of #{channel?.name} channel.
+                  This is the start of the #{channel?.name} channel.
                 </div>
                 <hr />
               </div>
