@@ -255,6 +255,7 @@
     color: white;
     border-bottom: 1px solid rgb(175, 175, 175);
     padding-bottom: 3px;
+    width: fit-content;
 }
 
 #selectValidServer {

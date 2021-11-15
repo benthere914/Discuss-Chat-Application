@@ -30,6 +30,7 @@
     flex-direction: column;
     justify-content: flex-start;
     width: calc(100% - 5px);
+    height: 100%;
     color: rgb(220, 219, 212);
     font-family: monospace;
     font-size: 15px;
