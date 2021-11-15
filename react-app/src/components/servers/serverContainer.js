@@ -14,10 +14,11 @@ function ServersContainer() {
     const servers = useSelector(state => Object.values(state.servers));
 
     useEffect(() => {
-        if (servers.length > 0 && (Object.keys(params).length === 0) && window.location.pathname !== '/guild-discovery'){
-            if (servers[0]){history.push(`/channels/${servers[0]?.id}`)}
+         if (servers.length > 0 && (Object.keys(params).length === 0) && window.location.pathname !== '/guild-discovery'){
+            
+            if (servers[0] && (window.location.pathname.length === 10 || window.location.pathname.length === 9)) {history.push(`/channels/${servers[0]?.id}`)}
         }
-    }, [servers, history, params])
+     }, [servers, history, params])
 
     const user = useSelector(state => state.session.user);
 
