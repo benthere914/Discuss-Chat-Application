@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import ProtectedRoute from '../auth/ProtectedRoute';
 
 import Messages from '../messages/messages';
@@ -47,9 +46,6 @@ function MainContent() {
                     <ProfileBar/>
                 </div>
                 <GuildDiscovery />
-            </Route>
-            <Route>
-                <PageNotFound />
             </Route>
         </Switch>
       </div>

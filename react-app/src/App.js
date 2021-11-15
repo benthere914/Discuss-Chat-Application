@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import SplashPage from './components/splash/splash';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-
-import Messages from './components/messages/messages';
-import GuildChannelBar from './components/guild/guildChannelBar';
-import GuildDiscovery from './components/guild/guildDiscovery';
-import ProfileBar from './components/Profile/ProfileBar';
 import PageNotFound from './components/404/PageNotFound';
-
 import MainContent from './components/MainContent/mainContent';
-
 import { authenticate } from './store/session';
-import ServersContainer from './components/servers/serverContainer';
-import ChannelsContainer from './components/channels/channelsContainer';
 
 
 function App() {
@@ -47,8 +37,11 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <Route>
+        <Route path={['/channels', '/channels/:serverId', '/channels/:serverId/:channelId', '/guild-discovery']} exact={true}>
           <MainContent />
+        </Route>
+        <Route>
+          <PageNotFound />
         </Route>
       </Switch>
     </BrowserRouter>

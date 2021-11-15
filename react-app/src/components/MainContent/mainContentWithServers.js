@@ -1,74 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import SplashPage from './components/splash/splash';
-import ProtectedRoute from './components/auth/ProtectedRoute';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import ProtectedRoute from '../auth/ProtectedRoute';
 
-import Messages from './components/messages/messages';
-import GuildChannelBar from './components/guild/guildChannelBar';
-import GuildDiscovery from './components/guild/guildDiscovery';
-import ProfileBar from './components/Profile/ProfileBar';
-import PageNotFound from './components/404/PageNotFound';
+import Messages from '../messages/messages';
+import GuildChannelBar from '../guild/guildChannelBar';
+import GuildDiscovery from '../guild/guildDiscovery';
+import ProfileBar from '../Profile/ProfileBar';
+import PageNotFound from '../404/PageNotFound';
 
-import ServersContainer from './components/servers/serverContainer';
-import ChannelsContainer from './components/channels/channelsContainer';
+import ServersContainer from '../servers/serverContainer';
+import ChannelsContainer from '../channels/channelsContainer';
 
 
-function MainContent() {
+function MainContentWithServers() {
 
   return (
-      <>
+      <div className="mainContentContainer">
         <ServersContainer />
         <Switch>
             <Route path='/channels' exact={true}>
-            <div className="mainContentContainer">
-                <ServersContainer />
                 <div className="channelBar">
-                <div className="emptyChannels">Select a Server</div>
-                <ProfileBar/>
+                    <div className="emptyChannels">Select a Server</div>
+                    <ProfileBar/>
                 </div>
                 <div className="emptyMessages"></div>
-            </div>
-            </Route>
-            <Route path='/guild-discovery' exact={true}>
-            <div className="mainContentContainer">
-                <ServersContainer />
-                <div className="channelBar">
-                <GuildChannelBar />
-                <ProfileBar/>
-                </div>
-                <GuildDiscovery />
-            </div>
             </Route>
             <Route path='/channels/:serverId' exact={true}>
-            <div className="mainContentContainer">
-                <ServersContainer />
                 <div className="channelBar">
-                <ChannelsContainer />
-                <ProfileBar/>
+                    <ChannelsContainer />
+                    <ProfileBar/>
                 </div>
                 <div className="emptyMessages"></div>
-            </div>
             </Route>
             <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
-            <div className="mainContentContainer">
-                <ServersContainer />
                 <div className="channelBar">
-                <ChannelsContainer />
-                <ProfileBar/>
+                    <ChannelsContainer />
+                    <ProfileBar/>
                 </div>
                 <Messages/>
-            </div>
             </ProtectedRoute>
-            <Route>
-            <PageNotFound />
+            <Route path='/guild-discovery' exact={true}>
+                <div className="channelBar">
+                    <GuildChannelBar />
+                    <ProfileBar/>
+                </div>
+                <GuildDiscovery />
             </Route>
+            <Redirect to="/404" />
         </Switch>
-      </>
+      </div>
   );
 }
 
-export default MainContent;
+export default MainContentWithServers;
