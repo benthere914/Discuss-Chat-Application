@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 // import { addNewMessage } from "../../store/messages";
 import { loadUserChannels, addNewChannel } from '../../store/channel';
@@ -16,7 +16,7 @@ function ChannelsContainer() {
     const dispatch = useDispatch();
     const history = useHistory();
     const { serverId } = useParams();
-    // const params = useParams()
+    const params = useParams()
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
     const server = useSelector(state => state.servers[serverId])
