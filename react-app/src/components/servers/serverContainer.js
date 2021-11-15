@@ -15,7 +15,7 @@ function ServersContainer() {
 
     useEffect(() => {
          if (servers.length > 0 && (Object.keys(params).length === 0) && window.location.pathname !== '/guild-discovery'){
-            
+
             if (servers[0] && (window.location.pathname.length === 10 || window.location.pathname.length === 9)) {history.push(`/channels/${servers[0]?.id}`)}
         }
      }, [servers, history, params])
@@ -93,8 +93,12 @@ function ServersContainer() {
     }
 
     const displayNameHover = (e) => {
-      const elementPosition = e.target.getBoundingClientRect().y + 7
-      setHoverPosition(elementPosition)
+      if (e.target.className === 'fas fa-plus') {
+
+      } else {
+        const elementPosition = e.target.getBoundingClientRect().y + 7
+        setHoverPosition(elementPosition)
+      }
     }
 
     //Redirect to login screen if no user is logged in
@@ -143,11 +147,11 @@ function ServersContainer() {
                   )}
                 </NavLink>
               ))): null}
-            <div className="serverInfo" onClick={() => setShowAddForm(true)}>
+            <div className="serverInfo" onClick={() => setShowAddForm(true)} onMouseOver={(e) => displayNameHover(e)}>
               <div className="noIconServer" id="addServerButton">
                 <i className="fas fa-plus"></i>
               </div>
-              <div id="serverNameHover">Add a Server</div>
+              <div id="serverNameHover" style={{ top: hoverPosition }}>Add a Server</div>
             </div>
             <NavLink to={"/guild-discovery"} className="singleServer" activeClassName="selectedServer">
               <div className="serverInfo">
