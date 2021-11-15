@@ -15,8 +15,7 @@ function ServersContainer() {
 
     useEffect(() => {
          if (servers.length > 0 && (Object.keys(params).length === 0) && window.location.pathname !== '/guild-discovery'){
-            console.log(window.location.pathname.length )
-
+            
             if (servers[0] && (window.location.pathname.length === 10 || window.location.pathname.length === 9)) {history.push(`/channels/${servers[0]?.id}`)}
         }
      }, [servers, history, params])

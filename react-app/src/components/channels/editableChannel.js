@@ -19,17 +19,20 @@ function EditableChannel({server, channel}) {
     setShowDelete(false);
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
+      console.log(channel.id === firstChannel)
     // setErrors([]);
     e.preventDefault();
     const channelId = channel.id;
-    const data = dispatch(deleteSingleChannel(channelId));
-    if (data) {
+    const data = await dispatch(deleteSingleChannel(channelId));
+    if (!data) {
     //   setErrors(data);
-      if (firstChannel) {
+      if (firstChannel && channelId !== firstChannel) {
         history.push(`/channels/${serverId}/${firstChannel}`)
+        console.log("Moved to first channel")
       } else {
         history.push(`/channels/${serverId}`)
+        console.log("Moved to server")
       }
       return data
     } else {

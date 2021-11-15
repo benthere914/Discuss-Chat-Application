@@ -7,7 +7,6 @@ import Messages from '../messages/messages';
 import GuildChannelBar from '../guild/guildChannelBar';
 import GuildDiscovery from '../guild/guildDiscovery';
 import ProfileBar from '../Profile/ProfileBar';
-import PageNotFound from '../404/PageNotFound';
 
 import ServersContainer from '../servers/serverContainer';
 import ChannelsContainer from '../channels/channelsContainer';
