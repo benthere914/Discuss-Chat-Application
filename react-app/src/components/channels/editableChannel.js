@@ -29,10 +29,8 @@ function EditableChannel({server, channel}) {
     //   setErrors(data);
       if (firstChannel && channelId !== firstChannel) {
         history.push(`/channels/${serverId}/${firstChannel}`)
-        console.log("Moved to first channel")
       } else {
         history.push(`/channels/${serverId}`)
-        console.log("Moved to server")
       }
       return data
     } else {

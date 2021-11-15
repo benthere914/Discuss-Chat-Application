@@ -39,7 +39,6 @@ function ChannelsContainer() {
 
     useEffect(() => {
         if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
-          console.log(_channels[0])
             if (_channels[0]){history.push(`/channels/${serverId}/${_channels[0]?.id}`)}
         }
     }, [_channels, params, serverId, history])
