@@ -35,12 +35,22 @@ function ChannelsContainer() {
     const [serverDescription, setServerDescription] = useState('');
 
     const [showDelete, setShowDelete] = useState('');
+    const _channels = useSelector(state => Object.values(state.channels));
+
+    useEffect(() => {
+        if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
+            if (_channels[0]){history.push(`/channels/${serverId}/${_channels[0]?.id}`)}
+        }
+    }, [_channels, params, serverId, history])
+
+
     // const _channels = useSelector(state => Object.values(state.channels));
     // useEffect(() => {
     //     if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
     //         if (_channels[0]){history.push(`/channels/${serverId}/${_channels[0]?.id}`)}
     //     }
     // }, [_channels, params, serverId, history])
+
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
         dispatch(loadUserServers(user?.id))
@@ -111,7 +121,8 @@ function ChannelsContainer() {
         if (!errors) {
             setShowDelete(false)
             setShowEditForm(false)
-            return <Redirect to="/" />
+            // return <Redirect to="/channels" />
+            history.push(`/channels`);
         } else {
             //Show an error somewhere
         }
