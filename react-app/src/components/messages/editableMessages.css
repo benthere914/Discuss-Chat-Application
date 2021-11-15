@@ -30,7 +30,7 @@
     padding-right: 20px;
 }
 
-h3 {
+#deleteMessageHeader {
     color:white
 }
 
@@ -45,6 +45,7 @@ h3 {
     display: flex;
     flex-direction: row;
     width: calc(90%);
+    max-height: 400px;
     color: rgb(220, 219, 212);
     font-family: monospace;
     font-size: 15px;
@@ -54,16 +55,24 @@ h3 {
     padding-top: 18px;
     padding-bottom: 18px;
     margin-bottom: 20px;
+    word-break: break-word;
+    overflow-wrap:break-word;
+    overflow-y: auto;
 
 }
 
+.edit-column {
+    display: flex;
+    flex-direction: column;
+}
+
 .user-time {
-    max-width: calc(100% - 100px);
 }
 
 .own-msg-test {
     display: flex;
     flex-direction: row;
+    height: 50px
 }
 
 .message-text {
@@ -125,4 +134,8 @@ h3 {
 #cancelMessage:hover {
     text-decoration: underline;
     cursor: pointer
+}
+
+.updateMessageForm {
+    width: 100%;
 }

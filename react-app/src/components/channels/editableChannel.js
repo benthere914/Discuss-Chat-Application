@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
 
 function EditableChannel({server, channel}) {
   const dispatch = useDispatch();
+  const history = useHistory()
   const serverId = server?.id;
   const [name, setChannelName] = useState(channel?.name);
 //   const [errors, setErrors] = useState([]);
-
+  const channels = useSelector(state => Object.values(state.channels));
+  const firstChannel = channels?.shift()?.id
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
@@ -24,6 +26,11 @@ function EditableChannel({server, channel}) {
     const data = dispatch(deleteSingleChannel(channelId));
     if (data) {
     //   setErrors(data);
+      if (firstChannel) {
+        history.push(`/channels/${serverId}/${firstChannel}`)
+      } else {
+        history.push(`/channels/${serverId}`)
+      }
       return data
     } else {
       setShowDelete(false);

@@ -97,7 +97,7 @@ let EditBox = ({
                     <p>{`${title}${dataExtraText}`}</p>
                     <input type='text' style={{"outlineColor": dataOutlineColor, border: `solid 1px ${dataBorderColor}`}} value={data} onChange={(e) => {onChangeHandler(setData, setDataOutlineColor, setDataBorderColor, setDataExtraText, e)}}></input>
                     <p>{`Current Password${passwordExtraText}`}</p>
-                    <input type='text' style={{"outlineColor": passwordOutlineColor, border: `solid 1px ${passwordBorderColor}`}} value={password} onChange= {(e) => {onChangeHandler(setPassword, setPasswordOutlineColor, setPasswordBorderColor, setPasswordExtraText, e)}}></input>
+                    <input type='password' style={{"outlineColor": passwordOutlineColor, border: `solid 1px ${passwordBorderColor}`}} value={password} onChange= {(e) => {onChangeHandler(setPassword, setPasswordOutlineColor, setPasswordBorderColor, setPasswordExtraText, e)}}></input>
                 </div>
                 <div className='editBoxBottom'>
                     <p className='cancelLink' onMouseDown={() => {setData('');setPassword('');setEditBoxVisible(false)}}>Cancel</p>

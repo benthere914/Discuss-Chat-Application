@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useParams, useHistory } from "react-router-dom";
+import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { loadUserServers, addServer } from '../../store/server';
 import { addNewChannel } from "../../store/channel";
@@ -12,6 +12,7 @@ function ServersContainer() {
     const history = useHistory();
     const params = useParams()
     const servers = useSelector(state => Object.values(state.servers));
+
     useEffect(() => {
         if (servers.length > 0 && (Object.keys(params).length === 0) && window.location.pathname !== '/guild-discovery'){
             if (servers[0]){history.push(`/channels/${servers[0]?.id}`)}
@@ -20,10 +21,7 @@ function ServersContainer() {
 
     const user = useSelector(state => state.session.user);
 
-    //Redirect to login screen if no user is logged in
-    if (!user) {
-        history.push('/login')
-    }
+
 
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
@@ -96,6 +94,11 @@ function ServersContainer() {
     const displayNameHover = (e) => {
       const elementPosition = e.target.getBoundingClientRect().y + 7
       setHoverPosition(elementPosition)
+    }
+
+    //Redirect to login screen if no user is logged in
+    if (!user) {
+      return <Redirect to="/login" />
     }
 
     return (
