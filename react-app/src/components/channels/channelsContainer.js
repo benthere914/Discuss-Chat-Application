@@ -113,7 +113,8 @@ function ChannelsContainer() {
         if (!errors) {
             setShowDelete(false)
             setShowEditForm(false)
-            return <Redirect to="/" />
+            // return <Redirect to="/channels" />
+            history.push(`/channels`);
         } else {
             //Show an error somewhere
         }
