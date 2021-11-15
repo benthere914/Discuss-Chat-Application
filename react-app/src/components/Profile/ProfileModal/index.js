@@ -222,7 +222,7 @@ let ProfileModal = ({ setProfileModalVisible, user, shortenUsername }) => {
                 </div>
                 <div className='deleteModalMiddle'>
                     <p>Password</p>
-                    <input style={{border: `solid 1px ${deleteInputBorder}`}} value={deleteModalPassword} onChange={(e) => {setDeleteModalPassword(e.target.value); setDeleteInputBorder('blue')}}></input>
+                    <input type='password' style={{border: `solid 1px ${deleteInputBorder}`}} value={deleteModalPassword} onChange={(e) => {setDeleteModalPassword(e.target.value); setDeleteInputBorder('blue')}}></input>
                 </div>
                 <div className='deleteModalBottom'>
                     <p onClick={() => {setDeleteModalPassword(''); setDeleteModal(false)}} className='cancelDelete'>Cancel</p>
