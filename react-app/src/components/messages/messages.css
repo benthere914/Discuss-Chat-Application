@@ -8,7 +8,7 @@
 
 .channel-name {
     width: 100%;
-    height: 52px;
+    min-height: 52px;
     border-bottom: 2px rgb(47,49,54) solid;
     display: flex;
     justify-content: flex-start;
@@ -29,8 +29,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 87vh;
     width: calc(100% - 5px);
+    height: 100%;
     color: rgb(220, 219, 212);
     font-family: monospace;
     font-size: 15px;
@@ -38,6 +38,10 @@
     overflow-x: hidden;
     vertical-align: bottom;
     scrollbar-color: red yellow;
+}
+
+.messagesAndMembers {
+    height: calc(100vh - 55px);
 }
 
 .messages-div::-webkit-scrollbar {
