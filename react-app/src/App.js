@@ -13,6 +13,8 @@ import GuildDiscovery from './components/guild/guildDiscovery';
 import ProfileBar from './components/Profile/ProfileBar';
 import PageNotFound from './components/404/PageNotFound';
 
+import MainContent from './components/MainContent/mainContent';
+
 import { authenticate } from './store/session';
 import ServersContainer from './components/servers/serverContainer';
 import ChannelsContainer from './components/channels/channelsContainer';
@@ -45,48 +47,8 @@ function App() {
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
         </Route>
-        <Route path='/channels' exact={true}>
-          <div className="mainContentContainer">
-            <ServersContainer />
-            <div className="channelBar">
-              <div className="emptyChannels">Select a Server</div>
-              <ProfileBar/>
-            </div>
-            <div className="emptyMessages"></div>
-          </div>
-        </Route>
-        <Route path='/guild-discovery' exact={true}>
-          <div className="mainContentContainer">
-            <ServersContainer />
-            <div className="channelBar">
-              <GuildChannelBar />
-              <ProfileBar/>
-            </div>
-            <GuildDiscovery />
-          </div>
-        </Route>
-        <Route path='/channels/:serverId' exact={true}>
-          <div className="mainContentContainer">
-            <ServersContainer />
-            <div className="channelBar">
-              <ChannelsContainer />
-              <ProfileBar/>
-            </div>
-            <div className="emptyMessages"></div>
-          </div>
-        </Route>
-        <ProtectedRoute path='/channels/:serverId/:channelId' exact={true} >
-          <div className="mainContentContainer">
-            <ServersContainer />
-            <div className="channelBar">
-              <ChannelsContainer />
-              <ProfileBar/>
-            </div>
-            <Messages/>
-          </div>
-        </ProtectedRoute>
         <Route>
-          <PageNotFound />
+          <MainContent />
         </Route>
       </Switch>
     </BrowserRouter>
