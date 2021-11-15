@@ -81,7 +81,7 @@ function Messages() {
                     <div className="welcomeInfo">
                       This is the start of the #{channel?.name} channel.
                     </div>
-                    <hr />
+                    <hr className="welcome-bottom"/>
                   </div>
 
                   {messages?.map((message) => {

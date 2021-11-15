@@ -204,17 +204,10 @@ function ChannelsContainer() {
                           activeClassName="selectedChannel"
                         >
                           <>
-                            {channel?.name.length > 16 ? (
-                              <h4
-                                key={channel?.id}
-                                className="channelName"
-                              >{`# ${channel?.name.substring(0, 16)}...`}</h4>
-                            ) : (
                               <h4
                                 key={channel?.id}
                                 className="channelName"
                               >{`# ${channel?.name}`}</h4>
-                            )}
                           </>
                         </NavLink>
                       </div>

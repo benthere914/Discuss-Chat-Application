@@ -51,19 +51,24 @@
 }
 
 .serverNameContainer {
-    width: 225px;
-    border-bottom: 1px solid black;
+    width: 100%;
+    border-bottom: 2px rgb(36, 37, 41) solid;
     margin-bottom:  10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
 
 .serverName {
     color: rgb(255,255,255);
+    font-size: 15px;
     max-width: 200px;
-    margin-top: 20px;
-    overflow-wrap: break-word;
+    max-height: 59px;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #leaveServerIcon:hover {
@@ -72,7 +77,9 @@
 
 .textChannels {
     color: rgb(142,146,151);
-    margin: 5px 0
+    margin: 5px 0;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .channelList {
@@ -95,10 +102,13 @@
 .channelName {
     color: rgb(142,146,151);
     margin: 0;
-    width: fit-content;
+    width: 165px;
     max-width: 200px;
     white-space: nowrap;
     text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
 }
 
 .addModal {

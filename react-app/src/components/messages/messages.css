@@ -8,8 +8,8 @@
 
 .channel-name {
     width: 100%;
-    height: 70px;
-    border-bottom: 1px solid black;
+    height: 52px;
+    border-bottom: 2px rgb(47,49,54) solid;
     display: flex;
     justify-content: flex-start;
     align-items:center;
@@ -18,7 +18,6 @@
     font-size: 15px;
     font-weight: bold;
     background-color: rgb(54,57,63);
-    z-index: 1;
 }
 
 .hashtag{
@@ -30,7 +29,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 85vh;
+    height: 87vh;
     width: calc(100% - 5px);
     color: rgb(220, 219, 212);
     font-family: monospace;
@@ -38,7 +37,20 @@
     overflow-y: auto;
     overflow-x: hidden;
     vertical-align: bottom;
+    scrollbar-color: red yellow;
 }
+
+.messages-div::-webkit-scrollbar {
+    width: 8px;
+  }
+
+.messages-div::-webkit-scrollbar-track {
+    background: rgb(46, 51, 56);
+}
+
+.messages-div::-webkit-scrollbar-thumb {
+    background-color: rgb(32, 34, 37);    /* color of the scroll thumb */
+  }
 
 .welcomeDiv {
     margin-top: auto;
@@ -262,15 +274,17 @@
     padding: 10px 0 10px 15px;
 }
 .welcomeMessage {
-font-weight: 900;
-font-size: 30px;
-font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
 }
 
 .welcomeInfo {
     font-weight: 400;
     line-height: 35px;
     font-family: Arial, Helvetica, sans-serif;
+    color: rgb(173, 183, 186);
 }
 
 hr {
@@ -278,9 +292,12 @@ hr {
 }
 
 .fa-hashtag {
+    color: white;
     border-radius: 50%;
     padding: 15px;
     font-size: 47px;
-    background-color: #4c4c52;
+    background-color: rgb(79, 84, 92);
     margin-bottom: 10px;
+    height: 42px;
+    width: 42px;
 }
