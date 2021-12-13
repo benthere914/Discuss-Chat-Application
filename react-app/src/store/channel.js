@@ -55,7 +55,7 @@ export const addNewChannel = (server_id, name) => async (dispatch) => {
     if (response.ok) {
       const data = await response.json();
       dispatch(addChannel(data))
-      return null;
+      return ["Created", data.id];
     } else if (response.status < 500) {
       const data = await response.json();
       if (data.errors) {

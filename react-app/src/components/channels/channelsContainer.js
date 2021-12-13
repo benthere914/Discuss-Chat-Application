@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useParams, useHistory, Redirect } from "react-router-dom";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
+// import { addNewMessage } from "../../store/messages";
 import { loadUserChannels, addNewChannel } from '../../store/channel';
 import {
   loadUserServers,
@@ -35,11 +36,21 @@ function ChannelsContainer() {
 
     const [showDelete, setShowDelete] = useState('');
     const _channels = useSelector(state => Object.values(state.channels));
+
+    useEffect(() => {
+        if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
+            if (_channels[0]){history.push(`/channels/${serverId}/${_channels[0]?.id}`)}
+        }
+    }, [_channels, params, serverId, history])
+
+
+    // const _channels = useSelector(state => Object.values(state.channels));
     // useEffect(() => {
     //     if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
     //         if (_channels[0]){history.push(`/channels/${serverId}/${_channels[0]?.id}`)}
     //     }
     // }, [_channels, params, serverId, history])
+
     useEffect(() => {
         dispatch(loadUserChannels(serverId))
         dispatch(loadUserServers(user?.id))
@@ -78,11 +89,13 @@ function ChannelsContainer() {
         setErrors([])
 
         const data = await dispatch(addNewChannel(serverId, name))
-        if (data) {
+        if (data[0] !== "Created") {
+          // dispatch(addNewMessage(channelId, userId, "hello"));
             setErrors(data)
         } else {
             setChannelName('')
             setShowAddForm(false)
+            history.push(`/channels/${serverId}/${data[1]}`)
         }
     }
 
@@ -108,7 +121,8 @@ function ChannelsContainer() {
         if (!errors) {
             setShowDelete(false)
             setShowEditForm(false)
-            return <Redirect to="/" />
+            // return <Redirect to="/channels" />
+            history.push(`/channels`);
         } else {
             //Show an error somewhere
         }
@@ -166,7 +180,7 @@ function ChannelsContainer() {
                     </>
                   </>
                 ) : (
-                  <h3>Select a Valid Server </h3>
+                  <h3 id="selectValidServer">Select a Valid Server </h3>
                 )
                 }
             </div>
@@ -201,17 +215,10 @@ function ChannelsContainer() {
                           activeClassName="selectedChannel"
                         >
                           <>
-                            {channel?.name.length > 16 ? (
-                              <h4
-                                key={channel?.id}
-                                className="channelName"
-                              >{`# ${channel?.name.substring(0, 16)}...`}</h4>
-                            ) : (
                               <h4
                                 key={channel?.id}
                                 className="channelName"
                               >{`# ${channel?.name}`}</h4>
-                            )}
                           </>
                         </NavLink>
                       </div>

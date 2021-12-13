@@ -1,10 +1,14 @@
 .membersTab{
     display: flex;
     flex-direction: column;
-    border-left: 2px black solid;
+    border-left: 2px rgb(47,49,54) solid;
+    border-top: 1px rgb(36, 37, 41) solid;
     width: 200px;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 55px);
     font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(47,49,54);
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .membersTitle{
