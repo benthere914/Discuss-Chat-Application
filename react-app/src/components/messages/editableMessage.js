@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  useDispatch } from 'react-redux';
 import { deleteSingleMessage, updateMessageBody } from '../../store/messages';
 import './editableMessages.css'
 
-function EditableMessage({userId, channelId, message}) {
+function EditableMessage({userId, channelId, message, liveMessage}) {
     const dispatch = useDispatch();
     const channel_id = channelId;
     const message_id = message.id;
     const user_id = userId;
-    const [messageBody, setMessageBody] = useState(message?.message);
 
+    const [messageBody, setMessageBody] = useState(message?.message);
     const [showEdit, setShowEdit] = useState(false);
-    const [showDelete, setShowDelete] = useState(false)
+    const [showDelete, setShowDelete] = useState(false);
+
+    //Cleanup function
+    useEffect(() => {
+
+        return () => {
+            setMessageBody('')
+            setShowEdit(false)
+            setShowDelete(false)
+        }
+      }, [])
 
     const handleCancel = () => {
         setShowDelete(false)
@@ -21,19 +31,35 @@ function EditableMessage({userId, channelId, message}) {
 
         e.preventDefault();
 
-        const data = await dispatch(deleteSingleMessage(message_id))
-        if (data) {
+        if (!liveMessage) {
+            const data = await dispatch(deleteSingleMessage(message_id, liveMessage))
+
+            if (data) {
+            } else {
+                setShowDelete(false)
+            }
+
         } else {
+            await dispatch(deleteSingleMessage(message_id, liveMessage))
+            const deletedMessage = document.querySelector(`[data-messagetodelete='${message_id}']`)
+            deletedMessage.remove();
             setShowDelete(false)
         }
+
     }
 
     const updateMessage = async (e) => {
         e?.preventDefault();
 
-        await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody))
-        setShowEdit(false)
-        // window.location.reload()
+        if (!liveMessage) {
+            console.log(message_id, channel_id, user_id, messageBody, liveMessage)
+            await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
+            setShowEdit(false)
+        } else {
+            console.log(message_id, channel_id, user_id, messageBody, liveMessage)
+            await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
+            setShowEdit(false)
+        }
 
     }
 
@@ -57,7 +83,7 @@ function EditableMessage({userId, channelId, message}) {
                             </div>
                         </div>
                         <div className="message-text">
-                            {message?.message}
+                            {messageBody}
                         </div>
                     </div>
                 </div>

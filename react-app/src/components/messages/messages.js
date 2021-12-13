@@ -7,15 +7,13 @@ import EditableMessage from "./editableMessage";
 import './messages.css'
 import hashtag from '../images/hashtag.png'
 import Members from "../members/members";
+import { io } from 'socket.io-client';
+
+let socket;
 
 function Messages() {
     const dispatch = useDispatch();
     const { channelId } = useParams();
-
-
-    //state
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [message, setMessage] = useState("")
 
     //selectors
     const messages = useSelector(state => Object.values(state.messages));
@@ -23,11 +21,44 @@ function Messages() {
     const channel = channels.find(channel => channel?.id === parseInt(channelId));
     const userId = useSelector(state => state.session.user?.id);
 
+    //state
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [message, setMessage] = useState("");
+    const [liveMessages, setLiveMessages] = useState([]);
+    const [lastRoom, setLastRoom] = useState(channelId);
 
     //misc
     const placeholder = `Message #${channel?.name}`
 
     const messagesEnd = useRef(null)
+
+    useEffect(() => {
+
+        // create websocket
+        socket = io();
+
+        // listen for chat events
+        socket.on("receive-message", (chat) => {
+            // when we recieve a chat, add it into our messages array in state
+            setLiveMessages(liveMessages => [...liveMessages, chat])
+            // console.log("I GOT THE MESSAGE!!!!!!!!!!!!")
+        })
+
+        // when component unmounts, disconnect
+        return (() => {
+            socket.disconnect()
+        })
+    }, [])
+
+    // Join and leave rooms
+    useEffect(() => {
+        console.log("Leaving Room", lastRoom)
+        socket.emit("leave", {lastRoom: Number(lastRoom)})
+        console.log("Joining Room", channelId)
+        socket.emit("join-room", {currentRoom: Number(channelId)});
+        setLiveMessages([]);
+        setLastRoom(channelId);
+      }, [channelId]);
 
     //functions
     useEffect(() => {
@@ -46,9 +77,10 @@ function Messages() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        // let newErrors = [];
-        await dispatch(addNewMessage(channelId, userId, message))
-        // window.scroll(0, document.querySelector(".messages-div").scrollHeight)
+      
+        const newMessage = await dispatch(addNewMessage(channelId, userId, message))
+        socket.emit("send-chat", newMessage)
+        
         document.querySelector(".messages-div").scrollTop = document.querySelector(".messages-div").scrollHeight
         setMessage("")
 
@@ -129,6 +161,30 @@ function Messages() {
                       );
                     }
                   })}
+                  {liveMessages?.map(message => {
+                                if (userId === message?.user_id) {
+                                    return (
+
+                                        <div className='owner-msg-box' key={message?.id} data-messagetodelete={message.id}>
+                                            <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
+                                            <EditableMessage userId={message?.user_id} channelId={channelId} message={message} liveMessage={true} key={`editableMessage_${message?.id}`}/>
+                                        </div>
+                                    )
+                                } else {
+                                    return (
+                                            <div className='gen-msg-box' key={message?.id}>
+                                                <img src={message?.user?.icon} className="temp" alt="temp-icon" width="42" height="42"></img>
+                                                <div key={message?.id} className="gen-messages">
+                                                    <div className="user-time">
+                                                        <div style={{ fontWeight: 900, fontSize: 17 }}> {message?.user?.username}</div>
+                                                        <div className="time">{message?.date.slice(0,16)}</div>
+                                                    </div>
+                                                    {message?.message}
+                                                </div>
+                                            </div>
+                                    )
+                                }
+                            })}
                 </>
               )}
               <div ref={messagesEnd}></div>
