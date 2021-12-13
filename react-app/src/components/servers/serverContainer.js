@@ -92,17 +92,13 @@ function ServersContainer() {
     }
 
     const displayNameHover = (e) => {
-      if (e.target.className === 'fas fa-plus') {
-
+      //Don't show it if you hover over the icon names
+      if (e.target.className === 'fas fa-plus' || e.target.className === "fas fa-compass") {
+        return
       } else {
         const elementPosition = e.target.getBoundingClientRect().y + 7
         setHoverPosition(elementPosition)
       }
-    }
-
-    const displayGuildHover = (e) => {
-      const elementPosition = e.target.getBoundingClientRect().y + 7
-      setHoverPosition(elementPosition)
     }
 
     //Redirect to login screen if no user is logged in
