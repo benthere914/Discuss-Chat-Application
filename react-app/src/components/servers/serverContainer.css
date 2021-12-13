@@ -155,7 +155,8 @@
 }
 
 #expPublicServer {
-    visibility: hidden;
+    visibility: visible;
+    z-index: 10;
     position: absolute;
     top: 7px;
     left: 65px;
@@ -167,6 +168,7 @@
     border-radius: 5px;
     min-width: 180px;
     text-align: center;
+    font-size: 40px;
 }
 
 .noIconServer:hover + #expPublicServer {

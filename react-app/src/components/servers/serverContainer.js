@@ -100,6 +100,11 @@ function ServersContainer() {
       }
     }
 
+    const displayGuildHover = (e) => {
+      const elementPosition = e.target.getBoundingClientRect().y + 7
+      setHoverPosition(elementPosition)
+    }
+
     //Redirect to login screen if no user is logged in
     if (!user) {
       return <Redirect to="/login" />
@@ -157,8 +162,10 @@ function ServersContainer() {
                 <div className="noIconServer" id="guildDiscoveryButton">
                   <i className="fas fa-compass"></i>
                 </div>
-                <div id="noShow" className="activeServerIndicator"></div>
-                <div id="serverNameHover" style={{ top: hoverPosition }} >Explore Public Servers</div>
+                <div
+                  id="serverNameHover"
+                  style={{ top: hoverPosition }}
+                  >Explore Public Servers </div>
               </div>
             </NavLink>
           </div>
