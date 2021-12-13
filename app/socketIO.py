@@ -19,8 +19,6 @@ socketio = SocketIO(cors_allowed_origins=origins)
 @socketio.on("send-chat")
 def send_chat_out(chatData):
     room = chatData['channel_id']
-    print("Sending TO ROOM ******************", room)
-    print(chatData)
     finalChat = {'id': chatData['id'], 'message': chatData['message'], "user": chatData['user'], "user_id": chatData['user_id'], 'date': chatData['date']}
     emit("receive-message", finalChat, room=room)
 

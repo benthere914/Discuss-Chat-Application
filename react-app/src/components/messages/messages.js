@@ -51,9 +51,7 @@ function Messages() {
 
     // Join and leave rooms
     useEffect(() => {
-        console.log("Leaving Room", lastRoom)
         socket.emit("leave", {lastRoom: Number(lastRoom)})
-        console.log("Joining Room", channelId)
         socket.emit("join-room", {currentRoom: Number(channelId)});
         setLiveMessages([]);
         setLastRoom(channelId);
