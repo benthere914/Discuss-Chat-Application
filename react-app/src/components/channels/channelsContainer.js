@@ -129,10 +129,8 @@ function ChannelsContainer() {
     }
 
     const handleEdit = async (e) => {
-
       e.preventDefault();
       const editedserver = await dispatch(editServer(serverName, serverDescription, serverIcon, serverId));
-
       if (editedserver) {
         setShowEditForm(false)
       }
@@ -204,6 +202,7 @@ function ChannelsContainer() {
                         server={server}
                         channel={channel}
                         key={`editableChannel_${channel?.id}_${index}`}
+                        setErrors={setErrors}
                       />
                     );
                   } else {
@@ -227,10 +226,10 @@ function ChannelsContainer() {
                 })}
               </div>
             ) : (null)}
-        {errors.length > 0 && (
+        {errors?.length > 0 && (
             <>
-                {errors.map((error, index) =>
-                    <p key={`${error}_${index}`}>{error}</p>
+                {!showAddForm && errors.map((error, index) =>
+                    <p style={{color: 'white'}} key={`${error}_${index}`}>{error}</p>
                 )}
             </>
         )}
