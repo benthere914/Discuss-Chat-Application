@@ -41,7 +41,6 @@ function Messages() {
         socket.on("receive-message", (chat) => {
             // when we recieve a chat, add it into our messages array in state
             setLiveMessages(liveMessages => [...liveMessages, chat])
-            // console.log("I GOT THE MESSAGE!!!!!!!!!!!!")
         })
 
         // when component unmounts, disconnect

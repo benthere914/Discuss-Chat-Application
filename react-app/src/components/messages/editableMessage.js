@@ -51,16 +51,8 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
     const updateMessage = async (e) => {
         e?.preventDefault();
 
-        if (!liveMessage) {
-            console.log(message_id, channel_id, user_id, messageBody, liveMessage)
-            await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
-            setShowEdit(false)
-        } else {
-            console.log(message_id, channel_id, user_id, messageBody, liveMessage)
-            await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
-            setShowEdit(false)
-        }
-
+        await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
+        setShowEdit(false)
     }
 
     return (
