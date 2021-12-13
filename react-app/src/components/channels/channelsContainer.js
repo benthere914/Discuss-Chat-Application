@@ -101,6 +101,7 @@ function ChannelsContainer() {
 
     const handleCancel = (e) => {
         e.preventDefault();
+        setErrors([])
         setChannelName('')
         setShowAddForm(false)
     }
@@ -238,6 +239,9 @@ function ChannelsContainer() {
                 <div className="addChannelFormContainer">
                     <h3>Create Text Channel</h3>
                     <h5>in Text Channels</h5>
+                    {errors.map((error, index) =>
+                    <p style={{color: 'white'}} key={`${error}_${index}`}>{error}</p>
+                    )}
                     <form onSubmit={addChannel} autoComplete="off">
                         <div className="addChannelInput">
                             <label>CHANNEL NAME</label>
