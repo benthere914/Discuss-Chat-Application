@@ -72,13 +72,13 @@
     visibility: visible;
 }
 
-#addServerButton {
+#addServerButton, #guildDiscoveryButton {
     cursor: pointer;
     color: rgb(59,165,93);
     margin-bottom: 12px;
 }
 
-#addServerButton:hover {
+#addServerButton:hover, #guildDiscoveryButton:hover {
     background-color: rgb(59,165,93);
     color: white;
 }
@@ -205,7 +205,7 @@
     visibility: visible;
 }
 
-.selectedServer #addServerButton {
+.selectedServer #addServerButton, .selectedServer #guildDiscoveryButton {
     background-color: rgb(59,165,93);
     color: white;
 }
