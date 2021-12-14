@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateChannelName, deleteSingleChannel } from '../../store/channel';
 import './editableChannels.css'
 
-function EditableChannel({server, channel, setErrors}) {
+function EditableChannel({server, channel, setErrors, setBadName}) {
   const dispatch = useDispatch();
   const history = useHistory()
   const serverId = server?.id;
@@ -40,11 +40,13 @@ function EditableChannel({server, channel, setErrors}) {
 
   const updateChannel = async (e) => {
     setErrors([]);
+    setBadName(false);
     e.preventDefault();
     const channelId = channel.id;
     const data = await dispatch(updateChannelName(channelId, serverId, name));
     if (data) {
       setErrors(data);
+      setBadName(true);
     } else {
       setShowEdit(false);
     }
@@ -99,7 +101,7 @@ function EditableChannel({server, channel, setErrors}) {
                                 <i className="far fa-check-circle"></i>
                             </div>
                         </button>
-                        <button type="button" onClick={() => {setErrors([]);setShowEdit(false)}}>
+                        <button type="button" onClick={() => {setErrors([]);setBadName();setShowEdit(false)}}>
                             <div className="editChannelIcons">
                                 <i className="fas fa-times"></i>
                             </div>
