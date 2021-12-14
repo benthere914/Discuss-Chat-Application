@@ -35,7 +35,11 @@ function ChannelsContainer() {
     const [serverDescription, setServerDescription] = useState('');
 
     const [showDelete, setShowDelete] = useState('');
+    const [badName, setBadName] = useState(false)
     const _channels = useSelector(state => Object.values(state.channels));
+    const [showEdit, setShowEdit] = useState(false);
+
+    console.log(badName, errors, showAddForm)
 
     useEffect(() => {
         if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
@@ -92,6 +96,7 @@ function ChannelsContainer() {
         if (data[0] !== "Created") {
           // dispatch(addNewMessage(channelId, userId, "hello"));
             setErrors(data)
+            setBadName(true)
         } else {
             setChannelName('')
             setShowAddForm(false)
@@ -101,6 +106,7 @@ function ChannelsContainer() {
 
     const handleCancel = (e) => {
         e.preventDefault();
+        setErrors([])
         setChannelName('')
         setShowAddForm(false)
     }
@@ -129,10 +135,8 @@ function ChannelsContainer() {
     }
 
     const handleEdit = async (e) => {
-
       e.preventDefault();
       const editedserver = await dispatch(editServer(serverName, serverDescription, serverIcon, serverId));
-
       if (editedserver) {
         setShowEditForm(false)
       }
@@ -188,7 +192,7 @@ function ChannelsContainer() {
               <div className="textChannelHeaderContainer">
                 <h3 className="textChannels">TEXT CHANNELS</h3>
                 {user?.id === server?.owner_id && (
-                  <div onClick={() => setShowAddForm(true)}>
+                  <div onClick={() => {setShowAddForm(true);setBadName(false);setErrors([])}}>
                     <i className="fas fa-plus"></i>
                   </div>
                 )}
@@ -204,6 +208,8 @@ function ChannelsContainer() {
                         server={server}
                         channel={channel}
                         key={`editableChannel_${channel?.id}_${index}`}
+                        setErrors={setErrors}
+                        setBadName={setBadName}
                       />
                     );
                   } else {
@@ -227,10 +233,12 @@ function ChannelsContainer() {
                 })}
               </div>
             ) : (null)}
-        {errors.length > 0 && (
+        {errors?.length > 0 && (
             <>
-                {errors.map((error, index) =>
-                    <p key={`${error}_${index}`}>{error}</p>
+
+                {!showAddForm && badName && <p style={{color: 'white'}}>{errors[0].slice(7, 100)}</p>}
+                {!showAddForm && !badName && errors.map((error, index) =>
+                    <p style={{color: 'white'}} key={`${error}_${index}`}>{error}</p>
                 )}
             </>
         )}
@@ -239,6 +247,7 @@ function ChannelsContainer() {
                 <div className="addChannelFormContainer">
                     <h3>Create Text Channel</h3>
                     <h5>in Text Channels</h5>
+                    {badName &&<p style={{color: 'white'}}>{errors[0]?.slice(7, 100)}</p>}
                     <form onSubmit={addChannel} autoComplete="off">
                         <div className="addChannelInput">
                             <label>CHANNEL NAME</label>
