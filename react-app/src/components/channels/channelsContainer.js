@@ -66,6 +66,13 @@ function ChannelsContainer() {
 
     }, [dispatch, serverId, user])
 
+    useEffect(async () => {
+        if (serverId && user?.id){
+            const response = await fetch(`/api/servers/${serverId}/${user?.id}`);
+            if (!response.ok){history.push('/404')}
+        }
+    }, [serverId, user?.id])
+
     useEffect(() => {
         setServerName(server?.name)
         setServerIcon(server?.icon)
