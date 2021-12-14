@@ -23,7 +23,6 @@ function ServersContainer() {
     const user = useSelector(state => state.session.user);
 
 
-
     const [serverName, setServerName] = useState('');
     const [serverDescription, setServerDescription] = useState('');
     const [serverIcon, setServerIcon] = useState('');
@@ -93,8 +92,9 @@ function ServersContainer() {
     }
 
     const displayNameHover = (e) => {
-      if (e.target.className === 'fas fa-plus') {
-
+      //Don't show it if you hover over the icon names
+      if (e.target.className === 'fas fa-plus' || e.target.className === "fas fa-compass") {
+        return
       } else {
         const elementPosition = e.target.getBoundingClientRect().y + 7
         setHoverPosition(elementPosition)
@@ -153,13 +153,15 @@ function ServersContainer() {
               </div>
               <div id="serverNameHover" style={{ top: hoverPosition }}>Add a Server</div>
             </div>
-            <NavLink to={"/guild-discovery"} className="singleServer" activeClassName="selectedServer">
+            <NavLink to={"/guild-discovery"} className="singleServer" activeClassName="selectedServer" onMouseOver={(e) => displayNameHover(e)}>
               <div className="serverInfo">
-                <div className="noIconServer" id="addServerButton">
+                <div className="noIconServer" id="guildDiscoveryButton">
                   <i className="fas fa-compass"></i>
                 </div>
-                <div id="noShow" className="activeServerIndicator"></div>
-                <div id="expPublicServer">Explore Public Servers</div>
+                <div
+                  id="serverNameHover"
+                  style={{ top: hoverPosition }}
+                  >Explore Public Servers </div>
               </div>
             </NavLink>
           </div>
