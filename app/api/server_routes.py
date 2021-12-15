@@ -8,6 +8,13 @@ from sqlalchemy import desc
 
 server_routes = Blueprint('servers', __name__)
 
+# returns an ok response if the user is part of the server
+@server_routes.route('/<int:server_id>/<int:user_id>')
+def user_in_server(server_id, user_id):
+    print(server_id, user_id)
+    server_member = Server_Member.query.filter(Server_Member.server_id == server_id).filter(Server_Member.user_id == user_id).first()
+    return server_member.to_dict()
+
 # Get all servers. Maybe used for the search functionality
 # (or perhaps to show a random assortment of servers on the guild-discovery page)
 @server_routes.route('/')

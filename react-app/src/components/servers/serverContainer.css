@@ -72,13 +72,13 @@
     visibility: visible;
 }
 
-#addServerButton {
+#addServerButton, #guildDiscoveryButton {
     cursor: pointer;
     color: rgb(59,165,93);
     margin-bottom: 12px;
 }
 
-#addServerButton:hover {
+#addServerButton:hover, #guildDiscoveryButton:hover {
     background-color: rgb(59,165,93);
     color: white;
 }
@@ -154,25 +154,6 @@
     cursor: pointer;
 }
 
-#expPublicServer {
-    visibility: hidden;
-    position: absolute;
-    top: 7px;
-    left: 65px;
-    text-decoration: none;
-    color: white;
-    padding: 7px;
-    background-color: rgb(24,25,28);
-    font-family: Arial, Helvetica, sans-serif;
-    border-radius: 5px;
-    min-width: 180px;
-    text-align: center;
-}
-
-.noIconServer:hover + #expPublicServer {
-    visibility: visible;
-}
-
 .activeServerIndicator {
     position: absolute;
     top: 18px;
@@ -205,7 +186,7 @@
     visibility: visible;
 }
 
-.selectedServer #addServerButton {
+.selectedServer #addServerButton, .selectedServer #guildDiscoveryButton {
     background-color: rgb(59,165,93);
     color: white;
 }

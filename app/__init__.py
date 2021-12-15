@@ -22,6 +22,8 @@ from .seeds import seed_commands
 
 from .config import Config
 
+from .socketIO import socketio
+
 app = Flask(__name__)
 
 # def func():
@@ -59,6 +61,7 @@ app.register_blueprint(message_routes, url_prefix='/api/messages')
 
 db.init_app(app)
 Migrate(app, db)
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
@@ -96,3 +99,6 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
+
+if __name__ == '__main__':
+    socketio.run(app)
