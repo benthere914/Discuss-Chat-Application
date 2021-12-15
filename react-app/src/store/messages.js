@@ -56,7 +56,7 @@ export const addNewMessage = (channel_id, user_id, message) => async (dispatch) 
     if (response.ok) {
       const data = await response.json();
       dispatch(addMessage(data))
-      return data;
+      return null;
     } else if (response.status < 500) {
       const data = await response.json();
       if (data.errors) {
@@ -67,7 +67,7 @@ export const addNewMessage = (channel_id, user_id, message) => async (dispatch) 
     }
 }
 
-export const updateMessageBody = (message_id, channel_id, user_id, message, liveMessage) => async (dispatch) => {
+export const updateMessageBody = (message_id, channel_id, user_id, message) => async (dispatch) => {
     const response = await fetch(`/api/messages/${message_id}`, {
         method: 'PATCH',
         headers: {
@@ -81,12 +81,10 @@ export const updateMessageBody = (message_id, channel_id, user_id, message, live
         }),
       });
 
-      if (response.ok && !liveMessage) {
+      if (response.ok) {
         const data = await response.json();
         dispatch(updateMessage(data))
         return null;
-      } else if (response.ok && liveMessage) {
-        return null
       } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -97,16 +95,14 @@ export const updateMessageBody = (message_id, channel_id, user_id, message, live
       }
 }
 
-export const deleteSingleMessage = (message_id, liveMessage) => async (dispatch) => {
+export const deleteSingleMessage = (message_id) => async (dispatch) => {
   const response = await fetch(`/api/messages/${message_id}`, {
       method: 'DELETE',
       body: JSON.stringify({message_id})
   });
 
-  if (response.ok && !liveMessage) {
+  if (response.ok) {
     dispatch(deleteMessage(message_id))
-    return null;
-  } else if (response.ok && liveMessage ){
     return null;
   } else {
     return ['An error occurred. Please try again.']
@@ -127,7 +123,7 @@ const messagesReducer = (state = initialState, action) => {
         case ADD_MESSAGE:
             return {
                 ...state,
-                // [action.message.id]: action.message,
+                [action.message.id]: action.message,
             }
         case UPDATE_MESSAGE:
             return {

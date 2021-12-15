@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {  useDispatch } from 'react-redux';
 import { deleteSingleMessage, updateMessageBody } from '../../store/messages';
 import './editableMessages.css'
 
-function EditableMessage({userId, channelId, message, liveMessage}) {
+function EditableMessage({userId, channelId, message}) {
     const dispatch = useDispatch();
     const channel_id = channelId;
     const message_id = message.id;
     const user_id = userId;
-
     const [messageBody, setMessageBody] = useState(message?.message);
+
     const [showEdit, setShowEdit] = useState(false);
-    const [showDelete, setShowDelete] = useState(false);
-
-    //Cleanup function
-    useEffect(() => {
-
-        return () => {
-            setMessageBody('')
-            setShowEdit(false)
-            setShowDelete(false)
-        }
-      }, [])
+    const [showDelete, setShowDelete] = useState(false)
 
     const handleCancel = () => {
         setShowDelete(false)
@@ -31,28 +21,20 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
 
         e.preventDefault();
 
-        if (!liveMessage) {
-            const data = await dispatch(deleteSingleMessage(message_id, liveMessage))
-
-            if (data) {
-            } else {
-                setShowDelete(false)
-            }
-
+        const data = await dispatch(deleteSingleMessage(message_id))
+        if (data) {
         } else {
-            await dispatch(deleteSingleMessage(message_id, liveMessage))
-            const deletedMessage = document.querySelector(`[data-messagetodelete='${message_id}']`)
-            deletedMessage.remove();
             setShowDelete(false)
         }
-
     }
 
     const updateMessage = async (e) => {
         e?.preventDefault();
 
-        await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
+        await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody))
         setShowEdit(false)
+        // window.location.reload()
+
     }
 
     return (
@@ -75,7 +57,7 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
                             </div>
                         </div>
                         <div className="message-text">
-                            {messageBody}
+                            {message?.message}
                         </div>
                     </div>
                 </div>
