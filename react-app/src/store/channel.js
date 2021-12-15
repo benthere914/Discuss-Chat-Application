@@ -79,11 +79,12 @@ export const updateChannelName = (channel_id, server_id, name) => async (dispatc
         }),
       });
 
-      const data = await response.json();
       if (response.ok) {
+        const data = await response.json();
         dispatch(updateChannel(data))
         return null;
       } else if (response.status < 500) {
+        const data = await response.json();
         if (data.errors) {
           return data.errors;
         }
