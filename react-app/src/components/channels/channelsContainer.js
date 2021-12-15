@@ -37,9 +37,7 @@ function ChannelsContainer() {
     const [showDelete, setShowDelete] = useState('');
     const [badName, setBadName] = useState(false)
     const _channels = useSelector(state => Object.values(state.channels));
-    const [showEdit, setShowEdit] = useState(false);
-
-    console.log(badName, errors, showAddForm)
+    // const [showEdit, setShowEdit] = useState(false);
 
     useEffect(() => {
         if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
