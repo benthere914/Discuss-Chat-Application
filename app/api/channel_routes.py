@@ -15,9 +15,10 @@ channel_routes = Blueprint('channels', __name__)
 @login_required
 def update_channel(channelId):
     form = UpdatedChannelForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        print('got here')
+        print('got here 2')
         channel = Channel.query.filter(Channel.id == form.data['channel_id']).first()
         channel.name = form.data['name']
         db.session.commit()
