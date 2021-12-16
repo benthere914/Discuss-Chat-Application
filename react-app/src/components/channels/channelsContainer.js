@@ -125,6 +125,9 @@ useEffect(() => {
     const handleEditCancel = (e) => {
         e.preventDefault();
         setShowEditForm(false)
+        setServerName(server?.name)
+        setServerIcon(server?.icon)
+        setServerDescription(server?.description || '')
     }
 
     const handleDeleteCancel = () => {
