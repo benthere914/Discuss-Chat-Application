@@ -40,8 +40,6 @@ function ChannelsContainer() {
     const _channels = useSelector(state => Object.values(state.channels));
     const [showEdit, setShowEdit] = useState(false);
 
-    // console.log(badName, errors, showAddForm)
-
     useEffect(() => {
         if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
             if (_channels[0]){history.push(`/channels/${serverId}/${_channels[0]?.id}`)}
