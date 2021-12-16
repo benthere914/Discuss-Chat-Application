@@ -309,7 +309,7 @@ useEffect(() => {
                   <form autoComplete="off">
                     <ul>
                       {editErrors.map((error) => (
-                        <li key={error}>{editErrors}</li>
+                        <li key={error} className="serverNameError">{editErrors}</li>
                       ))}
                     </ul>
                     <div className="editServerFormContainer">
@@ -333,6 +333,7 @@ useEffect(() => {
                             value={serverName}
                             required
                             autoComplete="off"
+                            maxLength='40'
                             onChange={(e) => setServerName(e.target.value)}
                           />
                         </div>
@@ -351,6 +352,7 @@ useEffect(() => {
                             type="text"
                             value={serverDescription}
                             autoComplete="off"
+                            maxLength='500'
                             onChange={(e) =>
                               setServerDescription(e.target.value)
                             }
