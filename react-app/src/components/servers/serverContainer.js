@@ -42,7 +42,7 @@ function ServersContainer() {
 
 useEffect(() => {
   const errors = [];
-  if (serverName?.length >= 40)
+  if (serverName?.length > 40)
     errors.push("Server name must be less than 40 characters.");
     setErrors(errors);
 }, [serverName]);

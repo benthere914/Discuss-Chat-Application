@@ -22,6 +22,7 @@ function ChannelsContainer() {
     const server = useSelector(state => state.servers[serverId])
 
     const [name, setChannelName] = useState('');
+    const [editErrors, seteditErrors] = useState([]);
     const [errors, setErrors] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [showAddForm, setShowAddForm] = useState(false);
@@ -39,7 +40,7 @@ function ChannelsContainer() {
     const _channels = useSelector(state => Object.values(state.channels));
     const [showEdit, setShowEdit] = useState(false);
 
-    console.log(badName, errors, showAddForm)
+    // console.log(badName, errors, showAddForm)
 
     useEffect(() => {
         if (_channels.length > 0 && serverId && Object.keys(params).length === 1 && _channels[0]?.server_id === +serverId){
@@ -48,10 +49,10 @@ function ChannelsContainer() {
     }, [_channels, params, serverId, history])
 
 useEffect(() => {
-  const errors = [];
-  if (serverName?.length >= 40)
-    errors.push("Server name must be less than 40 characters.");
-  setErrors(errors);
+  const editErrors = [];
+  if (serverName?.length > 40)
+    editErrors.push("Server name must be less than 40 characters.");
+  seteditErrors(editErrors);
 }, [serverName]);
     // const _channels = useSelector(state => Object.values(state.channels));
     // useEffect(() => {
@@ -309,8 +310,8 @@ useEffect(() => {
                   <h3 id="serverOverview">Server Overview</h3>
                   <form autoComplete="off">
                     <ul>
-                      {errors.map((error) => (
-                        <li key={error}>{error}</li>
+                      {editErrors.map((error) => (
+                        <li key={error}>{editErrors}</li>
                       ))}
                     </ul>
                     <div className="editServerFormContainer">
