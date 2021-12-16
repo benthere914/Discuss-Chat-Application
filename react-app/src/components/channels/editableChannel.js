@@ -101,7 +101,7 @@ function EditableChannel({server, channel, setErrors, setBadName}) {
                                 <i className="far fa-check-circle"></i>
                             </div>
                         </button>
-                        <button type="button" onClick={() => {setErrors([]);setBadName();setShowEdit(false)}}>
+                        <button type="button" onClick={() => {setErrors([]);setBadName();setShowEdit(false);setChannelName(channel?.name)}}>
                             <div className="editChannelIcons">
                                 <i className="fas fa-times"></i>
                             </div>

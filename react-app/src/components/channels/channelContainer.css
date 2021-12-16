@@ -71,6 +71,10 @@
     text-overflow: ellipsis;
 }
 
+.serverNameError {
+    color: rgb(237,66,69);
+}
+
 #leaveServerIcon:hover {
     color: rgb(237,66,69);
 }
