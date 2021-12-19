@@ -3,7 +3,7 @@ import {  useDispatch } from 'react-redux';
 import { deleteSingleMessage, updateMessageBody } from '../../store/messages';
 import './editableMessages.css'
 
-function EditableMessage({userId, channelId, message, liveMessage}) {
+function EditableMessage({userId, channelId, message, liveMessage, editingMessageId, setEditingMessageId}) {
     const dispatch = useDispatch();
     const channel_id = channelId;
     const message_id = message.id;
@@ -18,7 +18,8 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
 
         return () => {
             setMessageBody('')
-            setShowEdit(false)
+            // setShowEdit(false)
+            setEditingMessageId(message_id);
             setShowDelete(false)
         }
       }, [])
@@ -52,12 +53,12 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
         e?.preventDefault();
 
         await dispatch(updateMessageBody(message_id, channel_id, user_id, messageBody, liveMessage))
-        setShowEdit(false)
+        setEditingMessageId(undefined)
     }
 
     return (
         <div className="messageNameHolder" id="editableMessage">
-            {!showEdit && !showDelete && (
+            {editingMessageId !== message_id && !showDelete && (
                 <div className="owner-messages">
                     <div className="own-msg-test"key={message?.id}>
                         <div className="text-header">
@@ -66,7 +67,7 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
                                 <div className="time">{message?.date.slice(0,16)}</div>
                             </div>
                             <div className="editMessageIconContainer">
-                                 <div className="editMessageIcons" id="leftIconMessage" onClick={() => setShowEdit(true)}>
+                                 <div className="editMessageIcons" id="leftIconMessage" onClick={() => setEditingMessageId(message_id)}>
                                     <i className="fas fa-cog" id="editIcons"></i>
                                 </div>
                                 <div className="editMessageIcons" onClick={() => setShowDelete(true)}>
@@ -80,7 +81,7 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
                     </div>
                 </div>
             )}
-            {showEdit && (
+            {editingMessageId === message_id && (
                 <div>
                     <div className="owner-messages">
                         <div className="own-msg-test"key={message?.id}>
@@ -101,7 +102,7 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
                                         onKeyDown={(e) => {if (e.key === 'Enter'){updateMessage()}}}
                                     />
                                     <div className="edit-buttons">
-                                        <button onClick={() => setShowEdit(false)}>
+                                        <button onClick={() => setEditingMessageId(undefined)}>
                                             <div className="editChannelIcons">
                                                 <i className="edit-hyper">cancel</i>
                                             </div>
@@ -145,7 +146,6 @@ function EditableMessage({userId, channelId, message, liveMessage}) {
                         </div>
                     </div>
                 </div>
-
             )}
         </div>
 
