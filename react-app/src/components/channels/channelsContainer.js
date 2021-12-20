@@ -15,7 +15,7 @@ import './channelContainer.css'
 function ChannelsContainer() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { serverId } = useParams();
+    const { serverId, channelId } = useParams();
     const params = useParams()
     const user = useSelector(state => state.session.user);
     const channels = useSelector(state => Object.values(state.channels));
@@ -76,6 +76,13 @@ useEffect(() => {
             if (!response.ok){history.push('/404')}
         }
     }, [serverId, user?.id])
+
+       useEffect(async () => {
+        if (serverId && channelId){
+            const response = await fetch(`/api/servers/${serverId}/channels/${channelId}`);
+            if (!response.ok){history.push('/404')}
+        }
+    }, [serverId, channelId])
 
     useEffect(() => {
         setServerName(server?.name)
