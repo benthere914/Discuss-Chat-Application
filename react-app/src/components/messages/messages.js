@@ -26,9 +26,10 @@ function Messages() {
     const [message, setMessage] = useState("");
     const [liveMessages, setLiveMessages] = useState([]);
     const [lastRoom, setLastRoom] = useState(channelId);
+    const [editingMessageId, setEditingMessageId] = useState(undefined);
+    const [characterCount, setCharacterCount] = useState(undefined)
 
     //misc
-    const placeholder = `Message #${channel?.name}`
 
     const messagesEnd = useRef(null)
 
@@ -83,6 +84,22 @@ function Messages() {
 
       };
 
+    let currentCount = 2000
+
+    const messageHandler = (e) => {
+      setMessage(e.target.value)
+      currentCount -= e.target.value.length
+
+      if (currentCount >= 200) {
+        setCharacterCount(undefined)
+      }
+      if (currentCount <= 200) {
+        setCharacterCount(currentCount)
+      }
+    }
+
+    const placeholder = `Message #${channel?.name}`
+
     return (
       <div className="flexContainer">
         <div className="channel-name">
@@ -129,6 +146,8 @@ function Messages() {
                             channelId={message?.channel_id}
                             message={message}
                             key={`editableMessage_${message?.id}`}
+                            editingMessageId={editingMessageId}
+                            setEditingMessageId={setEditingMessageId}
                           />
                         </div>
                       );
@@ -195,12 +214,13 @@ function Messages() {
                   className="comment-input"
                   type="text"
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  onChange={(e) => messageHandler(e)}
                   maxLength={2000}
                   placeholder={placeholder}
                   required
                 />
               </form>
+              <div id="character-count">{characterCount}</div>
             </div>
           </div>
           <div className="messages-component-container">

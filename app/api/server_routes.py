@@ -70,6 +70,13 @@ def get_channels(serverId):
     channels = [channel.to_dict() for channel in serverChannels]
     return {"channels": channels}
 
+# Get single channel for single server
+@server_routes.route('/<int:serverId>/channels/<int:channelId>')
+# @login_required
+def get_channel(serverId, channelId):
+    serverChannels = Channel.query.filter(Channel.server_id == serverId).filter(Channel.id == channelId).first()
+    return serverChannels.to_dict()
+
 
 # Add a channel to a server
 @server_routes.route('/<int:serverId>/channels', methods=['POST'])
