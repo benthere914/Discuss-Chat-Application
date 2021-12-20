@@ -236,16 +236,15 @@
 }
 
 .addMessageContainer {
+    display: flex;
     width: 100%;
     height: 35px;
     margin-bottom: 25px;
-    margin-top: 10px;
-}
-.comment-input {
+    margin-top: 25px;
+
     background-color: rgb(64, 68, 75);
     border: 0px solid gray;
     width: 95%;
-    height: 100%;
     margin-left: 2%;
     border-radius: 5px;
     outline-width: 0;
@@ -254,10 +253,30 @@
     font-size: 14px;
     padding-left: 10px;
     overflow:visible
+}
 
+.comment-input {
+    background-color: rgb(64, 68, 75);
+    border: 0px solid gray;
+    width: 95%;
+    height: 95%;
+    border-radius: 5px;
+    outline-width: 0;
+    color: rgb(220, 219, 212);
+    font-family: monospace;
+    font-size: 14px;
+    overflow:visible
 }
 
 .comment-input:focus { color: rgb(220, 219, 212) }
+
+#character-count{
+    display: flex;
+    align-items: center;
+    width: 20px;
+    margin-right: 10px;
+    font-size: 14px;
+}
 
 .messages-and-input {
     display: flex;
